@@ -1,0 +1,6 @@
+1. As a student, I want to know within two seconds whether each class on my list has availble sections,
+because I want feedback to feel instant.
+2. As a student, I want to list as many as 100 potential classes, so that I can see as many options as possible.
+3. As a student, I want to have the option to sort the class list by shortest waitlist, so that it is easiest to see
+that classes I have the best chance of getting.
+
