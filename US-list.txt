@@ -1,7 +1,11 @@
 Kevin:
-1. As a student, I want to know within two seconds whether each class on my list has availble sections,
-because I want feedback to feel instant.
+1. As a student, I want to know within two seconds whether each class on my list has availble sections, because I want feedback to feel instant.
 2. As a student, I want to list as many as 100 potential classes, so that I can see as many options as possible.
-3. As a student, I want to have the option to sort the class list by shortest waitlist, so that it is easiest to see
-that classes I have the best chance of getting.
+3. As a student, I want to have the option to sort the class list by shortest waitlist, so that it is easiest to see that classes I have the best chance of getting.
+
+Brandon:
+1. As a student, I want to see all classes available for a given quarter in a specific GE category so that I can choose one or more to include in my schedule.
+2. As a student, I want to see all open classes that count toward my degree progress in a given quarter so that I can choose one or more to include in my schedule.
+3. As a student, I want to see all open classes that match my availability so that I can choose one or more to include in my schedule.
+
 
