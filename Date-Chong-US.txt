@@ -1,0 +1,4 @@
+1. As a student user, I want to search for my classes by name, so that I can see all of the class's sections.
+2. As a student user, I want to save my list of selected classes, so that I can bring it up later.
+3. As a student user, I want to filter my selected classes by start time, so that I only select classes that start in the afternoon.
+

@@ -1,0 +1,3 @@
+1. The system shall provide a field for the user to search a single class by name.
+2. The system shall provide a field for the user to search for multiple classes under a specified department xor GE area.
+3. The system shall save the user’s current class selection every time the user presses the “save selection” button.
