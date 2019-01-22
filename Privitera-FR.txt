@@ -1,0 +1,8 @@
+1. The system shall gather the times and days of the week for each class from schedules.calpoly.edu, and store the information.
+2. For any user, the system shall generate a sorted list of classes based on any combination of the following criteria, with combinations selected by the user:
+	- Time of day
+	- Day of the week
+	- Waitlist length
+	- Whether it is open or closed
+	- Requirement it satisfies
+3. The system shall display up-to-date information about waitlists, course availability, and course schedules, taking from 0 to 1 full day to update.
