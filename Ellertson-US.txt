@@ -1,0 +1,5 @@
+1) As a student, I want to view a classes proffesors Polyrating, so that I can avoid classes with bad professors.
+
+2) As a student, I want to enter my classes and get back classes that do not overlap, so that I do not waste time looking at classes I can not take.
+
+3) As a student, I want to see all my potential schedules visually, so that I can quickly make a decision.
