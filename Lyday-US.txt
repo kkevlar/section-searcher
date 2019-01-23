@@ -2,8 +2,8 @@ Brandon Lyday
 CSC 308-03
 Dr. Davide Falessi
 User Stories
-As a student, I want to see all classes available for a given quarter in a specific GE category so that I can choose one or more to include in my schedule.
+As a student, I want to see all classes available for a given quarter in a specific GE category, so that I can choose one or more to include in my schedule.
 
-As a student, I want to see all open classes that count toward my degree progress in a given quarter so that I can choose one or more to include in my schedule.
+As a student, I want to see all open classes that count toward my degree progress in a given quarter, so that I can choose one or more to include in my schedule.
 
-As a student, I want to see all open classes that match my availability so that I can choose one or more to include in my schedule.
+As a student, I want to see all open classes that match my availability, so that I can choose one or more to include in my schedule.

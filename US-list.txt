@@ -4,9 +4,9 @@ Kevin:
 3. As a student, I want to have the option to sort the class list by shortest waitlist, so that it is easiest to see that classes I have the best chance of getting.
 
 Brandon:
-1. As a student, I want to see all classes available for a given quarter in a specific GE category so that I can choose one or more to include in my schedule.
-2. As a student, I want to see all open classes that count toward my degree progress in a given quarter so that I can choose one or more to include in my schedule.
-3. As a student, I want to see all open classes that match my availability so that I can choose one or more to include in my schedule.
+1. As a student, I want to see all classes available for a given quarter in a specific GE category, so that I can choose one or more to include in my schedule.
+2. As a student, I want to see all open classes that count toward my degree progress in a given quarter, so that I can choose one or more to include in my schedule.
+3. As a student, I want to see all open classes that match my availability, so that I can choose one or more to include in my schedule.
 
 JonathanL
 1. As a student, I want to search for my classes by name, so that I can see all of the class's sections.
