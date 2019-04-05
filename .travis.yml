@@ -2,3 +2,13 @@ language: java
 jdk:
 - oraclejdk8
 script: ant build
+dist: trusty
+addons:
+  sonarcloud:
+    organization: "kkevlar-github" # the key of the org you chose at step #3
+    token:
+      secure: e180d3a5e8805cc5fb50196d120f2a871f6c99a9 # encrypted value of your token
+script:
+  # other script steps might be done before running the actual analysis
+  - sonar-scanner
+
