@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 public class Main extends Application{
 
 	public static void main(String[] args) {
-		
 		launch(args);
 	}
+	
 	public void start(Stage stage) throws Exception {
 
 		stage.setTitle("Section Searcher");
@@ -21,7 +21,6 @@ public class Main extends Application{
 
 		Scene scene = new Scene(root, 1600, 800);
 		stage.setScene(scene);
-		
 		
 		Button button = new Button("Example Button");
 		button.setOnAction(new EventHandler<ActionEvent>()	{			
@@ -33,9 +32,5 @@ public class Main extends Application{
 		root.getChildren().add(title);
 		root.getChildren().add(button);
 		stage.show();
-	}
-	
-	private void buttonSetup(Button button) {
-		
 	}
 }
