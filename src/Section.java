@@ -1,6 +1,6 @@
 
 public class Section {
-	private String id;	
+	private String id;
 	private TimeBlock[] times; //each index corresponds to a day of the week. 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
 	
 	public Section(String id, TimeBlock[] times) {

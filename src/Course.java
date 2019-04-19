@@ -9,13 +9,13 @@ public class Course {
 	
 	public Course(String name, long updateTime) {
 		sections = new ArrayList<Section>();
-		this.name = name;
+		this.name = name.trim(); //.trim() removes whitespace from ends of string
 		this.updateTime = updateTime;
 	}
 	
 	public String getName() {return this.name;}
 	
-	public void setName(String name) {this.name = name;}
+	public void setName(String name) {this.name = name.trim();} 
 	
 	//TODO: implement isAvailable
 	public boolean isAvailable() {
