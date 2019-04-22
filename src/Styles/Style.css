@@ -1,0 +1,38 @@
+/* 
+    Document   : controlStyle2
+*/
+
+.root{
+    -fx-font-size: 16pt;
+    -fx-font-family: "Montserrat";
+    -fx-base: rgb(51, 106, 49);
+    -fx-background: rgb(255, 255, 255);
+}
+
+.section-title{
+	-fx-font-weight: 500;
+	-fx-font-size: 24px;
+    -fx-text-fill: rgb(30, 144, 53);
+}
+.borders{
+	-fx-border-color: black;
+	-fx-border-style: solid inside;
+	-fx-border-radius: 5;
+	-fx-border-width: 2px;
+	-fx-border-insets: 10;
+}
+.outside{
+	-fx-border-style: solid outside;
+	-fx-border-insets: 1;
+}
+
+.padded{
+	-fx-border-insets: 10;
+}
+
+.search-bar{
+	-fx-padding: 10px;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+	-fx-base: rgb(240,240,240);
+}
