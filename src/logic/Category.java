@@ -1,7 +1,7 @@
 package logic;
 public class Category{
-	public boolean isAvailable;
-	public String name;
+	private boolean isAvailable;
+	private String name;
 	
 	public Category(String name, boolean isAvailable) {
 		this.name = name.trim();
@@ -12,7 +12,11 @@ public class Category{
 	
 	public void setName(String name) {this.name = name.trim();}
 	
-
+	public boolean getIsAvailable() {return this.isAvailable;}
+	
+	public void setIsAvailable(boolean isAvailable) {this.isAvailable = isAvailable;}
+	
+	
 	public boolean equal(Object other) {
 		if (other.getClass() != this.getClass())
 			return false;
