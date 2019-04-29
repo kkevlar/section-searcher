@@ -1,3 +1,4 @@
+package logic;
 import java.util.Comparator;
 
 public class CategoryComparator  implements Comparator<Category>{

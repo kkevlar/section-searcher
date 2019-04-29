@@ -1,3 +1,4 @@
+package logic;
 public class Category{
 	public boolean isAvailable;
 	public String name;

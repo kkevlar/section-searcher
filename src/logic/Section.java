@@ -1,3 +1,4 @@
+package logic;
 
 public class Section {
 	private String id;

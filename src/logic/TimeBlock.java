@@ -1,3 +1,4 @@
+package logic;
 
 public class TimeBlock {
 	private Time startTime;
