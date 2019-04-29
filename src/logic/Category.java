@@ -12,8 +12,8 @@ public class Category{
 	
 	public void setName(String name) {this.name = name.trim();}
 	
-	@Override
-	public boolean equals(Object other) {
+
+	public boolean equal(Object other) {
 		if (other.getClass() != this.getClass())
 			return false;
 		
