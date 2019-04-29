@@ -11,11 +11,15 @@ public class Category{
 	
 	public void setName(String name) {this.name = name.trim();}
 	
-	public boolean equals(Category other) {
-		if(this.isAvailable != other.isAvailable)
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != this.getClass())
 			return false;
 		
-		if(!this.name.equals(other.name))
+		if(this.isAvailable != ((Category)other).isAvailable)
+			return false;
+		
+		if(!this.name.equals(((Category)other).name))
 			return false;
 		
 		return true;
