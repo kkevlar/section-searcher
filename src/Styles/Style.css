@@ -36,3 +36,6 @@
     -fx-background-insets: 10px;
 	-fx-base: rgb(240,240,240);
 }
+.table-cell{
+	-fx-alignment: center;
+}

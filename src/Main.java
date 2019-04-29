@@ -1,7 +1,11 @@
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+
+
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -9,8 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -21,6 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class Main extends Application{
 
@@ -116,6 +124,25 @@ public class Main extends Application{
         pane3.add(textField, 0, 0);
         
         TableView sectionTable = new TableView();
+        sectionTable.setMinWidth(600);
+        TableColumn<Section, String> column1 = new TableColumn<>("Section Id");
+        column1.setCellValueFactory(new Callback<CellDataFeatures<Section, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Section, String> s) {
+                return new ReadOnlyObjectWrapper(s.getValue().getID());
+            }
+        });
+        column1.setMinWidth(200);
+        column1.getStyleClass().add("table-cell");
+
+
+        TableColumn<Section, String> column2 = new TableColumn<>("Open Spots");
+
+        sectionTable.getColumns().add(column1);
+        sectionTable.getColumns().add(column2);
+
+        TimeBlock[] testtimes = {new TimeBlock(new Time(11, 10), new Time(12, 10))};
+        sectionTable.getItems().add(new Section("101-23", testtimes));
+        
         pane3.add(sectionTable, 0, 1);
         
         gridPane.add(pane1, 0, 1);
