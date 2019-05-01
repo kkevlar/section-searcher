@@ -20,13 +20,14 @@ public class ClassDB {
 	}
 	
 	//TODO: availability
-	public ArrayList<Section> filterAvailability(){
+	public List<Course> filterAvailability(){
 		return null;
 	}
 	
 	
 	//TODO: degree
 	
+	//department
 	public static List<Course> filterDepartment(List<Course> courses, String department){
 		List<Course> filtered = courses.stream()
 				.filter(course -> course.getDepartment().equals(department))
