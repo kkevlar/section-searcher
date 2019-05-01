@@ -12,6 +12,9 @@ import logic.Course;
 public class TestClassDB {
 	@Test
 	public void testFilterDepartment1() {
+		//3 courses: two CSC, one PSY
+		//Should filter out PSY class
+		
 		Course c1 = new Course("Algorithms", 0);
 		c1.setDepartment("CSC");
 		
@@ -20,9 +23,7 @@ public class TestClassDB {
 		
 		Course c3 = new Course("Intro Psych", 0);
 		c3.setDepartment("PSY");
-		
-		List<Course> courses = new ArrayList<Course>();
-		
+				
 		ClassDB db = new ClassDB();
 		db.addCourse(c1);
 		db.addCourse(c2);
@@ -31,9 +32,8 @@ public class TestClassDB {
 		List<Course> onlyCSC = ClassDB.filterDepartment(db.getCourses(), "CSC");
 		
 		assertEquals(2, onlyCSC.size());
-		assertEquals("CSC", onlyCSC.get(0).getDepartment());
-		assertEquals("CSC", onlyCSC.get(1).getDepartment());
-
 		
+		assertEquals("CSC", onlyCSC.get(0).getDepartment());
+		assertEquals("CSC", onlyCSC.get(1).getDepartment());		
 	}
 }
