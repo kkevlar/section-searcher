@@ -7,6 +7,7 @@ public class Course {
 	private List<Section> sections;
 	private String name;
 	private long updateTime;
+	private String department;
 	
 	public Course(String name, long updateTime) {
 		sections = new ArrayList<Section>();
@@ -27,5 +28,13 @@ public class Course {
 	//what does this even do???
 	public void update() {
 		return;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 }
