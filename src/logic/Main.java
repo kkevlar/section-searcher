@@ -144,7 +144,7 @@ public class Main extends Application{
         	    new Callback<CellDataFeatures<Section,Boolean>,ObservableValue<Boolean>>(){
         	        @Override public
         	        ObservableValue<Boolean> call( CellDataFeatures<Section,Boolean> p ){
-        	           return new SimpleBooleanProperty(false); }});
+        	           return new SimpleBooleanProperty(true); }});
         column1.setCellFactory(
         	    new Callback<TableColumn<Section,Boolean>,TableCell<Section,Boolean>>(){
         	        @Override public

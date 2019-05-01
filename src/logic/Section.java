@@ -5,10 +5,17 @@ public class Section {
 	private TimeBlock[] times; //each index corresponds to a day of the week. 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
 	private int openSpots;
 	private int waitList;
+	private Course course;
 	
 	public Section(String id, TimeBlock[] times) {
 		this.id = id;
 		this.times = new TimeBlock[7];
+	}
+	public Section(String id, TimeBlock[] times, Course course, int openSpots) {
+		this.id = id;
+		this.times = new TimeBlock[7];
+		this.course = course;
+		this.openSpots = openSpots;
 	}
 	
 	public String getID() {
@@ -41,5 +48,9 @@ public class Section {
 
 	public void setOpenSpots(int openSpots) {
 		this.openSpots = openSpots;
+	}
+	
+	public String getCourseName() {
+		return this.course.getName();	
 	}
 }
