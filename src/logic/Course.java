@@ -10,7 +10,7 @@ public class Course {
 	private String department;
 	
 	public Course(String name, long updateTime) {
-		sections = new ArrayList<Section>();
+		setSections(new ArrayList<Section>());
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
 		this.updateTime = updateTime;
 	}
@@ -36,5 +36,13 @@ public class Course {
 
 	public void setDepartment(String department) {
 		this.department = department;
+	}
+
+	public List<Section> getSections() {
+		return sections;
+	}
+
+	public void setSections(List<Section> sections) {
+		this.sections = sections;
 	}
 }

@@ -19,8 +19,19 @@ public class ClassDB {
 		return this.courses;
 	}
 	
+	//gets all the sections in a List<Course> object and returns them in one List<Section> object
+	public static List<Section> getSections(List<Course> courses){
+		List<Section> sections= new ArrayList<Section>();
+		
+		for(Course course : courses) {
+			sections.addAll(course.getSections());
+		}
+		
+		return sections;
+	}
+	
 	//TODO: availability
-	public List<Course> filterAvailability(){
+	public List<Section> filterAvailability(){
 		return null;
 	}
 	
@@ -35,11 +46,44 @@ public class ClassDB {
 		return filtered;
 	}
 	
-	//TODO: wait list	
-	public static List<Course> filterWaitList(List<Course> courses, int maxWait) {
-		return null;
+	//filters the sections of a List<Course> object by a maximum wait list and returns a List<Section> object
+	public static List<Section> filterWaitListCourses(List<Course> courses, int maxWait) {
+		List<Section> filtered = getSections(courses);
+
+		filtered = filtered.stream()
+				.filter(section -> section.getWaitList() <= maxWait)
+				.collect(Collectors.toList());
+		return filtered;
+	}
+	
+	//filters the sections of a List<Section> object by a maximum wait list and returns a List<Section> object
+	public static List<Section> filterWaitListSections(List<Section> sections, int maxWait) {
+		List<Section> filtered;
+
+		filtered = sections.stream()
+				.filter(section -> section.getWaitList() <= maxWait)
+				.collect(Collectors.toList());
+		return filtered;
 	}
 
+	public static List<Section> sortWaitListCourses(List<Course> courses){
+		List<Section> sorted = getSections(courses);
+		
+		sorted = sorted.stream()
+				.sorted((s1, s2) -> s1.getWaitList() - s2.getWaitList())
+				.collect(Collectors.toList());
+		return sorted;
+	}
+	
+	public static List<Section> sortWaitListSections(List<Section> sections){
+		List<Section> sorted;
+		
+		sorted = sections.stream()
+				.sorted((s1, s2) -> s1.getWaitList() - s2.getWaitList())
+				.collect(Collectors.toList());
+		return sorted;
+	}
+		
 	//TODO: GE
 	
 	//TODO: open
