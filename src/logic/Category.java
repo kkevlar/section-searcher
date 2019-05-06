@@ -1,7 +1,19 @@
 package logic;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "category")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Category{
 	private boolean isAvailable;
 	private String name;
+	
+	public Category() {
+		this.name = "";
+		this.isAvailable = false;
+	}
 	
 	public Category(String name, boolean isAvailable) {
 		this.name = name.trim();
