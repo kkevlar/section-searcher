@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
@@ -19,61 +21,49 @@ public class WebScraper
 	{
 		WebScraper scraper = new WebScraper();
 		try {
-			scraper.scrapeDept();
+			scraper.scrapeCoursesByDept("CPE");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void scrapeDept() throws Exception 
+	public List<Course> scrapeCoursesByDept(String dept)
 	{
-	    try (final WebClient webClient = new WebClient()) {
-	        final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_CSC_curr.htm");
+		String combinedCSV = "";
+		
+		try (final WebClient webClient = new WebClient()) {
+	        final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_curr.htm");
 	        final HtmlTable table = page.getHtmlElementById("listing");
 	        for (final HtmlTableRow row : table.getRows()) {
-	            System.out.print("\n");
+	            combinedCSV += ("\n");
 	            for (final HtmlTableCell cell : row.getCells()) {
-	                System.out.print("\"" + cell.asText() + "\"" +",");
+	            	 combinedCSV += ( cell.asText() +",");
 	            }
 	        }
-	    }
-	}
-
-
-	private void aaascrapeDept() 
-	{
-		URL url;
-		InputStream is = null;
-		BufferedReader br;
-		String line;
-
-		try 
+	    } catch (FailingHttpStatusCodeException e) 
 		{
-			url = new URL("http://schedules.calpoly.edu/subject_CPE_curr.htm");
-			is = url.openStream();
-			br = new BufferedReader(new InputStreamReader(is));
-
-			
-		} 
-		catch (MalformedURLException mue) 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) 
 		{
-			mue.printStackTrace();
-		} 
-		catch (IOException ioe) 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) 
 		{
-			ioe.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		finally 
+		
+		if(combinedCSV.length() > 1)
 		{
-			try 
-			{
-				if (is != null) is.close();
-			} 
-			catch (IOException ioe) 
-			{
-				
-			}
+			combinedCSV = combinedCSV.substring(1);
 		}
+		else
+		{
+			return null;
+		}
+		
+		
 	}
 }
