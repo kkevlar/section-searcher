@@ -3,13 +3,19 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Plan {
 	private String name;
 	private int id;
 	private boolean valid;
 	private ArrayList<Category> categories;
-	
+	public Plan() {
+		this.name="";
+		this.id = 0;
+		this.categories = null;
+	}
 	public Plan(String name, int id, ArrayList<Category> categories) {
 		this.name = name.trim(); //.trim() removes whitespace from ends of name
 		this.id = id;
