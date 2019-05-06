@@ -30,6 +30,21 @@ public class ClassDB {
 		return sections;
 	}
 	
+	//gets all sections from this ClassDB object
+	public List<Section> getSections(){
+		List<Section> sections= new ArrayList<Section>();
+		
+		for(Course course : this.courses) {
+			sections.addAll(course.getSections());
+		}
+		
+		return sections;
+	}
+	
+	public static List<Section> getSectionsByDepartment(List<Course> courses, String department){
+		return getSections(filterDepartment(courses, department));
+	}
+	
 	//TODO: availability
 	public List<Section> filterAvailability(){
 		return null;
@@ -45,7 +60,7 @@ public class ClassDB {
 				.collect(Collectors.toList());
 		return filtered;
 	}
-	
+		
 	//filters the sections of a List<Course> object by a maximum wait list and returns a List<Section> object
 	public static List<Section> filterWaitListCourses(List<Course> courses, int maxWait) {
 		List<Section> filtered = getSections(courses);

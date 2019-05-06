@@ -1,12 +1,15 @@
 package logic;
 
 import java.util.Objects;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Category{
 	private boolean isAvailable;
 	private String name;
+	private List<Course> courses;
 	
-	public Category(String name, boolean isAvailable) {
+	public Category(String name, List<Course> courses, boolean isAvailable) {
 		this.name = name.trim();
 		this.isAvailable = isAvailable;
 	}
@@ -18,6 +21,14 @@ public class Category{
 	public boolean isAvailable() {return this.isAvailable;}
 	
 	public void setAvailable(Boolean available) {this.isAvailable = available;}
+	
+	public void addCourse(Course course) {
+		this.courses.add(course);
+	}
+	
+	public void removeCourse(Course course) {
+		this.courses.remove(course);
+	}
 	
 	@Override
 	public boolean equals(Object other) {

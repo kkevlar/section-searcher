@@ -36,4 +36,24 @@ public class TestClassDB {
 		assertEquals("CSC", onlyCSC.get(0).getDepartment());
 		assertEquals("CSC", onlyCSC.get(1).getDepartment());		
 	}
+	
+	@Test
+	public void testFilterWaitListCourses() {
+		
+	}
+	
+	@Test
+	public void testFilterWaitListSections() {
+		
+	}
+	
+	@Test
+	public void testSortWaitListSections() {
+		
+	}
+	
+	@Test
+	public void testSortWaitListCourses() {
+		
+	}
 }
