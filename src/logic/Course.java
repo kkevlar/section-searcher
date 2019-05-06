@@ -6,12 +6,16 @@ import java.util.List;
 public class Course {
 	private List<Section> sections;
 	private String name;
-	private long updateTime;
+	private String department;
 	
-	public Course(String name, long updateTime) {
-		sections = new ArrayList<Section>();
+	public Course(String name) {
+		setSections(new ArrayList<Section>());
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
-		this.updateTime = updateTime;
+	}
+	
+	public Course(String name, List<Section> sections) {
+		setSections(sections);
+		this.name = name.trim(); //.trim() removes whitespace from ends of string
 	}
 	
 	public String getName() {return this.name;}
@@ -22,10 +26,28 @@ public class Course {
 	public boolean isAvailable() {
 		return true;
 	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public List<Section> getSections() {
+		return sections;
+	}
+
+	public void setSections(List<Section> sections) {
+		this.sections = sections;
+	}
 	
-	//TODO: implement update
-	//what does this even do???
-	public void update() {
-		return;
+	public void addSection(Section section) {
+		this.sections.add(section);
+	}
+	
+	public void removeSection(Section section) {
+		this.sections.remove(section);
 	}
 }

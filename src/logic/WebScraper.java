@@ -1,11 +1,8 @@
 package logic;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -64,6 +61,37 @@ public class WebScraper
 			return null;
 		}
 		
+		return get_Course_List(ParseHtml.parselines(combinedCSV));
 		
 	}
+	
+	public static List<Course> get_Course_List(ArrayList<ArrayList<String>> class_list)
+	{
+		ArrayList<Course> course_list;
+		ArrayList<Section> sect_list;
+		String id;
+		int i, j;
+
+		course_list = new ArrayList<Course>();
+		i = 0;
+		while (i < class_list.size())
+		{
+			CourseData data = new CourseData(class_list.get(i));
+			Course course = new Course(CourseData.course);
+			sect_list = new ArrayList<Section>();
+			id = data.id;
+			j = i;
+			while (j < class_list.size() && id.equals(data.id))
+			{
+				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course, CourseData.lcap - CourseData.enrl));
+				j ++;
+			}
+			i = j + 1;
+			course.setSections(sect_list);
+			course_list.add(course);
+		}
+
+		return course_list;
+	}
+	
 }
