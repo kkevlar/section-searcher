@@ -6,13 +6,11 @@ import java.util.List;
 public class Course {
 	private List<Section> sections;
 	private String name;
-	private long updateTime;
 	private String department;
 	
-	public Course(String name, long updateTime) {
+	public Course(String name) {
 		setSections(new ArrayList<Section>());
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
-		this.updateTime = updateTime;
 	}
 	
 	public String getName() {return this.name;}
@@ -22,12 +20,6 @@ public class Course {
 	//TODO: implement isAvailable
 	public boolean isAvailable() {
 		return true;
-	}
-	
-	//TODO: implement update
-	//what does this even do???
-	public void update() {
-		return;
 	}
 
 	public String getDepartment() {
