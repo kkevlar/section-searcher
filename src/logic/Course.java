@@ -13,11 +13,6 @@ public class Course {
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
 	}
 	
-	public Course(String name, List<Section> sections) {
-		setSections(sections);
-		this.name = name.trim(); //.trim() removes whitespace from ends of string
-	}
-	
 	public String getName() {return this.name;}
 	
 	public void setName(String name) {this.name = name.trim();} 
@@ -41,13 +36,5 @@ public class Course {
 
 	public void setSections(List<Section> sections) {
 		this.sections = sections;
-	}
-	
-	public void addSection(Section section) {
-		this.sections.add(section);
-	}
-	
-	public void removeSection(Section section) {
-		this.sections.remove(section);
 	}
 }
