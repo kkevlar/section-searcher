@@ -1,8 +1,11 @@
 package logic;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -30,10 +33,6 @@ public class PlanFactory {
  
             //Print XML String to Console
             StringWriter sw = new StringWriter();
-             
-            //Store XML to File
-            // TODO: add functionality to change file name
-            File file = new File(filename);
             
             //Write XML to StringWriter
             jaxbMarshaller.marshal(plan, sw);
@@ -41,8 +40,16 @@ public class PlanFactory {
             //Verifies XML Content
             String xmlContent = sw.toString();
             System.out.println( xmlContent );
+            
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+            writer.write(xmlContent);
+            
+            writer.close();
         } 
         catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
