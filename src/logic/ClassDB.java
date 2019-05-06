@@ -122,6 +122,9 @@ public class ClassDB {
 	}
 		
 	//TODO: GE
+	public static List<Course> sortGE(List<Course> courses){
+		return null;
+	}
 	
 	//TODO: open
 }
