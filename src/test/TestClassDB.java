@@ -8,20 +8,39 @@ import static org.junit.Assert.*;
 
 import logic.ClassDB;
 import logic.Course;
+import logic.Section;
 
 public class TestClassDB {
+	
+	@Test
+	public void testGetSections() {
+		List<Course> courses = new ArrayList<Course>();	
+		
+		for(int c = 0; c < 5; c++) {
+			Course course = new Course("C"+c);
+			for(int s = 1; s <=5; s++) {
+				Section section = new Section("S"+c+s, null);
+				course.addSection(section);
+			}
+			courses.add(course);
+		}
+		
+		//check that all sections were added properly. There should be 25 sections, 01, 02, 03, ... 11, 12, ... 24, 25
+		assert(false);
+	}
+	
 	@Test
 	public void testFilterDepartment1() {
 		//3 courses: two CSC, one PSY
 		//Should filter out PSY class
 		
-		Course c1 = new Course("Algorithms", 0);
+		Course c1 = new Course("Algorithms");
 		c1.setDepartment("CSC");
 		
-		Course c2 = new Course("Systems Programming", 0);
+		Course c2 = new Course("Systems Programming");
 		c2.setDepartment("CSC");
 		
-		Course c3 = new Course("Intro Psych", 0);
+		Course c3 = new Course("Intro Psych");
 		c3.setDepartment("PSY");
 				
 		ClassDB db = new ClassDB();
