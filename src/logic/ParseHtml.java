@@ -1,10 +1,9 @@
 package logic;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,16 +14,13 @@ public class ParseHtml
 		InputStream is = null;
 		BufferedReader br;
 		String f_line;
-		File file;
 		ArrayList<String> lines_1, line;
 		ArrayList<ArrayList<String>> lines;
 		int i;
 
 		try 
 		{
-			file = new File(arg);
-			file.createNewFile();
-			br = new BufferedReader(new FileReader(file));
+			br = new BufferedReader(new StringReader(arg));
 			lines_1 = new ArrayList<String>();
 			lines = new ArrayList<ArrayList<String>>();
 

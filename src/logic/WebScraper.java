@@ -18,7 +18,7 @@ public class WebScraper
 	{
 		WebScraper scraper = new WebScraper();
 		try {
-			scraper.scrapeCoursesByDept("CPE");
+			System.out.println(scraper.scrapeCoursesByDept("CPE"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
