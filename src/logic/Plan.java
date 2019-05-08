@@ -14,6 +14,7 @@ public class Plan {
 	private int id;
 	private boolean valid;
 	
+	@XmlElementWrapper(name = "categories") 
 	@XmlElement(name = "category")
 	private ArrayList<Category> categories;
 	
