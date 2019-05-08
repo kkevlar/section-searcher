@@ -15,8 +15,6 @@ public class Category{
 	private boolean isAvailable;
 	private String name;
 	private List<Course> courses;
-	private boolean isAvailable;
-	private String name;
 	
 	public Category() {
 		this.name = "";
