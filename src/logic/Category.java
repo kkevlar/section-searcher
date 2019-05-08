@@ -4,10 +4,24 @@ import java.util.Objects;
 import java.util.List;
 import java.util.ArrayList;
 
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "category")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Category{
 	private boolean isAvailable;
 	private String name;
 	private List<Course> courses;
+	private boolean isAvailable;
+	private String name;
+	
+	public Category() {
+		this.name = "";
+		this.isAvailable = false;
+	}
 	
 	public Category(String name, List<Course> courses, boolean isAvailable) {
 		this.name = name.trim();

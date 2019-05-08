@@ -12,15 +12,13 @@ import java.io.StringWriter;
 
 public class PlanFactory {
 
-	public static Plan makePlan(String name, int id, ArrayList<Category> categories, String filename) throws JAXBException {
-		
-		Plan plan = new Plan(name, id, categories); //need a way to determine id's
-		jaxbObjectToXML(plan,filename);
-		return plan;
+
+	public static Plan makePlan(String name, int id, ArrayList<Category> categories) throws JAXBException {
+		return new Plan(name, id, categories); //need a way to determine id's
 	}
 	//from https://howtodoinjava.com/jaxb/write-object-to-xml/
 	//takes Plan object and writes a 
-	private static void jaxbObjectToXML(Plan plan, String filename){
+	public static void jaxbObjectToXML(Plan plan, String filename){
         try{
             //Create JAXB Context
             JAXBContext jaxbContext = JAXBContext.newInstance(Plan.class);
@@ -35,15 +33,15 @@ public class PlanFactory {
             StringWriter sw = new StringWriter();
              
             //Store XML to File
-            // todo: add functionality to change file name
-            File file = new File(filename+".xml");
+            // TODO: add functionality to change file name
+            File file = new File(filename);
             
             //Write XML to StringWriter
-            jaxbMarshaller.marshal(plan, file);
+            jaxbMarshaller.marshal(plan, sw);
              
             //Verifies XML Content
-            //String xmlContent = sw.toString();
-            //System.out.println( xmlContent );
+            String xmlContent = sw.toString();
+            System.out.println( xmlContent );
         } 
         catch (JAXBException e) {
             e.printStackTrace();

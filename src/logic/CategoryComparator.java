@@ -12,9 +12,15 @@ public class CategoryComparator  implements Comparator<Category>{
 		if(cat1.equals(cat2)) //equivalent objects
 			return 0;
 		
+<<<<<<< HEAD
 		if(cat1.isAvailable() && cat2.isAvailable()) 
 			return cat1.getName().compareTo(cat2.getName()); //both are available, compare by names
 		else if(cat1.isAvailable())
+=======
+		if(cat1.getIsAvailable() && cat2.getIsAvailable()) 
+			return cat1.getName().compareTo(cat2.getName()); //both are available, compare by names
+		else if(cat1.getIsAvailable())
+>>>>>>> branch 'save_schedule' of https://github.com/kkevlar/section-searcher.git
 			return -1; //cat1 is available, cat2 is not
 		else
 			return 1; //cat2 is available, cat1 is not

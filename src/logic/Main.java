@@ -4,7 +4,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> branch 'save_schedule' of https://github.com/kkevlar/section-searcher.git
 
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -203,6 +206,20 @@ public class Main extends Application{
         gridPane.add(pane3, 2, 1);
         
 		stage.show();
+		
+		//TODO remove, only for testing purposes
+		
+		System.out.println("START XML");
+		
+		ArrayList<Category> categories = new ArrayList<Category>();
+		categories.add(new Category("category name 1", true));
+		categories.add(new Category("category name 2", false));
+		
+		Plan plan = PlanFactory.makePlan("name: test", 5, categories);
+		
+		PlanFactory.jaxbObjectToXML(plan,"plan.xml");
+		
+		System.out.println("END XML");
 	}
 	
 	private GridPane getPlanPane() {
