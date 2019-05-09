@@ -14,6 +14,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 public class WebScraper 
 {
+	ArrayList<ArrayList<String>> fun;
+	
 	public static void start() 
 	{
 		WebScraper scraper = new WebScraper();
@@ -65,7 +67,7 @@ public class WebScraper
 		
 	}
 	
-	public static List<Course> get_Course_List(ArrayList<ArrayList<String>> class_list)
+	public List<Course> get_Course_List(ArrayList<ArrayList<String>> class_list)
 	{
 		ArrayList<Course> course_list;
 		ArrayList<Section> sect_list;
@@ -73,15 +75,15 @@ public class WebScraper
 		int i, j;
 
 		course_list = new ArrayList<Course>();
-		i = 0;
+		i = 1;
 		while (i < class_list.size())
 		{
 			CourseData data = new CourseData(class_list.get(i));
 			Course course = new Course(CourseData.course);
 			sect_list = new ArrayList<Section>();
-			id = data.id;
+			id = data.course.substring(0, 7); //screws up with the 8 character P___ courses
 			j = i;
-			while (j < class_list.size() && id.equals(data.id))
+			while (j < class_list.size() && id.equals(data.course.substring(0, 7)))
 			{
 				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course, CourseData.lcap - CourseData.enrl));
 				j ++;
@@ -90,6 +92,8 @@ public class WebScraper
 			course.setSections(sect_list);
 			course_list.add(course);
 		}
+		
+		System.out.println(course_list);
 
 		return course_list;
 	}

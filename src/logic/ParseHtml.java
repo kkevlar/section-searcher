@@ -68,26 +68,6 @@ public class ParseHtml
 		return new ArrayList<ArrayList<String>>();
 	}
 
-	// // probably no need for this method
-	// public static void remove_quotations(ArrayList<ArrayList<String>> class_list)
-	// {
-	// 	String buf;
-	// 	int i, j;
-	// 	i = 0;
-	// 	while (i < class_list.size())
-	// 	{
-	// 		j = 0;
-	// 		while (j < class_list.get(i).size())
-	// 		{
-	// 			buf = class_list.get(i).get(j);
-	// 			class_list.get(i).set(j, buf.substring(1, buf.length() - 1));
-	// 			j ++;
-	// 		}
-			
-	// 		i ++;
-	// 	}
-	// }
-
 	public static void print_class_list(ArrayList<ArrayList<String>> class_list)
 	{
 		int i;
