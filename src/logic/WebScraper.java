@@ -78,8 +78,6 @@ public class WebScraper
 		i = 1;
 		while (i < class_list.size())
 		{
-			System.out.println(i);
-			System.out.println(class_list.get(i));
 			CourseData data = new CourseData(class_list.get(i));
 			Course course = new Course(CourseData.course);
 			sect_list = new ArrayList<Section>();
