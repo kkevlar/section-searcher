@@ -79,19 +79,19 @@ public class WebScraper
 		while (i < class_list.size())
 		{
 			CourseData data = new CourseData(class_list.get(i));
-			Course course = new Course(CourseData.course);
+			Course course = new Course(data.course);
 			sect_list = new ArrayList<Section>();
 			id = data.course.substring(0, 7); //screws up with the 8 character P___ courses
 			j = i;
 			while (j < class_list.size() && id.equals(data.course.substring(0, 7)))
 			{
 				CourseData data1 = new CourseData(class_list.get(j));
-				Course course1 = new Course(CourseData.course);
+				Course course1 = new Course(data1.course);
 				id = data1.course.substring(0, 7);
-				spots = CourseData.lcap - CourseData.enrl;
+				spots = data1.lcap - data1.enrl;
 				if (spots < 0)
 					spots = 0;
-				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course1, spots));
+				sect_list.add(new Section(data1.sect, new TimeBlock[2], course1, spots));
 				j ++;
 			}
 			i = j + 1;
