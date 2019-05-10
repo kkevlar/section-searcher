@@ -35,9 +35,15 @@ public class Main extends Application{
 
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
 	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
-	static Course testCourseOne = new Course("101");
+	static List<Course> courses;
 	public static void main(String[] args) {
-//		WebScraper.start();
+		WebScraper scraper = new WebScraper();
+		try {
+			courses = scraper.scrapeCoursesByDept("CPE");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		launch(args);
 	}
 	
@@ -190,9 +196,10 @@ public class Main extends Application{
         TimeBlock tbTest = new TimeBlock(new Time(11, 10), new Time(12, 10));
         TimeBlock[] testtimes = {null, tbTest, null, tbTest, null, tbTest, null};
         ArrayList<Section> demoSects = new ArrayList<Section>();
-        demoSects.add(new Section("23", testtimes, testCourseOne, 9));
-        demoSects.add(new Section("24", testtimes, testCourseOne, 2));
-        selectedCategory.addListener(
+        for(int i = 0; i < courses.size(); i++) {
+        	demoSects.addAll(courses.get(i).getSections());
+        }
+        selectedPlan.addListener(
         		(obs, newVal, oldVal)->{
         			sectionTable.getItems().clear();
         			sectionTable.getItems().addAll(0, demoSects);
@@ -218,7 +225,6 @@ public class Main extends Application{
 
     	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
     	ArrayList<Course> majorCourses = new ArrayList<Course>();
-    	majorCourses.add(testCourseOne);
     	plans.get(0).addCategory(new Category("Major Courses", majorCourses, false));
         plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
         List<Label> labels = new ArrayList<Label>();

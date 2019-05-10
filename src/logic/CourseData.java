@@ -36,11 +36,11 @@ public class CourseData
 			this.wait = Integer.parseInt(data.get(11));
 		else
 			this.wait = -1;
-		if (data.get(15).length() != 0)
-			this.drop = Integer.parseInt(data.get(11));
-		else
-			this.drop = -1;
-		this.ics = data.get(16);
+//		if (data.get(15).length() != 0)
+//			this.drop = Integer.parseInt(data.get(11));
+//		else
+//			this.drop = -1;
+//		this.ics = data.get(16);
 	}
 
 	public String str_CourseData()
