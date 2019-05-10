@@ -36,6 +36,11 @@ public class Main extends Application{
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
 	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
 	static List<Course> courses;
+	static Course course1 = new Course("101");
+	static Course course2 = new Course("202");
+	static Course course3 = new Course("203");
+	static Course course4 = new Course("357");
+	
 	public static void main(String[] args) {
 		WebScraper scraper = new WebScraper();
 		try {
@@ -44,6 +49,26 @@ public class Main extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//		courses = new ArrayList<Course>();
+//		course1.addSection(new Section("01", new TimeBlock[7], course1, 3));
+//		course1.addSection(new Section("02", new TimeBlock[7], course1, 7));
+//		course1.addSection(new Section("03", new TimeBlock[7], course1, 0));
+//
+//		course2.addSection(new Section("01", new TimeBlock[7], course2, 0));
+//		course2.addSection(new Section("02", new TimeBlock[7], course2, 0));
+//		course2.addSection(new Section("03", new TimeBlock[7], course2, 0));
+//
+//		course3.addSection(new Section("01", new TimeBlock[7], course3, 13));
+//		course3.addSection(new Section("02", new TimeBlock[7], course3, 5));
+//		
+//		course4.addSection(new Section("01", new TimeBlock[7], course4, 0));
+//		course4.addSection(new Section("02", new TimeBlock[7], course4, 3));
+//		course4.addSection(new Section("03", new TimeBlock[7], course4, 9));
+//		course4.addSection(new Section("04", new TimeBlock[7], course4, 0));
+//		courses.add(course1);
+//		courses.add(course2);
+//		courses.add(course3);
+//		courses.add(course4);
 		launch(args);
 	}
 	
@@ -157,7 +182,12 @@ public class Main extends Application{
         	    new Callback<TableColumn<Section,Boolean>,TableCell<Section,Boolean>>(){
         	        @Override public
         	        TableCell<Section,Boolean> call( TableColumn<Section,Boolean> p ){
-        	           return new CheckBoxTableCell<>(); }});
+        	        	CheckBoxTableCell cell = new CheckBoxTableCell<>();
+        	        	//cell.setOnMouseClicked(
+        	        			//event -> selectedCategory.getValue().addCourse(p.get)
+        	        	//);
+        	           return cell; 
+        	           }});
 
     
         TableColumn<Section, String> column2 = new TableColumn<>("Code");
@@ -225,6 +255,7 @@ public class Main extends Application{
 
     	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
     	ArrayList<Course> majorCourses = new ArrayList<Course>();
+    	majorCourses.add(courses.get(0));
     	plans.get(0).addCategory(new Category("Major Courses", majorCourses, false));
         plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
         List<Label> labels = new ArrayList<Label>();

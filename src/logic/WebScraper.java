@@ -20,7 +20,7 @@ public class WebScraper
 	{
 		WebScraper scraper = new WebScraper();
 		try {
-			System.out.println(scraper.scrapeCoursesByDept("CPE"));
+			System.out.println(scraper.scrapeCoursesByDept("CSC"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,6 +78,8 @@ public class WebScraper
 		i = 1;
 		while (i < class_list.size())
 		{
+			System.out.println(i);
+			System.out.println(class_list.get(i));
 			CourseData data = new CourseData(class_list.get(i));
 			Course course = new Course(CourseData.course);
 			sect_list = new ArrayList<Section>();
@@ -85,6 +87,9 @@ public class WebScraper
 			j = i;
 			while (j < class_list.size() && id.equals(data.course.substring(0, 7)))
 			{
+				CourseData data1 = new CourseData(class_list.get(j));
+				Course course1 = new Course(CourseData.course);
+				id = data1.str_CourseData().substring(0, 7);
 				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course, CourseData.lcap - CourseData.enrl));
 				j ++;
 			}
@@ -92,8 +97,6 @@ public class WebScraper
 			course.setSections(sect_list);
 			course_list.add(course);
 		}
-		
-		System.out.println(course_list);
 
 		return course_list;
 	}

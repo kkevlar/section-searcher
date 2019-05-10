@@ -20,27 +20,76 @@ public class CourseData
 		this.end = data.get(8);
 		this.instructor = data.get(9);
 		this.location = data.get(10);
-		if (data.get(11).length() != 0)
-			this.lcap = Integer.parseInt(data.get(11));
-		else
+		try
+		{
+			if (data.get(11).length() != 0)
+				this.lcap = Integer.parseInt(data.get(11));
+			else
+				this.lcap = -1;
+		}
+		catch (NumberFormatException e)
+		{
 			this.lcap = -1;
-		if (data.get(12).length() != 0)
-			this.ecap = Integer.parseInt(data.get(11));
-		else
+		}
+		try
+		{
+			if (data.get(12).length() != 0)
+				this.ecap = Integer.parseInt(data.get(12));
+			else
+				this.ecap = -1;
+		}
+		catch (NumberFormatException e)
+		{
 			this.ecap = -1;
-		if (data.get(13).length() != 0)
-			this.enrl = Integer.parseInt(data.get(11));
-		else
+		}
+		try
+		{
+			if (data.get(13).length() != 0)
+				this.enrl = Integer.parseInt(data.get(13));
+			else
+				this.enrl = -1;
+		}
+		catch (NumberFormatException e)
+		{
 			this.enrl = -1;
-		if (data.get(14).length() != 0)
-			this.wait = Integer.parseInt(data.get(11));
-		else
+		}
+		try
+		{
+			if (data.get(14).length() != 0)
+				this.wait = Integer.parseInt(data.get(14));
+			else
+				this.wait = -1;
+		}
+		catch (NumberFormatException e)
+		{
 			this.wait = -1;
-//		if (data.get(15).length() != 0)
-//			this.drop = Integer.parseInt(data.get(11));
-//		else
-//			this.drop = -1;
-//		this.ics = data.get(16);
+		}
+		if (data.size() > 15)
+		{
+			try
+			{
+				if (data.get(15).length() != 0)
+					this.drop = Integer.parseInt(data.get(15));
+				else
+					this.drop = -1;
+			}
+			catch (NumberFormatException e)
+			{
+				this.drop = -1;
+			}
+		}
+		else
+		{
+			this.drop = -1;
+		}		
+		if (data.size() > 16)
+		{
+			this.ics = data.get(16);
+		}
+		else
+		{
+			this.ics = "";
+		}
 	}
 
 	public String str_CourseData()
