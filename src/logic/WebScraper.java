@@ -81,7 +81,7 @@ public class WebScraper
 			CourseData data = new CourseData(class_list.get(i));
 			Course course = new Course(data.course);
 			sect_list = new ArrayList<Section>();
-			id = data.course.substring(0, 7); //screws up with the 8 character P___ courses
+			id = data.course.substring(0, 7); //screws up with the 8 character P___ courses and departments w/ 4 chars
 			j = i;
 			while (j < class_list.size() && id.equals(data.course.substring(0, 7)))
 			{

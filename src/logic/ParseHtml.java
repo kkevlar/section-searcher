@@ -11,7 +11,6 @@ public class ParseHtml
 {
 	public static ArrayList<ArrayList<String>> parselines(String arg)
 	{
-		InputStream is = null;
 		BufferedReader br;
 		String f_line;
 		ArrayList<String> lines_1, line;
@@ -56,6 +55,19 @@ public class ParseHtml
 				line.remove(10);
 				lines.add(line);
 				i ++;
+			}
+			
+			i = 0;
+			while (i < lines.size())
+			{
+				if (lines.get(i).get(10).length() == 1)
+				{
+					lines.remove(i);
+				}
+				else
+				{
+					i ++;
+				}
 			}
 
 			return lines;
