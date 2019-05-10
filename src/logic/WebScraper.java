@@ -72,7 +72,7 @@ public class WebScraper
 		ArrayList<Course> course_list;
 		ArrayList<Section> sect_list;
 		String id;
-		int i, j;
+		int i, j, wait;
 
 		course_list = new ArrayList<Course>();
 		i = 1;
@@ -88,7 +88,10 @@ public class WebScraper
 				CourseData data1 = new CourseData(class_list.get(j));
 				Course course1 = new Course(CourseData.course);
 				id = data1.str_CourseData().substring(0, 7);
-				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course, CourseData.lcap - CourseData.enrl));
+				wait = CourseData.lcap - CourseData.enrl;
+				if (wait < 0)
+					wait = 0;
+				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course, wait));
 				j ++;
 			}
 			i = j + 1;
