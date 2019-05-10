@@ -2,12 +2,20 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "course")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Course {
 	private List<Section> sections;
 	private String name;
 	private String department;
 	
+	public Course() {
+		setSections(new ArrayList<Section>());
+	}
 	public Course(String name) {
 		setSections(new ArrayList<Section>());
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
