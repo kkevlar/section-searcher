@@ -11,14 +11,18 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import java.io.StringWriter;
+
+
 public class PlanFactory {
 
-	public static Plan makePlan(String name, int id, ArrayList<Category> categories) {
+
+	public static Plan makePlan(String name, int id, ArrayList<Category> categories) throws JAXBException {
 		return new Plan(name, id, categories); //need a way to determine id's
 	}
-	//reference: https://howtodoinjava.com/jaxb/write-object-to-xml/
+	//from https://howtodoinjava.com/jaxb/write-object-to-xml/
+	//takes Plan object and writes a 
 	public static void jaxbObjectToXML(Plan plan, String filename){
-        try{
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
             //Create JAXB Context
             JAXBContext jaxbContext = JAXBContext.newInstance(Plan.class);
              
@@ -38,7 +42,7 @@ public class PlanFactory {
             String xmlContent = sw.toString();
             System.out.println( xmlContent );
             
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+            
             writer.write(xmlContent);
             
             writer.close();
