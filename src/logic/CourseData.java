@@ -9,86 +9,86 @@ public class CourseData
 
 	public CourseData(ArrayList<String> data)
 	{
-		this.course = data.get(0);
-		this.sect = data.get(1);
-		this.id = data.get(2);
-		this.type = data.get(3);
-		this.ge = data.get(4);
-		this.req = data.get(5);
-		this.days = data.get(6);
-		this.start = data.get(7);
-		this.end = data.get(8);
-		this.instructor = data.get(9);
-		this.location = data.get(10);
+		course = data.get(0);
+		sect = data.get(1);
+		id = data.get(2);
+		type = data.get(3);
+		ge = data.get(4);
+		req = data.get(5);
+		days = data.get(6);
+		start = data.get(7);
+		end = data.get(8);
+		instructor = data.get(9);
+		location = data.get(10);
 		try
 		{
 			if (data.get(11).length() != 0)
-				this.lcap = Integer.parseInt(data.get(11));
+				lcap = Integer.parseInt(data.get(11));
 			else
-				this.lcap = -1;
+				lcap = -1;
 		}
 		catch (NumberFormatException e)
 		{
-			this.lcap = -1;
+			lcap = -1;
 		}
 		try
 		{
 			if (data.get(12).length() != 0)
-				this.ecap = Integer.parseInt(data.get(12));
+				ecap = Integer.parseInt(data.get(12));
 			else
-				this.ecap = -1;
+				ecap = -1;
 		}
 		catch (NumberFormatException e)
 		{
-			this.ecap = -1;
+			ecap = -1;
 		}
 		try
 		{
 			if (data.get(13).length() != 0)
-				this.enrl = Integer.parseInt(data.get(13));
+				enrl = Integer.parseInt(data.get(13));
 			else
-				this.enrl = -1;
+				enrl = -1;
 		}
 		catch (NumberFormatException e)
 		{
-			this.enrl = -1;
+			enrl = -1;
 		}
 		try
 		{
 			if (data.get(14).length() != 0)
-				this.wait = Integer.parseInt(data.get(14));
+				wait = Integer.parseInt(data.get(14));
 			else
-				this.wait = -1;
+				wait = -1;
 		}
 		catch (NumberFormatException e)
 		{
-			this.wait = -1;
+			wait = -1;
 		}
 		if (data.size() > 15)
 		{
 			try
 			{
 				if (data.get(15).length() != 0)
-					this.drop = Integer.parseInt(data.get(15));
+					drop = Integer.parseInt(data.get(15));
 				else
-					this.drop = -1;
+					drop = -1;
 			}
 			catch (NumberFormatException e)
 			{
-				this.drop = -1;
+				drop = -1;
 			}
 		}
 		else
 		{
-			this.drop = -1;
+			drop = -1;
 		}		
 		if (data.size() > 16)
 		{
-			this.ics = data.get(16);
+			ics = data.get(16);
 		}
 		else
 		{
-			this.ics = "";
+			ics = "";
 		}
 	}
 
