@@ -23,7 +23,7 @@ public class ParseHtml
 			lines_1 = new ArrayList<String>();
 			lines = new ArrayList<ArrayList<String>>();
 
-			// read lines into arraylist
+			// read lines into array list
 			while ((f_line = br.readLine()) != null)
 			{
 				lines_1.add(f_line);
