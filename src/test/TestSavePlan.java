@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -43,6 +44,9 @@ public class TestSavePlan {
 		
 		Optional<Plan> planFromXML = pf.XMLToObject("testXMLfile.txt");
 		
-		System.out.println(planFromXML.get());
+		assertTrue(planFromXML.isPresent());
+		assertEquals(plan.toString(), planFromXML.get().toString());
+		
+		//System.out.println(planFromXML.get());
 	}
 }

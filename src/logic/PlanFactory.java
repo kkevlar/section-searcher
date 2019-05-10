@@ -42,7 +42,7 @@ public class PlanFactory {
              
             //Verifies XML Content
             String xmlContent = sw.toString();
-            System.out.println( xmlContent );
+            //System.out.println( xmlContent );
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             writer.write(xmlContent);
