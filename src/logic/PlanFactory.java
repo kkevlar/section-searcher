@@ -57,40 +57,6 @@ public class PlanFactory {
         }
     }
 	
-	public static void test(Course course, String filename){ //TODO remove this entirely
-        try{
-            //Create JAXB Context
-            JAXBContext jaxbContext = JAXBContext.newInstance(Course.class);
-             
-            //Create Marshaller
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
- 
-            //Required formatting??
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
- 
-            //Print XML String to Console
-            StringWriter sw = new StringWriter();
-            
-            //Write XML to StringWriter
-            jaxbMarshaller.marshal(course, sw);
-             
-            //Verifies XML Content
-            String xmlContent = sw.toString();
-            System.out.println( xmlContent );
-            
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            writer.write(xmlContent);
-            
-            writer.close();
-        } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-	
 	public static Optional<Plan> XMLToObject(String filename){
 		
 		
@@ -106,8 +72,6 @@ public class PlanFactory {
 		    Plan plan = (Plan) jaxbUnmarshaller.unmarshal(new File(filename));
 		    
 		    optional = Optional.ofNullable(plan);
-		     
-		    System.out.println(plan);//TODO remove this log
 		}
 		catch (JAXBException e)
 		{

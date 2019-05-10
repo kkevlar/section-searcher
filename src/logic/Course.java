@@ -38,6 +38,11 @@ public class Course {
 		this.department = department;
 	}
 	
+	@Override
+	public String toString() {
+		return "   Course(name=" + this.name + ", department=" + this.department + ")\n";
+	}
+	
 	public String getName() {return this.name;}
 	
 	public String getDepartment() {return this.department;}

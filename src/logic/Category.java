@@ -35,6 +35,16 @@ public class Category{
 		this.isAvailable = isAvailable;
 		this.courses = courses;
 	}
+	
+	@Override
+	public String toString() {
+		String output = "Category(name=" + this.name + ", isAvailable=" + this.isAvailable + "):\n";
+		for(Course course : courses) {
+			output += "   " + course.toString();
+		}
+		
+		return output;
+	}
 
 	public String getName() {return this.name;}
 	

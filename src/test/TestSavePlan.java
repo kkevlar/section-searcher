@@ -17,29 +17,32 @@ public class TestSavePlan {
 	@Test
 	public void testCreateAndLoadXML() throws JAXBException
 	{
-		Plan p;
-		
+
 		ArrayList<Category> categories = new ArrayList<Category>();
-		Category cat;
 		
-		ArrayList<Course> courses = new ArrayList<Course>();
-		Course course;
+		ArrayList<Course> cscCourses = new ArrayList<Course>();
+		ArrayList<Course> mathCourses = new ArrayList<Course>();
 		
-		course = new Course("CSC309", "CSC", null);
-		courses.add(course);
 		
-		cat = new Category("major classes",courses,true);
-		categories.add(cat);
+		cscCourses.add(new Course("CSC101", "CSC", null));
+		cscCourses.add(new Course("CSC225", "CSC", null));
+		cscCourses.add(new Course("CSC357", "CSC", null));
 		
-		p = new Plan("test plan", 1, categories);
+		mathCourses.add(new Course("MATH100", "MATH", null));
+		mathCourses.add(new Course("MATH200", "MATH", null));
+		mathCourses.add(new Course("MATH300", "MATH", null));
+		
+		categories.add(new Category("CSC classes",cscCourses,false));
+		categories.add(new Category("MATH classes",mathCourses,true));
+		
+		Plan plan = new Plan("CSC and MATH plan", 1, categories);
 		
 		PlanFactory pf = new PlanFactory();
 		
-		pf.jaxbObjectToXML(p,"testXMLfile.txt");
-		//pf.test(course,"testXMLfile.txt");
+		pf.jaxbObjectToXML(plan,"testXMLfile.txt");
 		
-		Optional<Plan> plan = pf.XMLToObject("testXMLfile.txt");
+		Optional<Plan> planFromXML = pf.XMLToObject("testXMLfile.txt");
 		
-		System.out.println(plan.get());
+		System.out.println(planFromXML.get());
 	}
 }

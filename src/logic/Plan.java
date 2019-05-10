@@ -35,6 +35,16 @@ public class Plan {
 		this.categories = categories;
 	}
 	
+	@Override
+	public String toString() {
+		String output = "Plan(name=" + this.name + ", id=" + this.id + "):\n";
+		for(Category cat : categories) {
+			output += "   " + cat.toString();
+		}
+		
+		return output;
+	}
+	
 	public String getName() {return this.name;}
 	
 	public void setName(String name) {this.name = name.trim();}
