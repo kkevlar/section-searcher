@@ -24,6 +24,7 @@ public class Category{
 	public Category(String name, List<Course> courses, boolean isAvailable) {
 		this.name = name.trim();
 		this.isAvailable = isAvailable;
+		this.courses = courses;
 	}
 
 	public String getName() {return this.name;}
