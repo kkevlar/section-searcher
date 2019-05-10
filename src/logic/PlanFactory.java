@@ -1,5 +1,6 @@
 package logic;
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import java.io.StringWriter;
 
@@ -54,4 +56,65 @@ public class PlanFactory {
             e.printStackTrace();
         }
     }
+	
+	public static void test(Course course, String filename){ //TODO remove this entirely
+        try{
+            //Create JAXB Context
+            JAXBContext jaxbContext = JAXBContext.newInstance(Course.class);
+             
+            //Create Marshaller
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+ 
+            //Required formatting??
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+ 
+            //Print XML String to Console
+            StringWriter sw = new StringWriter();
+            
+            //Write XML to StringWriter
+            jaxbMarshaller.marshal(course, sw);
+             
+            //Verifies XML Content
+            String xmlContent = sw.toString();
+            System.out.println( xmlContent );
+            
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+            writer.write(xmlContent);
+            
+            writer.close();
+        } 
+        catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public static Optional<Plan> XMLToObject(String filename){
+		
+		
+		JAXBContext jaxbContext;
+		Optional optional = Optional.empty();
+		
+		try
+		{
+		    jaxbContext = JAXBContext.newInstance(Plan.class);             
+		 
+		    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		 
+		    Plan plan = (Plan) jaxbUnmarshaller.unmarshal(new File(filename));
+		    
+		    optional = Optional.ofNullable(plan);
+		     
+		    System.out.println(plan);//TODO remove this log
+		}
+		catch (JAXBException e)
+		{
+		    e.printStackTrace();
+		}
+		
+		
+		return optional;
+	}
 }

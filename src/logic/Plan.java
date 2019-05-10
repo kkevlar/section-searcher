@@ -10,8 +10,13 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "plan")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Plan {
+	@XmlElement(name = "name")
 	private String name;
+	
+	@XmlElement(name = "id")
 	private int id;
+	
+	@XmlElement(name = "valid")
 	private boolean valid;
 	
 	@XmlElementWrapper(name = "categories") 
