@@ -87,11 +87,11 @@ public class WebScraper
 			{
 				CourseData data1 = new CourseData(class_list.get(j));
 				Course course1 = new Course(CourseData.course);
-				id = data1.str_CourseData().substring(0, 7);
+				id = data1.course.substring(0, 7);
 				spots = CourseData.lcap - CourseData.enrl;
 				if (spots < 0)
 					spots = 0;
-				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course, spots));
+				sect_list.add(new Section(CourseData.sect, new TimeBlock[2], course1, spots));
 				j ++;
 			}
 			i = j + 1;
