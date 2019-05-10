@@ -1,5 +1,5 @@
 package logic;
-import java.util.ArrayList;
+import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.io.StringWriter;
 public class PlanFactory {
 
 
-	public static Plan makePlan(String name, int id, ArrayList<Category> categories) throws JAXBException {
+	public static Plan makePlan(String name, int id, List<Category> categories) throws JAXBException {
 		return new Plan(name, id, categories); //need a way to determine id's
 	}
 	//from https://howtodoinjava.com/jaxb/write-object-to-xml/
