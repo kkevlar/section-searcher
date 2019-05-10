@@ -9,61 +9,114 @@ public class CourseData
 
 	public CourseData(ArrayList<String> data)
 	{
-		course = data.get(0);
-		sect = data.get(1);
-		id = data.get(2);
-		type = data.get(3);
-		ge = data.get(4);
-		req = data.get(5);
-		days = data.get(6);
-		start = data.get(7);
-		end = data.get(8);
-		instructor = data.get(9);
-		location = data.get(10);
-		try
+		if (data.size() > 0)
+			course = data.get(0);
+		else
+			course = "";
+		if (data.size() > 1)
+			sect = data.get(1);
+		else
+			sect = "";
+		if (data.size() > 2)
+			id = data.get(2);
+		else
+			id = "";
+		if (data.size() > 3)
+			type = data.get(3);
+		else
+			type = "";
+		if (data.size() > 4)
+			ge = data.get(4);
+		else
+			ge = "";
+		if (data.size() > 5)
+			req = data.get(5);
+		else
+			req = "";
+		if (data.size() > 6)
+			days = data.get(6);
+		else
+			days = "";
+		if (data.size() > 7)
+			start = data.get(7);
+		else
+			start = "";
+		if (data.size() > 8)
+			end = data.get(8);
+		else
+			end = "";
+		if (data.size() > 9)
+			instructor = data.get(9);
+		else
+			instructor = "";
+		if (data.size() > 10)
+			location = data.get(10);
+		else
+			location = "";
+		if (data.size() > 11)
 		{
-			if (data.get(11).length() != 0)
-				lcap = Integer.parseInt(data.get(11));
-			else
+			try
+			{
+				if (data.get(11).length() != 0)
+					lcap = Integer.parseInt(data.get(11));
+				else
+					lcap = -1;
+			}
+			catch (NumberFormatException e)
+			{
 				lcap = -1;
+			}
 		}
-		catch (NumberFormatException e)
-		{
+		else
 			lcap = -1;
-		}
-		try
+		if (data.size() > 12)
 		{
-			if (data.get(12).length() != 0)
-				ecap = Integer.parseInt(data.get(12));
-			else
+			try
+			{
+				if (data.get(12).length() != 0)
+					ecap = Integer.parseInt(data.get(12));
+				else
+					ecap = -1;
+			}
+			catch (NumberFormatException e)
+			{
 				ecap = -1;
+			}
 		}
-		catch (NumberFormatException e)
-		{
+		else
 			ecap = -1;
-		}
-		try
+		if (data.size() > 13)
 		{
-			if (data.get(13).length() != 0)
-				enrl = Integer.parseInt(data.get(13));
-			else
+			try
+			{
+				if (data.get(13).length() != 0)
+					enrl = Integer.parseInt(data.get(13));
+				else
+					enrl = -1;
+			}
+			catch (NumberFormatException e)
+			{
 				enrl = -1;
+			}
 		}
-		catch (NumberFormatException e)
-		{
+		else
 			enrl = -1;
-		}
-		try
+		if (data.size() > 14)
 		{
-			if (data.get(14).length() != 0)
-				wait = Integer.parseInt(data.get(14));
-			else
+			try
+			{
+				if (data.get(14).length() != 0)
+					wait = Integer.parseInt(data.get(14));
+				else
+					wait = -1;
+			}
+			catch (NumberFormatException e)
+			{
 				wait = -1;
+			}
 		}
-		catch (NumberFormatException e)
-		{
+		else
 			wait = -1;
-		}
 		if (data.size() > 15)
 		{
 			try
@@ -79,17 +132,11 @@ public class CourseData
 			}
 		}
 		else
-		{
-			drop = -1;
-		}		
+			drop = -1;		
 		if (data.size() > 16)
-		{
 			ics = data.get(16);
-		}
 		else
-		{
 			ics = "";
-		}
 	}
 
 	public String str_CourseData()
