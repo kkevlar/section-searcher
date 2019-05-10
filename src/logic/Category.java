@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Category{
 	private boolean isAvailable;
 	private String name;
-	private List<Course> courses;
+	public List<Course> courses;
 	
 	public Category() {
 		this.name = "";
@@ -23,6 +23,7 @@ public class Category{
 	
 	public Category(String name, List<Course> courses, boolean isAvailable) {
 		this.name = name.trim();
+		this.courses = courses;
 		this.isAvailable = isAvailable;
 	}
 

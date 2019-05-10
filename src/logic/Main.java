@@ -35,7 +35,9 @@ public class Main extends Application{
 
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
 	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
+	static Course testCourseOne = new Course("101");
 	public static void main(String[] args) {
+//		WebScraper.start();
 		launch(args);
 	}
 	
@@ -144,7 +146,7 @@ public class Main extends Application{
         	    new Callback<CellDataFeatures<Section,Boolean>,ObservableValue<Boolean>>(){
         	        @Override public
         	        ObservableValue<Boolean> call( CellDataFeatures<Section,Boolean> p ){
-        	           return new SimpleBooleanProperty(true); }});
+        	           return new SimpleBooleanProperty(selectedCategory.getValue().courses.contains(p.getValue().course)); }});
         column1.setCellFactory(
         	    new Callback<TableColumn<Section,Boolean>,TableCell<Section,Boolean>>(){
         	        @Override public
@@ -188,8 +190,8 @@ public class Main extends Application{
         TimeBlock tbTest = new TimeBlock(new Time(11, 10), new Time(12, 10));
         TimeBlock[] testtimes = {null, tbTest, null, tbTest, null, tbTest, null};
         ArrayList<Section> demoSects = new ArrayList<Section>();
-        demoSects.add(new Section("23", testtimes, new Course("101"), 9));
-        demoSects.add(new Section("24", testtimes, new Course("101"), 2));
+        demoSects.add(new Section("23", testtimes, testCourseOne, 9));
+        demoSects.add(new Section("24", testtimes, testCourseOne, 2));
         selectedCategory.addListener(
         		(obs, newVal, oldVal)->{
         			sectionTable.getItems().clear();
@@ -215,7 +217,9 @@ public class Main extends Application{
         plans.add(new Plan("Plan 1", 1, new ArrayList<Category>()));
 
     	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
-    	plans.get(0).addCategory(new Category("Major Courses",new ArrayList<Course>(), false));
+    	ArrayList<Course> majorCourses = new ArrayList<Course>();
+    	majorCourses.add(testCourseOne);
+    	plans.get(0).addCategory(new Category("Major Courses", majorCourses, false));
         plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
         List<Label> labels = new ArrayList<Label>();
         int count = 0;

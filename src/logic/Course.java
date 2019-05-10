@@ -16,6 +16,7 @@ public class Course {
 	public Course() {
 		setSections(new ArrayList<Section>());
 	}
+	
 	public Course(String name) {
 		setSections(new ArrayList<Section>());
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
