@@ -10,13 +10,18 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "plan")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Plan {
+	@XmlElement(name = "name")
 	private String name;
-	private int id;
-	private boolean valid;
 	
+	@XmlElement(name = "id")
+	private int id;
+	
+	@XmlElement(name = "valid")
+	private boolean valid;
+
 	@XmlElementWrapper(name = "categories") 
 	@XmlElement(name = "category")
-	private List<Category> categories;
+	private ArrayList<Category> categories;
 	
 	public Plan() {
 		this.name="";
@@ -24,10 +29,20 @@ public class Plan {
 		this.categories = null;
 	}
 
-	public Plan(String name, int id, List<Category> categories) {
+	public Plan(String name, int id, ArrayList<Category> categories) {
 		this.name = name.trim(); //.trim() removes whitespace from ends of name
 		this.id = id;
 		this.categories = categories;
+	}
+	
+	@Override
+	public String toString() {
+		String output = "Plan(name=" + this.name + ", id=" + this.id + "):\n";
+		for(Category cat : categories) {
+			output += "   " + cat.toString();
+		}
+		
+		return output;
 	}
 	
 	public String getName() {return this.name;}
