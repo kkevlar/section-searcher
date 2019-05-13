@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -16,38 +17,72 @@ import java.io.StringWriter;
 
 
 public class PlanFactory {
-
+	
+	private static String path = "./saved_plans/";
 
 	public static Plan makePlan(String name, int id, ArrayList<Category> categories) throws JAXBException {
 		return new Plan(name, id, categories); //need a way to determine id's
 	}
+	
+	public static void SavePlan(Plan plan) {
+		String filename = path + plan.getName() + ".xml";
+		jaxbObjectToXML(plan, filename);
+	}
+	
+	public static Optional<Plan> GetPlan(String name) {
+		String filename = path + name + ".xml";
+		return XMLToObject(filename);
+	}
+	
+	public static boolean DeletePlan(String name) {
+		String filename = path + name + ".xml";
+		
+		File file = new File(filename);
+		
+		return file.delete();
+	}
+
+	public static ArrayList<String> GetPlanList() {
+		File folder = new File(path);
+		File[] files = folder.listFiles();
+		
+		ArrayList<String> filenames = new ArrayList<String>();
+		
+		for (File file : files) {
+		    if (file.isFile()) {
+		    	String temp = file.getName();
+		    	
+		        filenames.add( temp.substring(0, temp.lastIndexOf('.')) );
+		    }
+		}
+		
+		return filenames;
+	}
+	
+	
 	//from https://howtodoinjava.com/jaxb/write-object-to-xml/
 	//takes Plan object and writes a 
-	public static void jaxbObjectToXML(Plan plan, String filename){
+	private static void jaxbObjectToXML(Plan plan, String filename){
         try{
-            //Create JAXB Context
+            //Setup jaxb stuff
             JAXBContext jaxbContext = JAXBContext.newInstance(Plan.class);
-             
-            //Create Marshaller
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
- 
-            //Required formatting??
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
  
-            //Print XML String to Console
+            //Create a StringWriter for JAXB to write to
             StringWriter sw = new StringWriter();
             
             //Write XML to StringWriter
             jaxbMarshaller.marshal(plan, sw);
              
-            //Verifies XML Content
+            //get the XML string
             String xmlContent = sw.toString();
-            //System.out.println( xmlContent );
             
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            writer.write(xmlContent);
+            //Create and write to the file given by filename
+            FileOutputStream outFile = new FileOutputStream(filename, false); 
+            outFile.write(xmlContent.getBytes());
             
-            writer.close();
+            outFile.close();
         } 
         catch (JAXBException e) {
             e.printStackTrace();
@@ -57,11 +92,10 @@ public class PlanFactory {
         }
     }
 	
-	public static Optional<Plan> XMLToObject(String filename){
-		
+	private static Optional<Plan> XMLToObject(String filename){
 		
 		JAXBContext jaxbContext;
-		Optional optional = Optional.empty();
+		Optional<Plan> optional = Optional.empty();
 		
 		try
 		{

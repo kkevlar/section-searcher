@@ -19,11 +19,12 @@ public class TestSavePlan {
 	public void testCreateAndLoadXML() throws JAXBException
 	{
 
+		//Setup
+
 		ArrayList<Category> categories = new ArrayList<Category>();
 		
 		ArrayList<Course> cscCourses = new ArrayList<Course>();
 		ArrayList<Course> mathCourses = new ArrayList<Course>();
-		
 		
 		cscCourses.add(new Course("CSC101", "CSC", null));
 		cscCourses.add(new Course("CSC225", "CSC", null));
@@ -38,15 +39,31 @@ public class TestSavePlan {
 		
 		Plan plan = new Plan("CSC and MATH plan", 1, categories);
 		
-		PlanFactory pf = new PlanFactory();
+		//testing
 		
-		pf.jaxbObjectToXML(plan,"testXMLfile.txt");
+		//delete any plans for testing
+		ArrayList<String> plans = PlanFactory.GetPlanList();
+		for(String name : plans) {
+			PlanFactory.DeletePlan(name);
+		}
 		
-		Optional<Plan> planFromXML = pf.XMLToObject("testXMLfile.txt");
+		//starting with no plans
+		plans = PlanFactory.GetPlanList();
+		assertEquals(plans.size(), 0);
 		
+		//save the plan
+		PlanFactory.SavePlan(plan);
+		
+		//should now have 1 plan
+		plans = PlanFactory.GetPlanList();
+		assertEquals(plans.size(), 1);
+		
+		//get that plan
+		Optional<Plan> planFromXML = PlanFactory.GetPlan(plans.get(0));
+		
+		//and verify it
 		assertTrue(planFromXML.isPresent());
 		assertEquals(plan.toString(), planFromXML.get().toString());
-		
-		//System.out.println(planFromXML.get());
+		assertEquals(planFromXML.get().getName(), "CSC and MATH plan");
 	}
 }
