@@ -18,17 +18,6 @@ public class WebScraper
 {
 	ArrayList<ArrayList<String>> fun;
 	
-	public static void start() 
-	{
-		WebScraper scraper = new WebScraper();
-		try {
-			System.out.println(scraper.scrapeCoursesByDept("CSC"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public List<Course> scrapeCoursesByDept(String dept)
 	{
 		String combinedCSV = "";
