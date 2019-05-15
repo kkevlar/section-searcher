@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.Objects;
+
 public class Time {
 	private int hours;
 	private int minutes;
@@ -40,5 +42,25 @@ public class Time {
 			return -1;
 		this.hours = hours;
 		return 0;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		
+		if (other.getClass() != this.getClass())
+			return false;
+		
+		if(this.hours != ((Time)other).hours || this.minutes != ((Time)other).minutes)
+			return false;
+		
+		return true;
+	}
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.hours, this.minutes);
 	}
 }
