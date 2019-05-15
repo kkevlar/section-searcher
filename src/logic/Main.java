@@ -94,12 +94,6 @@ public class Main extends Application{
 		stage.setScene(scene);
 		((VBox)scene.getRoot()).getChildren().addAll(topMenu, gridPane);
 		
-		Button button = new Button("Example Button");
-		button.setOnAction(new EventHandler<ActionEvent>()	{			
-			public void handle(ActionEvent event) {
-				System.out.println("You pushed the button.");
-			}		
-		});
 	    gridPane.setAlignment(Pos.CENTER);
 	    gridPane.setMinHeight(700);
 		title.setText("Section Searching is fun!");
