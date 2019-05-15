@@ -1,6 +1,8 @@
 package logic;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +34,12 @@ public class WebScraper
 		String combinedCSV = "";
 		
 		try (final WebClient webClient = new WebClient()) {
-	        final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_curr.htm");
-	        final HtmlTable table = page.getHtmlElementById("listing");
+			PrintStream oldErr = System.err;
+			PrintStream newErr = new PrintStream(new ByteArrayOutputStream());
+			System.setErr(newErr);
+			final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_curr.htm");
+			System.setErr(oldErr);
+			final HtmlTable table = page.getHtmlElementById("listing");
 	        for (final HtmlTableRow row : table.getRows()) {
 	            combinedCSV += ("\n");
 	            for (final HtmlTableCell cell : row.getCells()) {
