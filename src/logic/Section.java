@@ -9,11 +9,18 @@ public class Section {
 	
 	public Section(String id, TimeBlock[] times) {
 		this.id = id;
-		this.times = new TimeBlock[7];
+		if(times.length != 7)
+			throw new IllegalArgumentException("TimeBlock[] times must have length 7.");
+		else 
+			this.times = times;
 	}
+	
 	public Section(String id, TimeBlock[] times, Course course, int openSpots) {
 		this.id = id;
-		this.times = new TimeBlock[7];
+		if(times.length != 7)
+			throw new IllegalArgumentException("TimeBlock[] times must have length 7.");
+		else 
+			this.times = times;
 		this.course = course;
 		this.openSpots = openSpots;
 	}

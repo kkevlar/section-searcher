@@ -171,7 +171,7 @@ public class Main extends Application{
         	    new Callback<CellDataFeatures<Section,Boolean>,ObservableValue<Boolean>>(){
         	        @Override public
         	        ObservableValue<Boolean> call( CellDataFeatures<Section,Boolean> p ){
-        	           return new SimpleBooleanProperty(selectedCategory.getValue().courses.contains(p.getValue().course)); }});
+        	           return new SimpleBooleanProperty(selectedCategory.getValue().getCourses().contains(p.getValue().course)); }});
         column1.setCellFactory(
         	    new Callback<TableColumn<Section,Boolean>,TableCell<Section,Boolean>>(){
         	        @Override public
@@ -288,7 +288,7 @@ public class Main extends Application{
 		catPane.setStyle("-fx-alignment: center;");
 	    List<Label> labels = new ArrayList<Label>();
 	    int count = 0;
-	    ArrayList<Category> cats = selectedPlan.getValue().getCategories();
+	    ArrayList<Category> cats = (ArrayList<Category>) selectedPlan.getValue().getCategories();
 	    for(Category cat : cats) {
 	    	Label catLabel = new Label();
 	        catLabel.getStyleClass().add("block");

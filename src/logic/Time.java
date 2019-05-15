@@ -4,11 +4,11 @@ public class Time {
 	private int hours;
 	private int minutes;
 	
-	public Time(int hours, int minutes) throws Exception{
+	public Time(int hours, int minutes) throws IllegalArgumentException{
 		if(hours >= 24 || hours < 0)
-			throw new Exception("Hours must be less than 24 or greater than or equal to 0");
+			throw new IllegalArgumentException("Hours must be less than 24 or greater than or equal to 0");
 		if(minutes >= 60 || minutes < 0)
-			throw new Exception("Minutes must be less than 60 or greater than or equal to 0");
+			throw new IllegalArgumentException("Minutes must be less than 60 or greater than or equal to 0");
 		
 		this.hours = hours;
 		this.minutes = minutes;
