@@ -32,6 +32,7 @@ public class Category{
 	
 	public Category(String name, ArrayList<Course> courses, boolean isAvailable) {
 		this.name = name.trim();
+		this.courses = courses;
 		this.isAvailable = isAvailable;
 		this.courses = courses;
 	}
