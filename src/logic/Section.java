@@ -5,7 +5,7 @@ public class Section {
 	private TimeBlock[] times; //each index corresponds to a day of the week. 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
 	private int openSpots;
 	private int waitList;
-	private Course course;
+	public Course course;
 	
 	public Section(String id, TimeBlock[] times) {
 		this.id = id;
@@ -58,6 +58,6 @@ public class Section {
 	}
 	
 	public String getCourseName() {
-		return this.course.getName();	
+		return this.course.getName();
 	}
 }

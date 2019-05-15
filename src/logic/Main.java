@@ -35,7 +35,40 @@ public class Main extends Application{
 
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
 	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
+	static List<Course> courses;
+	static Course course1 = new Course("101");
+	static Course course2 = new Course("202");
+	static Course course3 = new Course("203");
+	static Course course4 = new Course("357");
+	
 	public static void main(String[] args) {
+		WebScraper scraper = new WebScraper();
+		try {
+			courses = scraper.scrapeCoursesByDept("CPE");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		courses = new ArrayList<Course>();
+//		course1.addSection(new Section("01", new TimeBlock[7], course1, 3));
+//		course1.addSection(new Section("02", new TimeBlock[7], course1, 7));
+//		course1.addSection(new Section("03", new TimeBlock[7], course1, 0));
+//
+//		course2.addSection(new Section("01", new TimeBlock[7], course2, 0));
+//		course2.addSection(new Section("02", new TimeBlock[7], course2, 0));
+//		course2.addSection(new Section("03", new TimeBlock[7], course2, 0));
+//
+//		course3.addSection(new Section("01", new TimeBlock[7], course3, 13));
+//		course3.addSection(new Section("02", new TimeBlock[7], course3, 5));
+//		
+//		course4.addSection(new Section("01", new TimeBlock[7], course4, 0));
+//		course4.addSection(new Section("02", new TimeBlock[7], course4, 3));
+//		course4.addSection(new Section("03", new TimeBlock[7], course4, 9));
+//		course4.addSection(new Section("04", new TimeBlock[7], course4, 0));
+//		courses.add(course1);
+//		courses.add(course2);
+//		courses.add(course3);
+//		courses.add(course4);
 		launch(args);
 	}
 	
@@ -61,12 +94,6 @@ public class Main extends Application{
 		stage.setScene(scene);
 		((VBox)scene.getRoot()).getChildren().addAll(topMenu, gridPane);
 		
-		Button button = new Button("Example Button");
-		button.setOnAction(new EventHandler<ActionEvent>()	{			
-			public void handle(ActionEvent event) {
-				System.out.println("You pushed the button.");
-			}		
-		});
 	    gridPane.setAlignment(Pos.CENTER);
 	    gridPane.setMinHeight(700);
 		title.setText("Section Searching is fun!");
@@ -144,12 +171,17 @@ public class Main extends Application{
         	    new Callback<CellDataFeatures<Section,Boolean>,ObservableValue<Boolean>>(){
         	        @Override public
         	        ObservableValue<Boolean> call( CellDataFeatures<Section,Boolean> p ){
-        	           return new SimpleBooleanProperty(true); }});
+        	           return new SimpleBooleanProperty(selectedCategory.getValue().getCourses().contains(p.getValue().course)); }});
         column1.setCellFactory(
         	    new Callback<TableColumn<Section,Boolean>,TableCell<Section,Boolean>>(){
         	        @Override public
         	        TableCell<Section,Boolean> call( TableColumn<Section,Boolean> p ){
-        	           return new CheckBoxTableCell<>(); }});
+        	        	CheckBoxTableCell cell = new CheckBoxTableCell<>();
+        	        	//cell.setOnMouseClicked(
+        	        			//event -> selectedCategory.getValue().addCourse(p.get)
+        	        	//);
+        	           return cell; 
+        	           }});
 
     
         TableColumn<Section, String> column2 = new TableColumn<>("Code");
@@ -188,9 +220,10 @@ public class Main extends Application{
         TimeBlock tbTest = new TimeBlock(new Time(11, 10), new Time(12, 10));
         TimeBlock[] testtimes = {null, tbTest, null, tbTest, null, tbTest, null};
         ArrayList<Section> demoSects = new ArrayList<Section>();
-        demoSects.add(new Section("23", testtimes, new Course("101"), 9));
-        demoSects.add(new Section("24", testtimes, new Course("101"), 2));
-        selectedCategory.addListener(
+        for(int i = 0; i < courses.size(); i++) {
+        	demoSects.addAll(courses.get(i).getSections());
+        }
+        selectedPlan.addListener(
         		(obs, newVal, oldVal)->{
         			sectionTable.getItems().clear();
         			sectionTable.getItems().addAll(0, demoSects);
@@ -215,7 +248,9 @@ public class Main extends Application{
         plans.add(new Plan("Plan 1", 1, new ArrayList<Category>()));
 
     	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
-    	plans.get(0).addCategory(new Category("Major Courses",new ArrayList<Course>(), false));
+    	ArrayList<Course> majorCourses = new ArrayList<Course>();
+    	majorCourses.add(courses.get(0));
+    	plans.get(0).addCategory(new Category("Major Courses", majorCourses, false));
         plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
         List<Label> labels = new ArrayList<Label>();
         int count = 0;
@@ -253,7 +288,7 @@ public class Main extends Application{
 		catPane.setStyle("-fx-alignment: center;");
 	    List<Label> labels = new ArrayList<Label>();
 	    int count = 0;
-	    ArrayList<Category> cats = selectedPlan.getValue().getCategories();
+	    ArrayList<Category> cats = (ArrayList<Category>) selectedPlan.getValue().getCategories();
 	    for(Category cat : cats) {
 	    	Label catLabel = new Label();
 	        catLabel.getStyleClass().add("block");
