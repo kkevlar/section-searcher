@@ -7,12 +7,9 @@ public class Section {
 	private TimeBlock[] times; //each index corresponds to a day of the week. 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
 	private int openSpots;
 	private int waitList;
-<<<<<<< HEAD
+
 	private String courseName;
-=======
-	public Course course;
->>>>>>> branch 'master' of https://github.com/kkevlar/section-searcher.git
-	
+
 	public Section(String id, TimeBlock[] times) {
 		this.id = id;
 		if(times != null && times.length != 7) //TODO: handle null times
@@ -64,7 +61,6 @@ public class Section {
 	}
 	
 	public String getCourseName() {
-<<<<<<< HEAD
 		return this.courseName;	
 	}
 	
@@ -113,8 +109,5 @@ public class Section {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, times, openSpots, waitList, courseName);
-=======
-		return this.course.getName();
->>>>>>> branch 'master' of https://github.com/kkevlar/section-searcher.git
 	}
 }
