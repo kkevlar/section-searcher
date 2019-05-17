@@ -1,6 +1,8 @@
 package logic;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,24 +18,17 @@ public class WebScraper
 {
 	ArrayList<ArrayList<String>> fun;
 	
-	public static void start() 
-	{
-		WebScraper scraper = new WebScraper();
-		try {
-			System.out.println(scraper.scrapeCoursesByDept("CSC"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public List<Course> scrapeCoursesByDept(String dept)
 	{
 		String combinedCSV = "";
 		
 		try (final WebClient webClient = new WebClient()) {
-	        final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_curr.htm");
-	        final HtmlTable table = page.getHtmlElementById("listing");
+			PrintStream oldErr = System.err;
+			PrintStream newErr = new PrintStream(new ByteArrayOutputStream());
+			System.setErr(newErr);
+			final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_curr.htm");
+			System.setErr(oldErr);
+			final HtmlTable table = page.getHtmlElementById("listing");
 	        for (final HtmlTableRow row : table.getRows()) {
 	            combinedCSV += ("\n");
 	            for (final HtmlTableCell cell : row.getCells()) {
@@ -79,19 +74,19 @@ public class WebScraper
 		while (i < class_list.size())
 		{
 			CourseData data = new CourseData(class_list.get(i));
-			Course course = new Course(data.course);
+			Course course = new Course(getCourseID(data.course));
 			sect_list = new ArrayList<Section>();
-			id = data.course.substring(0, 7); //screws up with the 8 character P___ courses and departments w/ 4 chars
+			id = data.course; //screws up with the departments w/ 4 chars
 			j = i;
-			while (j < class_list.size() && id.equals(data.course.substring(0, 7)))
+			while (j < class_list.size() && id.equals(data.course))
 			{
 				CourseData data1 = new CourseData(class_list.get(j));
-				Course course1 = new Course(data1.course);
-				id = data1.course.substring(0, 7);
+				Course course1 = new Course(getCourseID(data1.course));
+				id = data1.course;
 				spots = data1.lcap - data1.enrl;
 				if (spots < 0)
 					spots = 0;
-				sect_list.add(new Section(data1.sect, new TimeBlock[2], course1, spots));
+				sect_list.add(new Section(data1.sect, new TimeBlock[7], course1, spots));
 				j ++;
 			}
 			i = j + 1;
@@ -100,6 +95,14 @@ public class WebScraper
 		}
 
 		return course_list;
+	}
+	
+	public String getCourseID(String name)
+	{
+		String [] arr;
+		
+		arr = name.split("\\s+");
+		return arr[0] + " " + arr[1];
 	}
 	
 }

@@ -4,7 +4,18 @@ import java.util.ArrayList;
 
 public class CourseData
 {
-	public String course, sect, id, type, ge, req, days, start, end, instructor, location, ics;
+	public String course;
+	public String sect; 
+	public String id;
+	public String type;
+	public String ge;
+	public String req; 
+	public String days;
+	public String start; 
+	public String end;
+	public String instructor;
+	public String location;
+	public String ics;
 	public int lcap, ecap, enrl, wait, drop;
 
 	public CourseData(ArrayList<String> data)

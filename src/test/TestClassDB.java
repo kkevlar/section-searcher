@@ -13,7 +13,8 @@ import logic.Section;
 public class TestClassDB {
 	
 	@Test
-	public void testGetSections() {
+	public void testGetSectionsNoParam() {
+		//instantiating a test ClassDB object
 		List<Course> courses = new ArrayList<Course>();	
 		
 		for(int c = 0; c < 5; c++) {
@@ -25,8 +26,26 @@ public class TestClassDB {
 			courses.add(course);
 		}
 		
-		//check that all sections were added properly. There should be 25 sections, 01, 02, 03, ... 11, 12, ... 24, 25
-		assert(false);
+		ClassDB db = new ClassDB(courses);
+				
+		//actual sections
+		List<Section> actualSections = db.getSections();
+		
+		//expected sections
+		List<Section> expectedSections = new ArrayList<Section>();
+		for(int c = 0; c < 5; c++) {
+			for(int s = 1; s <= 5; s++) {
+				Section section = new Section("S"+c+s, null);
+				expectedSections.add(section);
+			}
+		}
+		
+		//compare expected and actual
+		assertEquals(expectedSections.size(), actualSections.size());
+		
+		for(int i = 0; i < expectedSections.size(); i++) {
+			assertEquals(true, expectedSections.get(i).equals(actualSections.get(i)));
+		}
 	}
 	
 	@Test
