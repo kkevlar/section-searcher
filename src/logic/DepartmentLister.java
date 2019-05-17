@@ -7,7 +7,7 @@ public class DepartmentLister
 {	
 	public DepartmentLister()
 	{
-		
+		//No internal initialization needed
 	}
 	
 	public List<String> getDepartmentList()
