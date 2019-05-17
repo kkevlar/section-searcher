@@ -1,3 +1,5 @@
+//author: Brandon Lyday
+
 package logic;
 import java.util.List;
 import java.util.ArrayList;
@@ -23,21 +25,6 @@ public class ClassDB {
 		this.courses.remove(course);
 	}
 	
-	public void scrapeAll()
-	{
-		DepartmentLister lister = new DepartmentLister();
-		List<String> departments = lister.getDepartmentList();
-		for(String department : departments)
-		{
-			WebScraper scraper = new WebScraper();
-			List<Course> courses = scraper.scrapeCoursesByDept(department);
-			for(Course course : courses)
-			{
-				addCourse(course);
-			}
-		}
-	}
-	
 	//gets all courses from this ClassDB object
 	public List<Course> getCourses(){
 		return this.courses;
@@ -55,7 +42,7 @@ public class ClassDB {
 	}
 	
 	//gets all sections from this ClassDB object
-	public List<Section> getSections(){
+	public List<Section> getAllSections(){
 		List<Section> sections= new ArrayList<Section>();
 		
 		for(Course course : this.courses) {
@@ -63,6 +50,17 @@ public class ClassDB {
 		}
 		
 		return sections;
+	}
+	
+	//searches for a course with a matching course name
+	//if found, returns that course
+	//if not found, returns null;
+	public Course getCourse(String courseName) {
+		for(Course course : this.courses) {
+			if(course.getName().contentEquals(courseName))
+				return course;
+		}
+		return null;
 	}
 	
 	//gets all sections of a department from a List<Course> object
@@ -110,10 +108,18 @@ public class ClassDB {
 		return filtered;
 	}
 
+	public static List<Section> filterCourseName(List<Section> sections, String courseName){
+		List<Section> filtered;
+
+		filtered = sections.stream()
+				.filter(section -> section.getCourseName().equals(courseName)) //filters out sections that do not have a matching course name
+				.collect(Collectors.toList());
+		return filtered;
+	}
 	
 	//returns a list of all sections sorted by wait list
 	public List<Section> sortWaitList(){
-		return sortWaitListSections(this.getSections());
+		return sortWaitListSections(this.getAllSections());
 	}
 	
 	//returns a List<Section> sorted by lowest wait list to highest wait list

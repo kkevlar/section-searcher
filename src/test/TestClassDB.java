@@ -1,3 +1,5 @@
+//author: Brandon Lyday
+
 package test;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class TestClassDB {
 		ClassDB db = new ClassDB(courses);
 				
 		//actual sections
-		List<Section> actualSections = db.getSections();
+		List<Section> actualSections = db.getAllSections();
 		
 		//expected sections
 		List<Section> expectedSections = new ArrayList<Section>();
