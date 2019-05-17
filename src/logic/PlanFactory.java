@@ -75,10 +75,16 @@ public class PlanFactory {
             String xmlContent = sw.toString();
             
             //Create and write to the file given by filename
-            FileOutputStream outFile = new FileOutputStream(filename, false); 
-            outFile.write(xmlContent.getBytes());
-            
-            outFile.close();
+            FileOutputStream outFile = null;
+            try {
+            	outFile = new FileOutputStream(filename, false); 
+                outFile.write(xmlContent.getBytes());
+            }
+            finally {
+            	if(outFile != null) {
+            		outFile.close();
+            	}
+            }
         } 
         catch (JAXBException e) {
             e.printStackTrace();
