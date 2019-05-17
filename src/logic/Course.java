@@ -1,6 +1,7 @@
 package logic;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -74,5 +75,47 @@ public class Course {
 	
 	public void removeSection(Section section) {
 		this.sections.remove(section);
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		
+		if (other.getClass() != this.getClass())
+			return false;
+		
+		if(this.name != null && ((Course)other).name == null)
+			return false;
+		
+		if(this.name != null && ((Course)other).name != null) {
+			if(!this.name.contentEquals(((Course)other).name))
+				return false;
+		}
+		
+		if(this.department != null && ((Course)other).department == null)
+			return false;
+		
+		if(this.department != null && ((Course)other).department != null) {
+			if(!this.department.contentEquals(((Course)other).department))
+				return false;
+		}
+		
+		if(this.sections != null && ((Course)other).sections == null)
+			return false;
+		
+		if(this.sections != null && ((Course)other).sections != null) {		
+			for(int i = 0; i < this.sections.size(); i++) {
+				if(!this.sections.get(i).equals(((Course)other).sections.get(i)))
+					return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, department, sections);
 	}
 }

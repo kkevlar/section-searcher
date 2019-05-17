@@ -23,6 +23,21 @@ public class ClassDB {
 		this.courses.remove(course);
 	}
 	
+	public void scrapeAll()
+	{
+		DepartmentLister lister = new DepartmentLister();
+		List<String> departments = lister.getDepartmentList();
+		for(String department : departments)
+		{
+			WebScraper scraper = new WebScraper();
+			List<Course> scrapedCourses = scraper.scrapeCoursesByDept(department);
+			for(Course course : scrapedCourses)
+			{
+				addCourse(course);
+			}
+		}
+	}
+	
 	//gets all courses from this ClassDB object
 	public List<Course> getCourses(){
 		return this.courses;

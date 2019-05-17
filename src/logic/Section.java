@@ -74,9 +74,11 @@ public class Section {
 		
 		if(this.id == null && ((Section)other).id != null)
 			return false;
-		
-		if (!this.id.contentEquals(((Section)other).id))
+		if(this.id != null && ((Section)other).id == null)
 			return false;
+		if(this.id != null && ((Section)other).id != null)
+			if(!this.id.contentEquals(((Section)other).id))
+				return false;
 		
 		if(this.waitList != ((Section)other).waitList)
 			return false;
