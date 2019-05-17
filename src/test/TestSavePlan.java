@@ -60,7 +60,9 @@ public class TestSavePlan {
 		
 		//and verify it
 		assertTrue(planFromXML.isPresent());
-		assertEquals(plan.toString(), planFromXML.get().toString());
+		if(planFromXML.isPresent()) {	//to appease sonarcloud
+			assertEquals(plan.toString(), planFromXML.get().toString());
+		}
 		assertEquals(planFromXML.get().getName(), "CSC and MATH plan");
 	}
 }
