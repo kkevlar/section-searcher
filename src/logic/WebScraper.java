@@ -65,12 +65,14 @@ public class WebScraper
 	public List<Course> get_Course_List(ArrayList<ArrayList<String>> class_list)
 	{
 		TimeBlock[] times;
+		Time startTime, endTime;
 		CourseData data, data1;
 		Course course, course1;
 		ArrayList<Course> course_list;
 		ArrayList<Section> sect_list;
 		String id;
-		int i, j, spots;
+		int[] startTimeList, endTimeList;
+		int i, j, k, l, spots;
 
 		course_list = new ArrayList<Course>();
 		i = 1;
@@ -89,9 +91,24 @@ public class WebScraper
 				spots = data1.lcap - data1.enrl;
 				if (spots < 0)
 					spots = 0;
-				// set up timeblock
+				// set up time block
 				times = new TimeBlock[7];
-				sect_list.add(new Section(data1.sect, new TimeBlock[7], course1.getName(), spots));
+				startTimeList = parseTime(data1.start);
+				endTimeList = parseTime(data1.end);
+				for (k = 0; k < data1.days.length(); k ++)
+				{
+					l = 0;
+					if (data1.days.charAt(k) == 'M') {l = 1;}
+					else if (data1.days.charAt(k) == 'T') {l = 2;}
+					else if (data1.days.charAt(k) == 'W') {l = 3;}
+					else if (data1.days.charAt(k) == 'R') {l = 4;}
+					else if (data1.days.charAt(k) == 'F') {l = 5;}
+					else {l = 0;} // bad news bears
+					startTime = new Time(startTimeList[0], startTimeList[1]);
+					endTime = new Time(endTimeList[0], endTimeList[1]);
+					times[l] = new TimeBlock(startTime, endTime);
+				}
+				sect_list.add(new Section(data1.sect, times, course1.getName(), spots));
 				j ++;
 			}
 			i = j + 1;
@@ -108,6 +125,21 @@ public class WebScraper
 		
 		arr = name.split("\\s+");
 		return arr[0] + " " + arr[1];
+	}
+	
+	public int[] parseTime(String input)
+	{
+		String timeStr;
+		String[] timeArr;
+		int[] retArr;
+		
+		timeStr = input.split("\\s+")[0];
+		timeArr = timeStr.split(":");
+		retArr = new int[2];
+		retArr[0] = Integer.parseInt(timeArr[0]);
+		retArr[1] = Integer.parseInt(timeArr[1]);
+		return retArr;
+		
 	}
 	
 }
