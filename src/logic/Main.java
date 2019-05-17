@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -36,10 +37,15 @@ public class Main extends Application{
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
 	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
 	static List<Course> courses;
+	static ArrayList<Boolean> areInCat;
 	static Course course1 = new Course("101");
 	static Course course2 = new Course("202");
 	static Course course3 = new Course("203");
 	static Course course4 = new Course("357");
+	final GridPane coursePane = new GridPane();
+	static GridPane catPane = new GridPane();
+	final GridPane planPane = new GridPane();
+	final GridPane pane2 = new GridPane();
 	
 	public static void main(String[] args) {
 		WebScraper scraper = new WebScraper();
@@ -49,26 +55,6 @@ public class Main extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		courses = new ArrayList<Course>();
-//		course1.addSection(new Section("01", new TimeBlock[7], course1, 3));
-//		course1.addSection(new Section("02", new TimeBlock[7], course1, 7));
-//		course1.addSection(new Section("03", new TimeBlock[7], course1, 0));
-//
-//		course2.addSection(new Section("01", new TimeBlock[7], course2, 0));
-//		course2.addSection(new Section("02", new TimeBlock[7], course2, 0));
-//		course2.addSection(new Section("03", new TimeBlock[7], course2, 0));
-//
-//		course3.addSection(new Section("01", new TimeBlock[7], course3, 13));
-//		course3.addSection(new Section("02", new TimeBlock[7], course3, 5));
-//		
-//		course4.addSection(new Section("01", new TimeBlock[7], course4, 0));
-//		course4.addSection(new Section("02", new TimeBlock[7], course4, 3));
-//		course4.addSection(new Section("03", new TimeBlock[7], course4, 9));
-//		course4.addSection(new Section("04", new TimeBlock[7], course4, 0));
-//		courses.add(course1);
-//		courses.add(course2);
-//		courses.add(course3);
-//		courses.add(course4);
 		launch(args);
 	}
 	
@@ -134,23 +120,103 @@ public class Main extends Application{
         gridPane.add(label1, 0, 0);
         
         final GridPane pane1 = getPlanPane();
-        GridPane pane2 = new GridPane();
 	    pane2.setAlignment(Pos.CENTER);
         pane2.getStyleClass().add("borders");
         pane2.getStyleClass().add("outside");
+        pane2.setStyle("-fx-alignment: center;");
+        final GridPane pane3 = getCoursesPane();
         
+        gridPane.add(pane1, 0, 1);
+        gridPane.add(pane2, 1, 1);
+        gridPane.add(pane3, 2, 1);
         
-        final GridPane pane3 = new GridPane();
-	    pane3.setAlignment(Pos.TOP_CENTER);
-        pane3.getStyleClass().add("borders");
-        pane3.getStyleClass().add("outside");
+		stage.show();
+	}
+	
+	private GridPane getPlanPane() {
+        planPane.setAlignment(Pos.TOP_CENTER);
+        planPane.getStyleClass().add("borders");
+        planPane.getStyleClass().add("outside");
+        planPane.setStyle("-fx-alignment: center;");
+        List<Plan> plans = new ArrayList<Plan>();
+        plans.add(new Plan("Plan 1", 1, new ArrayList<Category>()));
+
+    	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
+    	ArrayList<Course> majorCourses = new ArrayList<Course>();
+    	majorCourses.add(courses.get(0));
+    	plans.get(0).addCategory(new Category("Major Courses", majorCourses, false));
+        plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
+        List<Label> labels = new ArrayList<Label>();
+        int count = 0;
+        for(Plan plan : plans) {
+        	Label planLabel = new Label();
+            planLabel.getStyleClass().add("block");
+            planLabel.getStyleClass().add("block-plan");
+        	
+        	planLabel.setText(plan.getName());
+        	planPane.add(planLabel, 0, count);
+        	planLabel.setOnMouseClicked(event ->{
+        		for(Label label : labels) {
+        			label.getStyleClass().clear();
+        			label.getStyleClass().add("block");
+        			label.getStyleClass().add("block-plan");
+        		}
+                planLabel.getStyleClass().add("selected-block");
+                selectedPlan.set(plan);
+        	});
+        	labels.add(planLabel);
+        	count++;
+        }
+		return planPane;
+	}
+	
+	private GridPane getCategoryPane() {
+	    catPane.setAlignment(Pos.TOP_CENTER);
+	    catPane.setMinHeight(640);
+	    ColumnConstraints col = new ColumnConstraints();
+	    col.setPercentWidth(100);
+        col.setHalignment(HPos.CENTER);
+	    catPane.getColumnConstraints().add(col);
+		catPane.setAlignment(Pos.TOP_CENTER);
+		catPane.setStyle("-fx-alignment: center;");
+	    List<Label> labels = new ArrayList<Label>();
+	    int count = 0;
+	    ArrayList<Category> cats = (ArrayList<Category>) selectedPlan.getValue().getCategories();
+	    for(Category cat : cats) {
+	    	Label catLabel = new Label();
+	        catLabel.getStyleClass().add("block");
+	        catLabel.getStyleClass().add("block-cat");
+			catLabel.setMaxWidth(300);
+	    	
+	        catLabel.setText(cat.getName());
+	    	catPane.add(catLabel, 0, count);
+	    	catLabel.setOnMouseClicked(event ->{
+	    		for(Label label : labels) {
+	    			label.getStyleClass().clear();
+	    			label.getStyleClass().add("block");
+	    			label.getStyleClass().add("block-cat");
+	    			label.setMaxWidth(300);
+	    		}
+	    		catLabel.getStyleClass().add("selected-block");
+	    		selectedCategory.setValue(cat);
+	    	});
+	    	labels.add(catLabel);
+	    	count++;
+	    }
+	    return catPane;
+	}
+	
+	private GridPane getCoursesPane() {
+	    coursePane.setAlignment(Pos.TOP_CENTER);
+        coursePane.getStyleClass().add("borders");
+        coursePane.getStyleClass().add("outside");
         
         TextField textField = new TextField();
         textField.setPromptText("Search here!");
         textField.requestFocus();
         textField.getStyleClass().add("search-bar");
         textField.getStyleClass().add("borders");
-        pane3.add(textField, 0, 0);
+        coursePane.add(textField, 0, 0);
         
         TableView<Section> sectionTable = new TableView<Section>();
         sectionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -159,29 +225,31 @@ public class Main extends Application{
 
         selectedPlan.addListener((obs, newVal, oldVal)->{
 			sectionTable.getItems().clear();
-        	if(pane2.getChildren().size() > 0) {
-        		pane2.getChildren().remove(0);
+        	if(catPane.getChildren().size() > 0) {
+        		catPane.getChildren().remove(0);
         	}
-        	GridPane catPane = getCategoryPane();
+        	catPane = getCategoryPane();
             pane2.add(catPane, 0, 0);
+        });
+        selectedCategory.addListener((obs, newVal, oldVal)->{
+			sectionTable.getItems().clear();        
+			ArrayList<Section> demoSects = new ArrayList<Section>();
+	        for(int i = 0; i < courses.size(); i++) {
+	        	demoSects.addAll(courses.get(i).getSections());
+	        }
+			sectionTable.getItems().addAll(0, demoSects);
         });
         
         TableColumn<Section, Boolean> column1 = new TableColumn<>("");
         column1.setCellValueFactory(
-        	    new Callback<CellDataFeatures<Section,Boolean>,ObservableValue<Boolean>>(){
-        	        @Override public
-        	        ObservableValue<Boolean> call( CellDataFeatures<Section,Boolean> p ){
-        	           return new SimpleBooleanProperty(selectedCategory.getValue().getCourses().contains(p.getValue().course)); }});
-        column1.setCellFactory(
-        	    new Callback<TableColumn<Section,Boolean>,TableCell<Section,Boolean>>(){
-        	        @Override public
-        	        TableCell<Section,Boolean> call( TableColumn<Section,Boolean> p ){
-        	        	CheckBoxTableCell cell = new CheckBoxTableCell<>();
-        	        	//cell.setOnMouseClicked(
-        	        			//event -> selectedCategory.getValue().addCourse(p.get)
-        	        	//);
-        	           return cell; 
-        	           }});
+        column1.setCellFactory(CheckBoxTableCell.forTableColumn(new Callback<Integer, ObservableValue<Boolean>>() {
+
+        	        @Override
+        	        public ObservableValue<Boolean> call(Integer param) {
+        	        	selectedCategory.getValue().addCourse(courses.get(param));
+        	            return new SimpleBooleanProperty(selectedCategory.getValue().getCourses().contains(courses.get(param)));
+        	        }
+        	    }));
 
     
         TableColumn<Section, String> column2 = new TableColumn<>("Code");
@@ -229,88 +297,9 @@ public class Main extends Application{
         			sectionTable.getItems().addAll(0, demoSects);
         		});
         
-        pane3.add(sectionTable, 0, 1);
-        
-        gridPane.add(pane1, 0, 1);
-        gridPane.add(pane2, 1, 1);
-        gridPane.add(pane3, 2, 1);
-        
-		stage.show();
-	}
-	
-	private GridPane getPlanPane() {
-        GridPane planPane = new GridPane();
-        planPane.setAlignment(Pos.TOP_CENTER);
-        planPane.getStyleClass().add("borders");
-        planPane.getStyleClass().add("outside");
-        planPane.setStyle("-fx-alignment: center;");
-        List<Plan> plans = new ArrayList<Plan>();
-        plans.add(new Plan("Plan 1", 1, new ArrayList<Category>()));
-
-    	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
-    	ArrayList<Course> majorCourses = new ArrayList<Course>();
-    	majorCourses.add(courses.get(0));
-    	plans.get(0).addCategory(new Category("Major Courses", majorCourses, false));
-        plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
-        List<Label> labels = new ArrayList<Label>();
-        int count = 0;
-        for(Plan plan : plans) {
-        	Label planLabel = new Label();
-            planLabel.getStyleClass().add("block");
-            planLabel.getStyleClass().add("block-plan");
-        	
-        	planLabel.setText(plan.getName());
-        	planPane.add(planLabel, 0, count);
-        	planLabel.setOnMouseClicked(event ->{
-        		for(Label label : labels) {
-        			label.getStyleClass().clear();
-        			label.getStyleClass().add("block");
-        			label.getStyleClass().add("block-plan");
-        		}
-                planLabel.getStyleClass().add("selected-block");
-                selectedPlan.set(plan);
-        	});
-        	labels.add(planLabel);
-        	count++;
-        }
-		return planPane;
-	}
-	
-	private GridPane getCategoryPane() {
-		GridPane catPane = new GridPane();
-	    catPane.setAlignment(Pos.TOP_CENTER);
-	    catPane.setMinHeight(640);
-	    ColumnConstraints col = new ColumnConstraints();
-	    col.setPercentWidth(100);
-        col.setHalignment(HPos.CENTER);
-	    catPane.getColumnConstraints().add(col);
-		catPane.setAlignment(Pos.TOP_CENTER);
-		catPane.setStyle("-fx-alignment: center;");
-	    List<Label> labels = new ArrayList<Label>();
-	    int count = 0;
-	    ArrayList<Category> cats = (ArrayList<Category>) selectedPlan.getValue().getCategories();
-	    for(Category cat : cats) {
-	    	Label catLabel = new Label();
-	        catLabel.getStyleClass().add("block");
-	        catLabel.getStyleClass().add("block-cat");
-			catLabel.setMaxWidth(300);
-	    	
-	        catLabel.setText(cat.getName());
-	    	catPane.add(catLabel, 0, count);
-	    	catLabel.setOnMouseClicked(event ->{
-	    		for(Label label : labels) {
-	    			label.getStyleClass().clear();
-	    			label.getStyleClass().add("block");
-	    			label.getStyleClass().add("block-cat");
-	    			label.setMaxWidth(300);
-	    		}
-	    		catLabel.getStyleClass().add("selected-block");
-	    		selectedCategory.setValue(cat);
-	    	});
-	    	labels.add(catLabel);
-	    	count++;
-	    }
-	    return catPane;
+        coursePane.add(sectionTable, 0, 1);
+		
+		return coursePane;
 	}
 	
 }
