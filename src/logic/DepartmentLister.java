@@ -1,10 +1,16 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DepartmentLister 
-{
-	public static ArrayList<String> getDepartmentList()
+{	
+	public DepartmentLister()
+	{
+		
+	}
+	
+	public List<String> getDepartmentList()
 	{
 		ArrayList<String> list = new ArrayList<>();
 		list.add("CSC");
