@@ -11,6 +11,9 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -21,6 +24,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -31,12 +35,15 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContentDisplay;
 
 public class Main extends Application{
 
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
 	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
 	static List<Course> courses;
+	static ObservableList<CheckedSection> sections = FXCollections.observableArrayList();
 	static ArrayList<Boolean> areInCat;
 	static Course course1 = new Course("101");
 	static Course course2 = new Course("202");
@@ -142,9 +149,7 @@ public class Main extends Application{
         plans.add(new Plan("Plan 1", 1, new ArrayList<Category>()));
 
     	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
-    	ArrayList<Course> majorCourses = new ArrayList<Course>();
-    	majorCourses.add(courses.get(0));
-    	plans.get(0).addCategory(new Category("Major Courses", majorCourses, false));
+    	plans.get(0).addCategory(new Category("Major Courses", new ArrayList<Course>(), false));
         plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
         List<Label> labels = new ArrayList<Label>();
         int count = 0;
@@ -218,7 +223,7 @@ public class Main extends Application{
         textField.getStyleClass().add("borders");
         coursePane.add(textField, 0, 0);
         
-        TableView<Section> sectionTable = new TableView<Section>();
+        TableView<CheckedSection> sectionTable = new TableView<CheckedSection>();
         sectionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         sectionTable.setMinWidth(600);
         sectionTable.setEditable(true);
@@ -232,38 +237,114 @@ public class Main extends Application{
             pane2.add(catPane, 0, 0);
         });
         selectedCategory.addListener((obs, newVal, oldVal)->{
-			sectionTable.getItems().clear();        
-			ArrayList<Section> demoSects = new ArrayList<Section>();
+			sectionTable.getItems().clear();
+			sections = FXCollections.observableArrayList();
 	        for(int i = 0; i < courses.size(); i++) {
-	        	demoSects.addAll(courses.get(i).getSections());
+				ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
+				for(Section s : sects) {
+					if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
+						sections.add(new CheckedSection(s, true));
+					}else {
+						sections.add(new CheckedSection(s, false));
+					}
+				}
 	        }
-			sectionTable.getItems().addAll(0, demoSects);
+			sectionTable.getItems().addAll(0, sections);
+        });
+        sections.addListener(new ListChangeListener<CheckedSection>() {
+
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends CheckedSection> col) {
+                while (col.next()) {
+                    if (col.wasUpdated()) {
+                    	int param = col.getFrom();
+                    	if(sections.get(param).getChecked()) {
+                    		for(Course c : courses) {
+                    			if(c.getName() == sections.get(param).getCourseName() &&
+                    					!selectedCategory.getValue().getCourses().contains(c)) {
+                    				selectedCategory.getValue().addCourse(c);
+                    			}
+                    		}
+                    	} else {
+                    		for(Course c : courses) {
+                    			if(c.getName() == sections.get(param).getCourseName() &&
+                    					!selectedCategory.getValue().getCourses().contains(c)) {
+                    				selectedCategory.getValue().removeCourse(c);
+                    			}
+                    		}
+                    	}
+                    	sectionTable.getItems().clear();
+            			sections = FXCollections.observableArrayList();
+            	        for(int i = 0; i < courses.size(); i++) {
+            				ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
+            				for(Section s : sects) {
+            					if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
+            						sections.add(new CheckedSection(s, true));
+            					}else {
+            						sections.add(new CheckedSection(s, false));
+            					}
+            				}
+            	        }
+            			sectionTable.getItems().addAll(0, sections);
+                    }
+                  }
+            }
         });
         
-        TableColumn<Section, Boolean> column1 = new TableColumn<>("");
-        column1.setCellValueFactory(
-        column1.setCellFactory(CheckBoxTableCell.forTableColumn(new Callback<Integer, ObservableValue<Boolean>>() {
-
-        	        @Override
-        	        public ObservableValue<Boolean> call(Integer param) {
-        	        	selectedCategory.getValue().addCourse(courses.get(param));
-        	            return new SimpleBooleanProperty(selectedCategory.getValue().getCourses().contains(courses.get(param)));
-        	        }
-        	    }));
+        TableColumn<CheckedSection, Boolean> column1 = new TableColumn<>("");
+        column1.setCellValueFactory(new PropertyValueFactory<CheckedSection, Boolean>("Checked"));
+        column1.setCellFactory(p ->{
+	    		CheckBox checkBox = new CheckBox();
+	    		TableCell<CheckedSection, Boolean> cell = new TableCell<CheckedSection, Boolean>() {
+	    		@Override
+	    		public void updateItem(Boolean item, boolean empty) {
+	    			if (empty) {
+	    				setGraphic(null);
+	    			} else {
+	    				checkBox.setSelected(item);
+	    				setGraphic(checkBox);
+	    			}
+	    		}
+	        };
+	        checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+	        	CheckedSection selected = ((CheckedSection)cell.getTableRow().getItem());
+	        	if(selected != null) {
+	        		selected.setChecked(isSelected);
+		            if(selected.getChecked()) {
+		            	for(Course c : courses) {
+	            			if(c.getName() == selected.getCourseName() &&
+	            					!selectedCategory.getValue().getCourses().contains(c)) {
+	            				selectedCategory.getValue().addCourse(c);
+	            			}
+	            		}
+		            } else {
+	            		for(Course c : courses) {
+	            			if(c.getName() == selected.getCourseName() &&
+	            					!selectedCategory.getValue().getCourses().contains(c)) {
+	            				selectedCategory.getValue().removeCourse(c);
+	            			}
+	            		}
+	            	}
+	            }
+	            });
+	        cell.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+	        cell.setAlignment(Pos.CENTER);
+	        return cell ;
+        });
 
     
-        TableColumn<Section, String> column2 = new TableColumn<>("Code");
-        column2.setCellValueFactory(new Callback<CellDataFeatures<Section, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(CellDataFeatures<Section, String> s) {
+        TableColumn<CheckedSection, String> column2 = new TableColumn<>("Code");
+        column2.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
                 return new ReadOnlyObjectWrapper<String>(s.getValue().getCourseName());
             }
         });
         column2.setMinWidth(150);
         column2.getStyleClass().add("table-cell");
         
-        TableColumn<Section, String> column3 = new TableColumn<>("Section Id");
-        column3.setCellValueFactory(new Callback<CellDataFeatures<Section, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(CellDataFeatures<Section, String> s) {
+        TableColumn<CheckedSection, String> column3 = new TableColumn<>("Section Id");
+        column3.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
                 return new ReadOnlyObjectWrapper<String>(s.getValue().getID());
             }
         });
@@ -271,9 +352,9 @@ public class Main extends Application{
         column3.getStyleClass().add("table-cell");
 
 
-        TableColumn<Section, String> column4 = new TableColumn<>("Open Spots");
-        column4.setCellValueFactory(new Callback<CellDataFeatures<Section, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(CellDataFeatures<Section, String> s) {
+        TableColumn<CheckedSection, String> column4 = new TableColumn<>("Open Spots");
+        column4.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
                 return new ReadOnlyObjectWrapper<String>("" + s.getValue().getOpenSpots());
             }
         });
@@ -285,17 +366,6 @@ public class Main extends Application{
         sectionTable.getColumns().add(column3);
         sectionTable.getColumns().add(column4);
 
-        TimeBlock tbTest = new TimeBlock(new Time(11, 10), new Time(12, 10));
-        TimeBlock[] testtimes = {null, tbTest, null, tbTest, null, tbTest, null};
-        ArrayList<Section> demoSects = new ArrayList<Section>();
-        for(int i = 0; i < courses.size(); i++) {
-        	demoSects.addAll(courses.get(i).getSections());
-        }
-        selectedPlan.addListener(
-        		(obs, newVal, oldVal)->{
-        			sectionTable.getItems().clear();
-        			sectionTable.getItems().addAll(0, demoSects);
-        		});
         
         coursePane.add(sectionTable, 0, 1);
 		
