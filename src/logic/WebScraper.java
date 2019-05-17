@@ -64,6 +64,9 @@ public class WebScraper
 	
 	public List<Course> get_Course_List(ArrayList<ArrayList<String>> class_list)
 	{
+		TimeBlock[] times;
+		CourseData data, data1;
+		Course course, course1;
 		ArrayList<Course> course_list;
 		ArrayList<Section> sect_list;
 		String id;
@@ -73,20 +76,22 @@ public class WebScraper
 		i = 1;
 		while (i < class_list.size())
 		{
-			CourseData data = new CourseData(class_list.get(i));
-			Course course = new Course(getCourseID(data.course));
+			data = new CourseData(class_list.get(i));
+			course = new Course(getCourseID(data.course));
 			sect_list = new ArrayList<Section>();
 			id = data.course; //screws up with the departments w/ 4 chars
 			j = i;
 			while (j < class_list.size() && id.equals(data.course))
 			{
-				CourseData data1 = new CourseData(class_list.get(j));
-				Course course1 = new Course(getCourseID(data1.course));
+				data1 = new CourseData(class_list.get(j));
+				course1 = new Course(getCourseID(data1.course));
 				id = data1.course;
 				spots = data1.lcap - data1.enrl;
 				if (spots < 0)
 					spots = 0;
-				sect_list.add(new Section(data1.sect, new TimeBlock[7], course1, spots));
+				// set up timeblock
+				times = new TimeBlock[7];
+				sect_list.add(new Section(data1.sect, new TimeBlock[7], course1.getName(), spots));
 				j ++;
 			}
 			i = j + 1;
