@@ -30,7 +30,11 @@ public class ClassDB {
 		for(String department : departments)
 		{
 			WebScraper scraper = new WebScraper();
-			scraper.scrapeCoursesByDept(department);
+			List<Course> courses = scraper.scrapeCoursesByDept(department);
+			for(Course course : courses)
+			{
+				addCourse(course);
+			}
 		}
 	}
 	
