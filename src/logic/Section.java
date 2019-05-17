@@ -74,9 +74,11 @@ public class Section {
 		
 		if(this.id == null && ((Section)other).id != null)
 			return false;
-		
-		if (!this.id.contentEquals(((Section)other).id))
+		if(this.id != null && ((Section)other).id == null)
 			return false;
+		if(this.id != null && ((Section)other).id != null)
+			if(!this.id.contentEquals(((Section)other).id))
+				return false;
 		
 		if(this.waitList != ((Section)other).waitList)
 			return false;
@@ -97,8 +99,10 @@ public class Section {
 		
 		if(this.times != null && ((Section)other).times != null) {		
 			for(int i = 0; i < this.times.length; i++) {
-				if(!this.times[i].equals(((Section)other).times[i]))
+				if(this.times[i] != null || ((Section)other).times[i] != null) {
+					if(!this.times[i].equals(((Section)other).times[i]))
 					return false;
+				}
 			}
 		}
 		
