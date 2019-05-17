@@ -4,7 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class CheckedSection extends Section{
-	public Boolean Checked;
+	private Boolean Checked;
 	public CheckedSection(String id, TimeBlock[] times, String course, int openSpots) {
 		super(id, times, course, openSpots);
 		Checked = false;

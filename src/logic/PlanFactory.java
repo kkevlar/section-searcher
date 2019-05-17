@@ -1,6 +1,7 @@
 package logic;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,23 +15,21 @@ import java.io.StringWriter;
 
 public class PlanFactory {
 	
-	private static String path = "./saved_plans/";
-
-	public static Plan makePlan(String name, int id, ArrayList<Category> categories) throws JAXBException {
-		return new Plan(name, id, categories); //need a way to determine id's
-	}
+	private PlanFactory() {}
 	
-	public static void SavePlan(Plan plan) {
+	private static String path = "./saved_plans/";
+	
+	public static void savePlan(Plan plan) {
 		String filename = path + plan.getName() + ".xml";
 		jaxbObjectToXML(plan, filename);
 	}
 	
-	public static Optional<Plan> GetPlan(String name) {
+	public static Optional<Plan> getPlan(String name) {
 		String filename = path + name + ".xml";
 		return XMLToObject(filename);
 	}
 	
-	public static boolean DeletePlan(String name) {
+	public static boolean deletePlan(String name) {
 		String filename = path + name + ".xml";
 		
 		File file = new File(filename);
@@ -38,11 +37,11 @@ public class PlanFactory {
 		return file.delete();
 	}
 
-	public static ArrayList<String> GetPlanList() {
+	public static List<String> getPlanList() {
 		File folder = new File(path);
 		File[] files = folder.listFiles();
 		
-		ArrayList<String> filenames = new ArrayList<String>();
+		ArrayList<String> filenames = new ArrayList<>();
 		
 		for (File file : files) {
 		    if (file.isFile()) {
