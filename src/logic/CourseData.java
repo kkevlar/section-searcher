@@ -16,7 +16,7 @@ public class CourseData
 	public String instructor;
 	public String location;
 	public String ics;
-	public int lcap, ecap, enrl, wait, drop;
+	public int lcap, ecap, enrl, waitList, drop;
 
 	public CourseData(ArrayList<String> data)
 	{
@@ -117,17 +117,17 @@ public class CourseData
 			try
 			{
 				if (data.get(14).length() != 0)
-					this.wait = Integer.parseInt(data.get(14));
+					this.waitList = Integer.parseInt(data.get(14));
 				else
-					this.wait = -1;
+					this.waitList = -1;
 			}
 			catch (NumberFormatException e)
 			{
-				this.wait = -1;
+				this.waitList = -1;
 			}
 		}
 		else
-			this.wait = -1;
+			this.waitList = -1;
 		if (data.size() > 15)
 		{
 			try
@@ -167,7 +167,7 @@ public class CourseData
 		ret_str += "lcap: " + String.valueOf(this.lcap) + "\n";
 		ret_str += "ecap: " + String.valueOf(this.ecap) + "\n";
 		ret_str += "enrl: " + String.valueOf(this.enrl) + "\n";
-		ret_str += "wait: " + String.valueOf(this.wait) + "\n";
+		ret_str += "waitList: " + String.valueOf(this.waitList) + "\n";
 		ret_str += "drop: " + String.valueOf(this.drop) + "\n";
 		ret_str += "ICS: " + this.ics + "\n";
 		return ret_str;
