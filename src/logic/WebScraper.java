@@ -16,8 +16,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 public class WebScraper 
 {
-	ArrayList<ArrayList<String>> fun;
-	
 	public List<Course> scrapeCoursesByDept(String dept)
 	{
 		String combinedCSV = "";
