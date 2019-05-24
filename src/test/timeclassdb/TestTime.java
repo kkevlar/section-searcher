@@ -2,11 +2,11 @@
 
 package test.timeclassdb;
 
-import logic.Time;
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import logic.entity.Time;
 
 public class TestTime {
 	@Test
