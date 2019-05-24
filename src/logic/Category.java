@@ -72,13 +72,13 @@ public class Category{
 		if (other == null)
 			equal = false;
 		
-		if (other.getClass() != this.getClass())
+		else if (other.getClass() != this.getClass())
 			equal = false;
 		
-		if(this.isAvailable != ((Category)other).isAvailable)
+		else if(this.isAvailable != ((Category)other).isAvailable)
 			equal = false;
 		
-		if(!this.name.equals(((Category)other).name))
+		else if(!this.name.equals(((Category)other).name))
 			equal = false;
 		
 		return equal;
