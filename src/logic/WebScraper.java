@@ -24,7 +24,7 @@ public class WebScraper
 			PrintStream oldErr = System.err;
 			PrintStream newErr = new PrintStream(new ByteArrayOutputStream());
 			System.setErr(newErr);
-			final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_curr.htm");
+			final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_2198.htm");
 			System.setErr(oldErr);
 			final HtmlTable table = page.getHtmlElementById("listing");
 	        for (final HtmlTableRow row : table.getRows()) {
