@@ -1,4 +1,4 @@
-package logic;
+package logic.boundary;
 
 public class CreatePlanBoundary {
 

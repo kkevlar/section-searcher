@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Optional;
 import javax.xml.bind.JAXBException;
 import org.junit.Test;
-import logic.Category;
-import logic.Course;
-import logic.Plan;
-import logic.PlanFactory;
+
+import logic.entity.Category;
+import logic.entity.Course;
+import logic.entity.Plan;
+import logic.entity.PlanFactory;
 public class TestSavePlan {
 	
 	@Test

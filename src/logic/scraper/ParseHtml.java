@@ -1,4 +1,4 @@
-package logic;
+package logic.scraper;
 
 import java.io.BufferedReader;
 import java.io.IOException;

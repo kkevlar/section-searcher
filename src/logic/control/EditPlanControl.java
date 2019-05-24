@@ -1,4 +1,4 @@
-package logic;
+package logic.control;
 
 public class EditPlanControl {
 

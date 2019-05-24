@@ -1,6 +1,6 @@
 //author: Brandon Lyday
 
-package logic;
+package logic.entity;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package logic;
+package logic.scraper;
 
 import java.util.ArrayList;
 import java.util.List;

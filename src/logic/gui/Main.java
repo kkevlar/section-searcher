@@ -1,4 +1,4 @@
-package logic;
+package logic.gui;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,6 +35,12 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import logic.entity.Category;
+import logic.entity.CheckedSection;
+import logic.entity.Course;
+import logic.entity.Plan;
+import logic.entity.Section;
+import logic.scraper.WebScraper;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 

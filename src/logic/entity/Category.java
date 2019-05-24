@@ -1,4 +1,4 @@
-package logic;
+package logic.entity;
 
 import java.util.Objects;
 import java.util.List;

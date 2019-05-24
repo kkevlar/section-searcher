@@ -1,4 +1,4 @@
-package logic;
+package logic.scraper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,6 +13,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
+
+import logic.entity.Course;
+import logic.entity.CourseData;
+import logic.entity.Section;
+import logic.entity.Time;
+import logic.entity.TimeBlock;
 
 public class WebScraper 
 {

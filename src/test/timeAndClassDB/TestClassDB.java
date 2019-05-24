@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import logic.ClassDB;
-import logic.Course;
-import logic.Section;
+import logic.entity.Course;
+import logic.entity.Section;
+import logic.scraper.ClassDB;
 
 public class TestClassDB {
 	

@@ -1,4 +1,4 @@
-package logic;
+package logic.entity;
 
 public class InvalidTimeException extends RuntimeException {
 

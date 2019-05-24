@@ -1,7 +1,4 @@
-package logic;
-
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+package logic.entity;
 
 public class CheckedSection extends Section{
 	private Boolean Checked;

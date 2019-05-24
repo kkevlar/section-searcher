@@ -1,9 +1,12 @@
 //author: Brandon Lyday
 
-package logic;
+package logic.scraper;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import logic.entity.Course;
+import logic.entity.Section;
 
 //contains all courses found by the scraper
 public class ClassDB {

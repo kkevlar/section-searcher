@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import logic.Course;
-import logic.DepartmentLister;
-import logic.WebScraper;
+import logic.entity.Course;
+import logic.scraper.DepartmentLister;
+import logic.scraper.WebScraper;
 
 public class TestDepartmentLister 
 {
