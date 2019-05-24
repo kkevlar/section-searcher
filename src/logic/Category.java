@@ -67,19 +67,21 @@ public class Category{
 	
 	@Override
 	public boolean equals(Object other) {
+		boolean equal = true;
+		
 		if (other == null)
-			return false;
+			equal = false;
 		
 		if (other.getClass() != this.getClass())
-			return false;
+			equal = false;
 		
 		if(this.isAvailable != ((Category)other).isAvailable)
-			return false;
+			equal = false;
 		
 		if(!this.name.equals(((Category)other).name))
-			return false;
+			equal = false;
 		
-		return true;
+		return equal;
 	}
 
 	@Override
