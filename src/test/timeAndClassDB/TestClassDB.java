@@ -1,6 +1,6 @@
 //author: Brandon Lyday
 
-package test;
+package test.timeAndClassDB;
 
 import java.util.ArrayList;
 import java.util.List;

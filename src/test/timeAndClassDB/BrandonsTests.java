@@ -1,4 +1,4 @@
-package test;
+package test.timeAndClassDB;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
