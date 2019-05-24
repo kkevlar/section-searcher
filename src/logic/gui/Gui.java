@@ -44,7 +44,7 @@ import logic.scraper.WebScraper;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 
-public class Main extends Application{
+public class Gui extends Application{
 
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
 	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
