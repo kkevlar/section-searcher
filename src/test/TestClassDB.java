@@ -17,7 +17,7 @@ public class TestClassDB {
 	@Test
 	public void testGetSectionsNoParam() {
 		//instantiating a test ClassDB object
-		List<Course> courses = new ArrayList<Course>();	
+		List<Course> courses = new ArrayList<>();	
 		
 		for(int c = 0; c < 5; c++) {
 			Course course = new Course("C"+c);
@@ -34,7 +34,7 @@ public class TestClassDB {
 		List<Section> actualSections = db.getAllSections();
 		
 		//expected sections
-		List<Section> expectedSections = new ArrayList<Section>();
+		List<Section> expectedSections = new ArrayList<>();
 		for(int c = 0; c < 5; c++) {
 			for(int s = 1; s <= 5; s++) {
 				Section section = new Section("S"+c+s, null);

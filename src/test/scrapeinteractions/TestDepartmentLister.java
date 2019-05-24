@@ -23,7 +23,7 @@ public class TestDepartmentLister
 	@Test
 	public void testDeptListThenScrape()
 	{
-		ArrayList<Course> courses = new ArrayList<Course>();
+		ArrayList<Course> courses = new ArrayList<>();
 		DepartmentLister lister = new DepartmentLister();
 		List<String> departments = lister.getDepartmentList();
 		for(String department : departments)
