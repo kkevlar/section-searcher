@@ -21,18 +21,22 @@ public class Course {
 	@XmlElement(name = "department")
 	private String department;
 	
+	//Use to construct an empty Course
 	public Course() {
 		name = "";
 		department = "";
 		sections = new ArrayList<Section>();
 	}
 	
+	//use when only the course name is known
+	//methods in ClassDB can be used to populate the other fields
 	public Course(String name) {
 		this.sections = new ArrayList<Section>();
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
 		this.department = "";
 	}
 	
+	//use when all information is known
 	public Course(String name, String department, List<Section> sections) {
 		setSections(sections);
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
