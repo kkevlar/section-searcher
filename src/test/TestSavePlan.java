@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.xml.bind.JAXBException;
 import org.junit.Test;
@@ -18,10 +19,10 @@ public class TestSavePlan {
 
 		//Setup
 
-		ArrayList<Category> categories = new ArrayList<Category>();
+		ArrayList<Category> categories = new ArrayList<>();
 		
-		ArrayList<Course> cscCourses = new ArrayList<Course>();
-		ArrayList<Course> mathCourses = new ArrayList<Course>();
+		ArrayList<Course> cscCourses = new ArrayList<>();
+		ArrayList<Course> mathCourses = new ArrayList<>();
 		
 		cscCourses.add(new Course("CSC101", "CSC", null));
 		cscCourses.add(new Course("CSC225", "CSC", null));
@@ -39,24 +40,24 @@ public class TestSavePlan {
 		//testing
 		
 		//delete any plans for testing
-		ArrayList<String> plans = PlanFactory.GetPlanList();
+		List<String> plans = PlanFactory.getPlanList();
 		for(String name : plans) {
-			PlanFactory.DeletePlan(name);
+			PlanFactory.deletePlan(name);
 		}
 		
 		//starting with no plans
-		plans = PlanFactory.GetPlanList();
+		plans = PlanFactory.getPlanList();
 		assertEquals(plans.size(), 0);
 		
 		//save the plan
-		PlanFactory.SavePlan(plan);
+		PlanFactory.savePlan(plan);
 		
 		//should now have 1 plan
-		plans = PlanFactory.GetPlanList();
+		plans = PlanFactory.getPlanList();
 		assertEquals(plans.size(), 1);
 		
 		//get that plan
-		Optional<Plan> planFromXML = PlanFactory.GetPlan(plans.get(0));
+		Optional<Plan> planFromXML = PlanFactory.getPlan(plans.get(0));
 		
 		//and verify it
 		assertTrue(planFromXML.isPresent());

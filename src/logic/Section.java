@@ -99,8 +99,10 @@ public class Section {
 		
 		if(this.times != null && ((Section)other).times != null) {		
 			for(int i = 0; i < this.times.length; i++) {
-				if(!this.times[i].equals(((Section)other).times[i]))
+				if(this.times[i] != null || ((Section)other).times[i] != null) {
+					if(!this.times[i].equals(((Section)other).times[i]))
 					return false;
+				}
 			}
 		}
 		
