@@ -1,3 +1,5 @@
+//author: Brandon Lyday
+
 package logic;
 
 import java.util.Objects;
