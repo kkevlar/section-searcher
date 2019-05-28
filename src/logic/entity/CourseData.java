@@ -33,98 +33,14 @@ public class CourseData
         this.days = parseDays(data);
         this.start = parseStart(data);
         this.end = parseEnd(data);
-        if (data.size() > 9)
-            this.instructor = data.get(9);
-        else
-            this.instructor = "";
-        if (data.size() > 10)
-            this.location = data.get(10);
-        else
-            this.location = "";
-        if (data.size() > 11)
-        {
-            try
-            {
-                if (data.get(11).length() != 0)
-                    this.lcap = Integer.parseInt(data.get(11));
-                else
-                    this.lcap = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.lcap = -1;
-            }
-        }
-        else
-            this.lcap = -1;
-        if (data.size() > 12)
-        {
-            try
-            {
-                if (data.get(12).length() != 0)
-                    this.ecap = Integer.parseInt(data.get(12));
-                else
-                    this.ecap = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.ecap = -1;
-            }
-        }
-        else
-            this.ecap = -1;
-        if (data.size() > 13)
-        {
-            try
-            {
-                if (data.get(13).length() != 0)
-                    this.enrl = Integer.parseInt(data.get(13));
-                else
-                    this.enrl = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.enrl = -1;
-            }
-        }
-        else
-            this.enrl = -1;
-        if (data.size() > 14)
-        {
-            try
-            {
-                if (data.get(14).length() != 0)
-                    this.waitList = Integer.parseInt(data.get(14));
-                else
-                    this.waitList = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.waitList = -1;
-            }
-        }
-        else
-            this.waitList = -1;
-        if (data.size() > 15)
-        {
-            try
-            {
-                if (data.get(15).length() != 0)
-                    this.drop = Integer.parseInt(data.get(15));
-                else
-                    this.drop = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.drop = -1;
-            }
-        }
-        else
-            this.drop = -1;     
-        if (data.size() > 16)
-            this.ics = data.get(16);
-        else
-            this.ics = "";
+        this.instructor = parseInstructor(data);
+        this.location = parseLocation(data);
+        this.lcap = parseLcap(data);
+        this.ecap = parseEcap(data);
+        this.enrl = parseEnrl(data);
+        this.waitList = parseWaitList(data);
+        this.drop = parseDrop(data);
+        this.ics = parseIcs(data);
     }
 
     public String getCourse() {return this.course;}
@@ -160,8 +76,6 @@ public class CourseData
     public int getWaitList() {return this.waitList;}
 
     public int getDrop() {return this.drop;}
-
-    //-----------------------------------------------------------
 
     public String parseCourse(List<String> data) {
         if (!data.isEmpty())
@@ -224,6 +138,122 @@ public class CourseData
             return data.get(8);
         else
             return "";
+    }
+
+    public String parseInstructor(List<String> data) {
+        if (data.size() > 9)
+            return data.get(9);
+        else
+            return "";
+    }
+
+    public String parseLocation(List<String> data) {
+        if (data.size() > 10)
+            return data.get(10);
+        else
+            return "";
+    }
+
+    public String parseIcs(List<String> data) {
+        if (data.size() > 16)
+            return data.get(16);
+        else
+            return "";
+    }
+
+    public int parseLcap(List<String> data) {
+        if (data.size() > 11)
+        {
+            try
+            {
+                if (data.get(11).length() != 0)
+                    return Integer.parseInt(data.get(11));
+                else
+                    return -1;
+            }
+            catch (NumberFormatException e)
+            {
+                return -1;
+            }
+        }
+        else
+            return -1;
+    }
+
+    public int parseEcap(List<String> data) {
+        if (data.size() > 12)
+        {
+            try
+            {
+                if (data.get(12).length() != 0)
+                    return Integer.parseInt(data.get(12));
+                else
+                    return -1;
+            }
+            catch (NumberFormatException e)
+            {
+                return -1;
+            }
+        }
+        else
+            return -1;
+    }
+
+    public int parseEnrl(List<String> data) {
+        if (data.size() > 13)
+        {
+            try
+            {
+                if (data.get(13).length() != 0)
+                    return Integer.parseInt(data.get(13));
+                else
+                    return -1;
+            }
+            catch (NumberFormatException e)
+            {
+                return -1;
+            }
+        }
+        else
+            return -1;
+    }
+
+    public int parseWaitList(List<String> data) {
+        if (data.size() > 14)
+        {
+            try
+            {
+                if (data.get(14).length() != 0)
+                    return Integer.parseInt(data.get(14));
+                else
+                    return -1;
+            }
+            catch (NumberFormatException e)
+            {
+                return -1;
+            }
+        }
+        else
+            return -1;
+    }
+
+    public int parseDrop(List<String> data) {
+        if (data.size() > 15)
+        {
+            try
+            {
+                if (data.get(15).length() != 0)
+                    return Integer.parseInt(data.get(15));
+                else
+                    return -1;
+            }
+            catch (NumberFormatException e)
+            {
+                return -1;
+            }
+        }
+        else
+            return -1;
     }
     
 }
