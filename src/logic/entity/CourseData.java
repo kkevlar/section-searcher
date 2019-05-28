@@ -35,11 +35,11 @@ public class CourseData
         this.end = parseEnd(data);
         this.instructor = parseInstructor(data);
         this.location = parseLocation(data);
-        this.lcap = parseLcap(data);
-        this.ecap = parseEcap(data);
-        this.enrl = parseEnrl(data);
-        this.waitList = parseWaitList(data);
-        this.drop = parseDrop(data);
+        this.lcap = parseInte(data, 11);
+        this.ecap = parseInte(data, 12);
+        this.enrl = parseInte(data, 13);
+        this.waitList = parseInte(data, 14);
+        this.drop = parseInte(data, 15);
         this.ics = parseIcs(data);
     }
 
@@ -161,89 +161,13 @@ public class CourseData
             return "";
     }
 
-    public int parseLcap(List<String> data) {
-        if (data.size() > 11)
+    public int parseInte(List<String> data, int pos) {
+        if (data.size() > pos)
         {
             try
             {
-                if (data.get(11).length() != 0)
-                    return Integer.parseInt(data.get(11));
-                else
-                    return -1;
-            }
-            catch (NumberFormatException e)
-            {
-                return -1;
-            }
-        }
-        else
-            return -1;
-    }
-
-    public int parseEcap(List<String> data) {
-        if (data.size() > 12)
-        {
-            try
-            {
-                if (data.get(12).length() != 0)
-                    return Integer.parseInt(data.get(12));
-                else
-                    return -1;
-            }
-            catch (NumberFormatException e)
-            {
-                return -1;
-            }
-        }
-        else
-            return -1;
-    }
-
-    public int parseEnrl(List<String> data) {
-        if (data.size() > 13)
-        {
-            try
-            {
-                if (data.get(13).length() != 0)
-                    return Integer.parseInt(data.get(13));
-                else
-                    return -1;
-            }
-            catch (NumberFormatException e)
-            {
-                return -1;
-            }
-        }
-        else
-            return -1;
-    }
-
-    public int parseWaitList(List<String> data) {
-        if (data.size() > 14)
-        {
-            try
-            {
-                if (data.get(14).length() != 0)
-                    return Integer.parseInt(data.get(14));
-                else
-                    return -1;
-            }
-            catch (NumberFormatException e)
-            {
-                return -1;
-            }
-        }
-        else
-            return -1;
-    }
-
-    public int parseDrop(List<String> data) {
-        if (data.size() > 15)
-        {
-            try
-            {
-                if (data.get(15).length() != 0)
-                    return Integer.parseInt(data.get(15));
+                if (data.get(pos).length() != 0)
+                    return Integer.parseInt(data.get(pos));
                 else
                     return -1;
             }
