@@ -12,7 +12,7 @@ public class Section {
 
 	public Section(String id, TimeBlock[] times) {
 		this.id = id;
-		if(times != null && times.length != 7) //TODO: handle null times
+		if(times != null && times.length != 7)
 			throw new IllegalArgumentException("TimeBlock[] times must have length 7.");
 		else 
 			this.times = times;
