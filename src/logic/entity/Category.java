@@ -57,6 +57,10 @@ public class Category{
 	
 	public ArrayList<Course> getCourses() {return this.courses;}
 	
+	public void setCourses(ArrayList<Course> newCourses) {
+		this.courses = newCourses;
+	}
+	
 	public void addCourse(Course course) {
 		this.courses.add(course);
 	}

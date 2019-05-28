@@ -12,6 +12,8 @@ import javax.xml.bind.Unmarshaller;
 
 import java.io.StringWriter;
 
+import logic.scraper.ClassDB;;
+
 
 public class PlanFactory {
 	
@@ -26,7 +28,38 @@ public class PlanFactory {
 	
 	public static Optional<Plan> getPlan(String name) {
 		String filename = path + name + ".xml";
-		return XMLToObject(filename);
+		Optional<Plan> optionalPlan = XMLToObject(filename);
+		
+		if(!optionalPlan.isPresent()) {
+			return optionalPlan;
+		}
+		
+		ClassDB db = new ClassDB();
+		db.scrapeAll();
+		Plan plan = optionalPlan.get();
+		
+		List<Category> categories = plan.getCategories();
+		
+		for(int i = 0; i < categories.size(); i++) {
+			Category category = categories.get(i);
+			
+			ArrayList<Course> emptyCourses = category.getCourses();
+			ArrayList<Course> filledCourses = new ArrayList<>();
+			
+			for(Course course : emptyCourses) {
+				String courseName = course.getName();
+				Course filledCourse = db.getCourse(courseName);
+				
+				if(filledCourse != null) {
+					filledCourses.add(filledCourse);
+				}	
+			}
+			
+			category.setCourses(filledCourses);
+		}
+		
+		return Optional.of(plan);
+			
 	}
 	
 	public static boolean deletePlan(String name) {

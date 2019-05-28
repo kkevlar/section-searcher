@@ -12,30 +12,31 @@ import logic.entity.Category;
 import logic.entity.Course;
 import logic.entity.Plan;
 import logic.entity.PlanFactory;
+
+import logic.scraper.ClassDB;
+
 public class TestSavePlan {
 	
 	@Test
 	public void testCreateAndLoadXML() throws JAXBException
 	{
-
+		
 		//Setup
-
+		
 		ArrayList<Category> categories = new ArrayList<>();
 		
 		ArrayList<Course> cscCourses = new ArrayList<>();
 		ArrayList<Course> mathCourses = new ArrayList<>();
 		
-		cscCourses.add(new Course("CSC101", "CSC", null));
-		cscCourses.add(new Course("CSC225", "CSC", null));
-		cscCourses.add(new Course("CSC357", "CSC", null));
+		cscCourses.add(new Course("CSC 300", "", null));
+		cscCourses.add(new Course("CSC 225", "", null));
 		
-		mathCourses.add(new Course("MATH100", "MATH", null));
-		mathCourses.add(new Course("MATH200", "MATH", null));
-		mathCourses.add(new Course("MATH300", "MATH", null));
-		
+		mathCourses.add(new Course("MATH 306", "", null));
+		mathCourses.add(new Course("MATH 330", "", null));
+
 		categories.add(new Category("CSC classes",cscCourses,false));
 		categories.add(new Category("MATH classes",mathCourses,true));
-		
+
 		Plan plan = new Plan("CSC and MATH plan", 1, categories);
 		
 		//testing
