@@ -60,7 +60,7 @@ public class Category{
 	
 	public List<Course> getCourses() {return this.courses;}
 	
-	public void setCourses(ArrayList<Course> newCourses) {
+	public void setCourses(List<Course> newCourses) {
 		this.courses = newCourses;
 	}
 	

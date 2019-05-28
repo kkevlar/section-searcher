@@ -43,8 +43,8 @@ public class PlanFactory {
 		for(int i = 0; i < categories.size(); i++) {
 			Category category = categories.get(i);
 			
-			ArrayList<Course> emptyCourses = category.getCourses();
-			ArrayList<Course> filledCourses = new ArrayList<>();
+			List<Course> emptyCourses = category.getCourses();
+			List<Course> filledCourses = new ArrayList<>();
 			
 			for(Course course : emptyCourses) {
 				String courseName = course.getName();
