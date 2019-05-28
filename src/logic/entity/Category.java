@@ -22,29 +22,32 @@ public class Category{
 	
 	@XmlElementWrapper(name = "courses") 
 	@XmlElement(name = "course")
-	private ArrayList<Course> courses;
+	private List<Course> courses;
 	
 	public Category() {
 		this.name = "";
 		this.isAvailable = false;
-		courses = new ArrayList<Course>();
+		courses = new ArrayList<>();
 	}
 	
-	public Category(String name, ArrayList<Course> courses, boolean isAvailable) {
+	public Category(String name, List<Course> courses, boolean isAvailable) {
 		this.name = name.trim();
 		this.courses = courses;
 		this.isAvailable = isAvailable;
-		this.courses = courses;
 	}
 	
 	@Override
 	public String toString() {
-		String output = "Category(name=" + this.name + ", isAvailable=" + this.isAvailable + "):\n";
+		StringBuilder builder = new StringBuilder("Category(name=");
+		builder.append(this.name);
+		builder.append(", isAvailable=");
+		builder.append(this.isAvailable);
+		builder.append("):\n");
 		for(Course course : courses) {
-			output += "   " + course.toString();
+			builder.append("   ");
+			builder.append(course.toString());
 		}
-		
-		return output;
+		return builder.toString();
 	}
 
 	public String getName() {return this.name;}
@@ -55,7 +58,7 @@ public class Category{
 	
 	public void setAvailable(Boolean available) {this.isAvailable = available;}
 	
-	public ArrayList<Course> getCourses() {return this.courses;}
+	public List<Course> getCourses() {return this.courses;}
 	
 	public void setCourses(ArrayList<Course> newCourses) {
 		this.courses = newCourses;
@@ -73,16 +76,10 @@ public class Category{
 	public boolean equals(Object other) {
 		boolean equal = true;
 		
-		if (other == null)
-			equal = false;
-		
-		else if (other.getClass() != this.getClass())
-			equal = false;
-		
-		else if(this.isAvailable != ((Category)other).isAvailable)
-			equal = false;
-		
-		else if(!this.name.equals(((Category)other).name))
+		if (other == null ||
+				other.getClass() != this.getClass() ||
+				this.isAvailable != ((Category)other).isAvailable ||
+				!this.name.equals(((Category)other).name))
 			equal = false;
 		
 		return equal;

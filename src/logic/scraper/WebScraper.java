@@ -83,36 +83,36 @@ public class WebScraper
 		while (i < class_list.size())
 		{
 			data = new CourseData(class_list.get(i));
-			course = new Course(getCourseID(data.course));
+			course = new Course(getCourseID(data.getCourse()));
 			sect_list = new ArrayList<Section>();
-			id = data.course; //screws up with the departments w/ 4 chars
+			id = data.getCourse();
 			j = i;
-			while (j < class_list.size() && id.equals(data.course))
+			while (j < class_list.size() && id.equals(data.getCourse()))
 			{
 				data1 = new CourseData(class_list.get(j));
-				course1 = new Course(getCourseID(data1.course));
-				id = data1.course;
-				spots = data1.lcap - data1.enrl;
+				course1 = new Course(getCourseID(data1.getCourse()));
+				id = data1.getCourse();
+				spots = data1.getLcap() - data1.getEnrl();
 				if (spots < 0)
 					spots = 0;
 				// set up time block
 				times = new TimeBlock[7];
-				startTimeList = parseTime(data1.start);
-				endTimeList = parseTime(data1.end);
-				for (k = 0; k < data1.days.length(); k ++)
+				startTimeList = parseTime(data1.getStart());
+				endTimeList = parseTime(data1.getEnd());
+				for (k = 0; k < data1.getDays().length(); k ++)
 				{
 					l = 0;
-					if (data1.days.charAt(k) == 'M') {l = 1;}
-					else if (data1.days.charAt(k) == 'T') {l = 2;}
-					else if (data1.days.charAt(k) == 'W') {l = 3;}
-					else if (data1.days.charAt(k) == 'R') {l = 4;}
-					else if (data1.days.charAt(k) == 'F') {l = 5;}
+					if (data1.getDays().charAt(k) == 'M') {l = 1;}
+					else if (data1.getDays().charAt(k) == 'T') {l = 2;}
+					else if (data1.getDays().charAt(k) == 'W') {l = 3;}
+					else if (data1.getDays().charAt(k) == 'R') {l = 4;}
+					else if (data1.getDays().charAt(k) == 'F') {l = 5;}
 					else {l = 0;} // bad news bears
 					startTime = new Time(startTimeList[0], startTimeList[1]);
 					endTime = new Time(endTimeList[0], endTimeList[1]);
 					times[l] = new TimeBlock(startTime, endTime);
 				}
-				sect_list.add(new Section(data1.sect, times, course1.getName(), spots));
+				sect_list.add(new Section(data1.getSect(), times, course1.getName(), spots));
 				j ++;
 			}
 			i = j + 1;
