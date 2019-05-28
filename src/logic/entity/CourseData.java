@@ -221,27 +221,5 @@ public class CourseData
     public void setWaitList(int waitList) {this.waitList = waitList;}
 
     public void setDrop(int drop) {this.drop = drop;}
-
-    public String str_CourseData()
-    {
-        String ret_str;
-        ret_str = "Course: " + this.course + "\n";
-        ret_str += "Section: " + this.sect + "\n";
-        ret_str += "ID: " + this.id + "\n";
-        ret_str += "Type: " + this.type + "\n";
-        ret_str += "GE: " + this.ge + "\n";
-        ret_str += "Requirement: " + this.req + "\n";
-        ret_str += "Days: " + this.days + "\n";
-        ret_str += "Start: " + this.start + "\n";
-        ret_str += "End: " + this.end + "\n";
-        ret_str += "Instructor: " + this.instructor + "\n";
-        ret_str += "Location: " + this.location + "\n";
-        ret_str += "lcap: " + String.valueOf(this.lcap) + "\n";
-        ret_str += "ecap: " + String.valueOf(this.ecap) + "\n";
-        ret_str += "enrl: " + String.valueOf(this.enrl) + "\n";
-        ret_str += "waitList: " + String.valueOf(this.waitList) + "\n";
-        ret_str += "drop: " + String.valueOf(this.drop) + "\n";
-        ret_str += "ICS: " + this.ics + "\n";
-        return ret_str;
-    }
+    
 }
