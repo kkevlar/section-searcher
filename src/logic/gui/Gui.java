@@ -182,6 +182,8 @@ public class Gui extends Application{
 	}
 	
 	private GridPane getCategoryPane() {
+		
+		catPane = new GridPane();
 	    catPane.setAlignment(Pos.TOP_CENTER);
 	    catPane.setMinHeight(640);
 	    ColumnConstraints col = new ColumnConstraints();
@@ -236,10 +238,13 @@ public class Gui extends Application{
 
         selectedPlan.addListener((obs, newVal, oldVal)->{
 			sectionTable.getItems().clear();
-        	if(catPane.getChildren().size() > 0) {
+        	for(int i=0; i < catPane.getChildren().size(); i++) {
         		catPane.getChildren().remove(0);
         	}
         	catPane = getCategoryPane();
+        	for(int i=0; i < pane2.getChildren().size(); i++) {
+        		pane2.getChildren().remove(0);
+        	}
             pane2.add(catPane, 0, 0);
         });
         selectedCategory.addListener((obs, newVal, oldVal)->{
