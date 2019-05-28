@@ -24,7 +24,7 @@ public class CourseData
 
     public CourseData(List<String> data)
     {
-        if (data.size() > 0)
+        if (!data.isEmpty())
             this.course = data.get(0);
         else
             this.course = "";
