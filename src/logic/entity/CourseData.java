@@ -16,7 +16,11 @@ public class CourseData
 	public String instructor;
 	public String location;
 	public String ics;
-	public int lcap, ecap, enrl, waitList, drop;
+	public int lcap;
+	public int ecap;
+	public int enrl; 
+	public int waitList;
+	public int drop;
 
 	public CourseData(ArrayList<String> data)
 	{
