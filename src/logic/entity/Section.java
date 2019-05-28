@@ -68,11 +68,9 @@ public class Section {
 	public boolean equals(Object other) {
 		boolean equal = true;
 		
-		if (other == null)
-			equal = false;
-		else if (other.getClass() != this.getClass())
-			equal = false;
-		else if(!this.equalID((Section) other) ||
+		if (other == null ||
+				other.getClass() != this.getClass() ||
+				!this.equalID((Section) other) ||
 				this.waitList != ((Section)other).waitList ||
 				this.openSpots != ((Section)other).openSpots ||
 				!this.equalCourseNames((Section) other) ||
@@ -109,7 +107,7 @@ public class Section {
 	}
 	
 	private boolean equalTimes(Section other) {
-		boolean equal = false;
+		boolean equal = true;
 		
 		if(this.times == null) {
 			if(other.times != null)
