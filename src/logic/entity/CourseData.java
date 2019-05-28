@@ -1,6 +1,6 @@
 package logic.entity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CourseData
 {
@@ -22,7 +22,7 @@ public class CourseData
     private int waitList;
     private int drop;
 
-    public CourseData(ArrayList<String> data)
+    public CourseData(List<String> data)
     {
         if (data.size() > 0)
             this.course = data.get(0);
