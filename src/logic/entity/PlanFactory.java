@@ -12,7 +12,7 @@ import javax.xml.bind.Unmarshaller;
 
 import java.io.StringWriter;
 
-import logic.scraper.ClassDB;;
+import logic.scraper.ClassDB;
 
 
 public class PlanFactory {
@@ -20,6 +20,10 @@ public class PlanFactory {
 	private PlanFactory() {}
 	
 	private static String path = "./saved_plans/";
+	
+	public static Plan makePlan(String name, int id, ArrayList<Category> categories) {
+		return new Plan(name, id, categories);
+	}
 	
 	public static void savePlan(Plan plan) {
 		String filename = path + plan.getName() + ".xml";
