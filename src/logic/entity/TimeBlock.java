@@ -25,17 +25,17 @@ public class TimeBlock {
 		
 		if (other == null ||
 				other.getClass() != this.getClass() ||
-				checkTimes((TimeBlock)other))
+				equalTimes((TimeBlock)other))
 			equal = false;
 		
 		return equal;
 	}
 	
-	private boolean checkTimes(TimeBlock other) {
-		return checkStartTimes(other) && checkEndTimes(other);
+	private boolean equalTimes(TimeBlock other) {
+		return equalStartTimes(other) && equalEndTimes(other);
 	}
 	
-	private boolean checkEndTimes(TimeBlock other) {
+	private boolean equalEndTimes(TimeBlock other) {
 		boolean equal = true;
 
 		if(this.endTime == null) {
@@ -47,7 +47,7 @@ public class TimeBlock {
 		return equal;
 	}
 	
-	private boolean checkStartTimes(TimeBlock other) {
+	private boolean equalStartTimes(TimeBlock other) {
 		boolean equal = true;
 
 		if(this.startTime == null) {

@@ -66,50 +66,75 @@ public class Section {
 	
 	@Override
 	public boolean equals(Object other) {
+		boolean equal = true;
+		
 		if (other == null)
-			return false;
+			equal = false;
+		else if (other.getClass() != this.getClass())
+			equal = false;
+		else if(!this.equalID((Section) other) ||
+				this.waitList != ((Section)other).waitList ||
+				this.openSpots != ((Section)other).openSpots ||
+				!this.equalCourseNames((Section) other) ||
+				this.equalTimes((Section)other))
+			equal = false;
 		
-		if (other.getClass() != this.getClass())
-			return false;
-		
-		if(this.id == null && ((Section)other).id != null)
-			return false;
-		if(this.id != null && ((Section)other).id == null)
-			return false;
-		if(this.id != null && ((Section)other).id != null)
-			if(!this.id.contentEquals(((Section)other).id))
-				return false;
-		
-		if(this.waitList != ((Section)other).waitList)
-			return false;
-		
-		if(this.openSpots != ((Section)other).openSpots)
-			return false;
-		
-		if(this.courseName == null && ((Section)other).courseName != null)
-			return false;
-		
-		if(this.courseName != null && ((Section)other).courseName != null) {
-			if(!this.courseName.contentEquals(((Section)other).courseName))
-				return false;
-		}
-		
-		if(this.times != null && ((Section)other).times == null)
-			return false;
-		
-		if(this.times != null && ((Section)other).times != null) {		
-			for(int i = 0; i < this.times.length; i++) {
-				if(this.times[i] != null || ((Section)other).times[i] != null) {
-					if(!this.times[i].equals(((Section)other).times[i]))
-					return false;
-				}
-			}
-		}
-		
-		return true;
+		return equal;
 	}
 	
-
+	private boolean equalID(Section other) {
+		boolean equal = true;
+		
+		if(this.id == null) {
+			if(other.id != null)
+				equal = false;
+		}
+		else if(!this.id.equals(other.id))
+			equal = false;
+		
+		return equal;
+	}
+	
+	private boolean equalCourseNames(Section other) {
+		boolean equal = true;
+		
+		if(this.courseName == null) {
+			if(other.courseName != null)
+				equal = false;
+		}
+		else if(!this.courseName.equals(other.courseName))
+			equal = false;
+		
+		return equal;
+	}
+	
+	private boolean equalTimes(Section other) {
+		boolean equal = false;
+		
+		if(this.times == null) {
+			if(other.times != null)
+				equal = false;
+		}
+		else if(other.times == null){
+			equal = false;
+		}
+		else {	
+			for(int i = 0; i < this.times.length; i++) {
+				TimeBlock thisTime = this.times[i];
+				TimeBlock otherTime = other.times[i];
+				
+				if(thisTime == null) {
+					if(otherTime != null)
+						equal = false;
+				}
+				else if(!thisTime.equals(otherTime))
+					equal = false;
+				}
+			}		
+		return equal;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, times, openSpots, waitList, courseName);
