@@ -24,125 +24,23 @@ public class CourseData
 
     public CourseData(List<String> data)
     {
-        this.course = parseCourse(data);
-        this.sect = parseSect(data);
-        this.id = parseId(data);
-        if (data.size() > 3)
-            this.type = data.get(3);
-        else
-            this.type = "";
-        if (data.size() > 4)
-            this.ge = data.get(4);
-        else
-            this.ge = "";
-        if (data.size() > 5)
-            this.req = data.get(5);
-        else
-            this.req = "";
-        if (data.size() > 6)
-            this.days = data.get(6);
-        else
-            this.days = "";
-        if (data.size() > 7)
-            this.start = data.get(7);
-        else
-            this.start = "";
-        if (data.size() > 8)
-            this.end = data.get(8);
-        else
-            this.end = "";
-        if (data.size() > 9)
-            this.instructor = data.get(9);
-        else
-            this.instructor = "";
-        if (data.size() > 10)
-            this.location = data.get(10);
-        else
-            this.location = "";
-        if (data.size() > 11)
-        {
-            try
-            {
-                if (data.get(11).length() != 0)
-                    this.lcap = Integer.parseInt(data.get(11));
-                else
-                    this.lcap = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.lcap = -1;
-            }
-        }
-        else
-            this.lcap = -1;
-        if (data.size() > 12)
-        {
-            try
-            {
-                if (data.get(12).length() != 0)
-                    this.ecap = Integer.parseInt(data.get(12));
-                else
-                    this.ecap = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.ecap = -1;
-            }
-        }
-        else
-            this.ecap = -1;
-        if (data.size() > 13)
-        {
-            try
-            {
-                if (data.get(13).length() != 0)
-                    this.enrl = Integer.parseInt(data.get(13));
-                else
-                    this.enrl = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.enrl = -1;
-            }
-        }
-        else
-            this.enrl = -1;
-        if (data.size() > 14)
-        {
-            try
-            {
-                if (data.get(14).length() != 0)
-                    this.waitList = Integer.parseInt(data.get(14));
-                else
-                    this.waitList = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.waitList = -1;
-            }
-        }
-        else
-            this.waitList = -1;
-        if (data.size() > 15)
-        {
-            try
-            {
-                if (data.get(15).length() != 0)
-                    this.drop = Integer.parseInt(data.get(15));
-                else
-                    this.drop = -1;
-            }
-            catch (NumberFormatException e)
-            {
-                this.drop = -1;
-            }
-        }
-        else
-            this.drop = -1;     
-        if (data.size() > 16)
-            this.ics = data.get(16);
-        else
-            this.ics = "";
+        this.course = parseStr(data, 0);
+        this.sect = parseStr(data, 1);
+        this.id = parseStr(data, 2);
+        this.type = parseStr(data, 3);
+        this.ge = parseStr(data, 4);
+        this.req = parseStr(data, 5);
+        this.days = parseStr(data, 6);
+        this.start = parseStr(data, 7);
+        this.end = parseStr(data, 8);
+        this.instructor = parseStr(data, 9);
+        this.location = parseStr(data, 10);
+        this.lcap = parseInte(data, 11);
+        this.ecap = parseInte(data, 12);
+        this.enrl = parseInte(data, 13);
+        this.waitList = parseInte(data, 14);
+        this.drop = parseInte(data, 15);
+        this.ics = parseStr(data, 16);
     }
 
     public String getCourse() {return this.course;}
@@ -179,7 +77,12 @@ public class CourseData
 
     public int getDrop() {return this.drop;}
 
-    //-----------------------------------------------------------
+    public String parseStr(List<String> data, int pos) {
+        if (data.size() > pos)
+            return data.get(pos);
+        else
+            return "";
+    }
 
     public String parseCourse(List<String> data) {
         if (!data.isEmpty())
@@ -200,6 +103,88 @@ public class CourseData
             return data.get(2);
         else
             return "";
+    }
+
+    public String parseType(List<String> data) {
+        if (data.size() > 3)
+            return data.get(3);
+        else
+            return "";
+    }
+
+    public String parseGe(List<String> data) {
+        if (data.size() > 4)
+            return data.get(4);
+        else
+            return "";
+    }
+
+    public String parseReq(List<String> data) {
+        if (data.size() > 5)
+            return data.get(5);
+        else
+            return "";
+    }
+
+    public String parseDays(List<String> data) {
+        if (data.size() > 6)
+            return data.get(6);
+        else
+            return "";
+    }
+
+    public String parseStart(List<String> data) {
+        if (data.size() > 7)
+            return data.get(7);
+        else
+            return "";
+    }
+
+    public String parseEnd(List<String> data) {
+        if (data.size() > 8)
+            return data.get(8);
+        else
+            return "";
+    }
+
+    public String parseInstructor(List<String> data) {
+        if (data.size() > 9)
+            return data.get(9);
+        else
+            return "";
+    }
+
+    public String parseLocation(List<String> data) {
+        if (data.size() > 10)
+            return data.get(10);
+        else
+            return "";
+    }
+
+    public String parseIcs(List<String> data) {
+        if (data.size() > 16)
+            return data.get(16);
+        else
+            return "";
+    }
+
+    public int parseInte(List<String> data, int pos) {
+        if (data.size() > pos)
+        {
+            try
+            {
+                if (data.get(pos).length() != 0)
+                    return Integer.parseInt(data.get(pos));
+                else
+                    return -1;
+            }
+            catch (NumberFormatException e)
+            {
+                return -1;
+            }
+        }
+        else
+            return -1;
     }
     
 }
