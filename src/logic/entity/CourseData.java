@@ -24,23 +24,23 @@ public class CourseData
 
     public CourseData(List<String> data)
     {
-        this.course = parseCourse(data);
-        this.sect = parseSect(data);
-        this.id = parseId(data);
-        this.type = parseType(data);
-        this.ge = parseGe(data);
-        this.req = parseReq(data);
-        this.days = parseDays(data);
-        this.start = parseStart(data);
-        this.end = parseEnd(data);
-        this.instructor = parseInstructor(data);
-        this.location = parseLocation(data);
+        this.course = parseStr(data, 0);
+        this.sect = parseStr(data, 1);
+        this.id = parseStr(data, 2);
+        this.type = parseStr(data, 3);
+        this.ge = parseStr(data, 4);
+        this.req = parseStr(data, 5);
+        this.days = parseStr(data, 6);
+        this.start = parseStr(data, 7);
+        this.end = parseStr(data, 8);
+        this.instructor = parseStr(data, 9);
+        this.location = parseStr(data, 10);
         this.lcap = parseInte(data, 11);
         this.ecap = parseInte(data, 12);
         this.enrl = parseInte(data, 13);
         this.waitList = parseInte(data, 14);
         this.drop = parseInte(data, 15);
-        this.ics = parseIcs(data);
+        this.ics = parseStr(data, 16);
     }
 
     public String getCourse() {return this.course;}
@@ -76,6 +76,13 @@ public class CourseData
     public int getWaitList() {return this.waitList;}
 
     public int getDrop() {return this.drop;}
+
+    public String parseStr(List<String> data, int pos) {
+        if (data.size() > pos)
+            return data.get(pos);
+        else
+            return "";
+    }
 
     public String parseCourse(List<String> data) {
         if (!data.isEmpty())
