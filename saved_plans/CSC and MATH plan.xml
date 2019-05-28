@@ -9,16 +9,12 @@
             <name>CSC classes</name>
             <courses>
                 <course>
-                    <name>CSC101</name>
-                    <department>CSC</department>
+                    <name>CSC 300</name>
+                    <department></department>
                 </course>
                 <course>
-                    <name>CSC225</name>
-                    <department>CSC</department>
-                </course>
-                <course>
-                    <name>CSC357</name>
-                    <department>CSC</department>
+                    <name>CSC 225</name>
+                    <department></department>
                 </course>
             </courses>
         </category>
@@ -27,16 +23,12 @@
             <name>MATH classes</name>
             <courses>
                 <course>
-                    <name>MATH100</name>
-                    <department>MATH</department>
+                    <name>MATH 306</name>
+                    <department></department>
                 </course>
                 <course>
-                    <name>MATH200</name>
-                    <department>MATH</department>
-                </course>
-                <course>
-                    <name>MATH300</name>
-                    <department>MATH</department>
+                    <name>MATH 330</name>
+                    <department></department>
                 </course>
             </courses>
         </category>
