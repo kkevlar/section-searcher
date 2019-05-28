@@ -27,30 +27,12 @@ public class CourseData
         this.course = parseCourse(data);
         this.sect = parseSect(data);
         this.id = parseId(data);
-        if (data.size() > 3)
-            this.type = data.get(3);
-        else
-            this.type = "";
-        if (data.size() > 4)
-            this.ge = data.get(4);
-        else
-            this.ge = "";
-        if (data.size() > 5)
-            this.req = data.get(5);
-        else
-            this.req = "";
-        if (data.size() > 6)
-            this.days = data.get(6);
-        else
-            this.days = "";
-        if (data.size() > 7)
-            this.start = data.get(7);
-        else
-            this.start = "";
-        if (data.size() > 8)
-            this.end = data.get(8);
-        else
-            this.end = "";
+        this.type = parseType(data);
+        this.ge = parseGe(data);
+        this.req = parseReq(data);
+        this.days = parseDays(data);
+        this.start = parseStart(data);
+        this.end = parseEnd(data);
         if (data.size() > 9)
             this.instructor = data.get(9);
         else
@@ -198,6 +180,48 @@ public class CourseData
     public String parseId(List<String> data) {
         if (data.size() > 2)
             return data.get(2);
+        else
+            return "";
+    }
+
+    public String parseType(List<String> data) {
+        if (data.size() > 3)
+            return data.get(3);
+        else
+            return "";
+    }
+
+    public String parseGe(List<String> data) {
+        if (data.size() > 4)
+            return data.get(4);
+        else
+            return "";
+    }
+
+    public String parseReq(List<String> data) {
+        if (data.size() > 5)
+            return data.get(5);
+        else
+            return "";
+    }
+
+    public String parseDays(List<String> data) {
+        if (data.size() > 6)
+            return data.get(6);
+        else
+            return "";
+    }
+
+    public String parseStart(List<String> data) {
+        if (data.size() > 7)
+            return data.get(7);
+        else
+            return "";
+    }
+
+    public String parseEnd(List<String> data) {
+        if (data.size() > 8)
+            return data.get(8);
         else
             return "";
     }
