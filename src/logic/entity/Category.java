@@ -22,15 +22,15 @@ public class Category{
 	
 	@XmlElementWrapper(name = "courses") 
 	@XmlElement(name = "course")
-	private ArrayList<Course> courses;
+	private List<Course> courses;
 	
 	public Category() {
 		this.name = "";
 		this.isAvailable = false;
-		courses = new ArrayList<Course>();
+		courses = new ArrayList<>();
 	}
 	
-	public Category(String name, ArrayList<Course> courses, boolean isAvailable) {
+	public Category(String name, List<Course> courses, boolean isAvailable) {
 		this.name = name.trim();
 		this.courses = courses;
 		this.isAvailable = isAvailable;
@@ -39,12 +39,16 @@ public class Category{
 	
 	@Override
 	public String toString() {
-		String output = "Category(name=" + this.name + ", isAvailable=" + this.isAvailable + "):\n";
+		StringBuilder builder = new StringBuilder("Category(name=");
+		builder.append(this.name);
+		builder.append(", isAvailable=");
+		builder.append(this.isAvailable);
+		builder.append("):\n");
 		for(Course course : courses) {
-			output += "   " + course.toString();
+			builder.append("   ");
+			builder.append(course.toString());
 		}
-		
-		return output;
+		return builder.toString();
 	}
 
 	public String getName() {return this.name;}
@@ -55,7 +59,7 @@ public class Category{
 	
 	public void setAvailable(Boolean available) {this.isAvailable = available;}
 	
-	public ArrayList<Course> getCourses() {return this.courses;}
+	public List<Course> getCourses() {return this.courses;}
 	
 	public void addCourse(Course course) {
 		this.courses.add(course);
