@@ -21,31 +21,44 @@ public class TimeBlock {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null)
-			return false;
+		boolean equal = true;
 		
-		if (other.getClass() != this.getClass())
-			return false;
+		if (other == null ||
+				other.getClass() != this.getClass() ||
+				checkTimes((TimeBlock)other))
+			equal = false;
 		
-		if(this.startTime != null && ((TimeBlock)other).startTime == null)
-			return false;
-		
-		if(this.startTime != null && ((TimeBlock)other).startTime != null) {
-			if(!this.startTime.equals(((TimeBlock)other).startTime))
-				return false;
-		}
-		
-		if(this.endTime != null && ((TimeBlock)other).endTime == null)
-			return false;
-		
-		if(this.endTime != null && ((TimeBlock)other).endTime != null) {
-			if(!this.endTime.equals(((TimeBlock)other).endTime))
-				return false;
-		}
-		return true;
+		return equal;
 	}
 	
+	private boolean checkTimes(TimeBlock other) {
+		return checkStartTimes(other) && checkEndTimes(other);
+	}
+	
+	private boolean checkEndTimes(TimeBlock other) {
+		boolean equal = true;
 
+		if(this.endTime == null) {
+			if(other.endTime != null)
+				equal = false;
+		}
+		else if(!this.endTime.equals(other.endTime))
+			equal = false;
+		return equal;
+	}
+	
+	private boolean checkStartTimes(TimeBlock other) {
+		boolean equal = true;
+
+		if(this.startTime == null) {
+			if(other.startTime != null)
+				equal = false;
+		}
+		else if(!this.startTime.equals(other.startTime))
+			equal = false;
+		return equal;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(startTime, endTime);
