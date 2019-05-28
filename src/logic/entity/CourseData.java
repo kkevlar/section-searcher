@@ -24,18 +24,9 @@ public class CourseData
 
     public CourseData(List<String> data)
     {
-        if (!data.isEmpty())
-            this.course = data.get(0);
-        else
-            this.course = "";
-        if (data.size() > 1)
-            this.sect = data.get(1);
-        else
-            this.sect = "";
-        if (data.size() > 2)
-            this.id = data.get(2);
-        else
-            this.id = "";
+        this.course = parseCourse(data);
+        this.sect = parseSect(data);
+        this.id = parseId(data);
         if (data.size() > 3)
             this.type = data.get(3);
         else
@@ -188,38 +179,27 @@ public class CourseData
 
     public int getDrop() {return this.drop;}
 
-    public void setCourse(String course) {this.course = course;}
+    //-----------------------------------------------------------
 
-    public void setSect(String sect) {this.sect = sect;}
+    public String parseCourse(List<String> data) {
+        if (!data.isEmpty())
+            return data.get(0);
+        else
+            return "";
+    }
 
-    public void setId(String id) {this.id = id;}
+    public String parseSect(List<String> data) {
+        if (data.size() > 1)
+            return data.get(1);
+        else
+            return "";
+    }
 
-    public void setType(String type) {this.type = type;}
-
-    public void setGe(String ge) {this.ge = ge;}
-
-    public void setReq(String req) {this.req = req;}
-
-    public void setDays(String days) {this.days = days;}
-
-    public void setStart(String start) {this.start = start;}
-
-    public void setEnd(String end) {this.end = end;}
-
-    public void setInstructor(String instructor) {this.instructor = instructor;}
-
-    public void setLocation(String location) {this.location = location;}
-
-    public void setIcs(String ics) {this.ics = ics;}
-
-    public void setLcap(int lcap) {this.lcap = lcap;}
-
-    public void setEcap(int ecap) {this.ecap = ecap;}
-
-    public void setEnrl(int enrl) {this.enrl = enrl;}
-
-    public void setWaitList(int waitList) {this.waitList = waitList;}
-
-    public void setDrop(int drop) {this.drop = drop;}
+    public String parseId(List<String> data) {
+        if (data.size() > 2)
+            return data.get(2);
+        else
+            return "";
+    }
     
 }
