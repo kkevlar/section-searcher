@@ -25,13 +25,13 @@ public class Course {
 	public Course() {
 		name = "";
 		department = "";
-		sections = new ArrayList<Section>();
+		sections = new ArrayList<>();
 	}
 	
 	//use when only the course name is known
 	//methods in ClassDB can be used to populate the other fields
 	public Course(String name) {
-		this.sections = new ArrayList<Section>();
+		this.sections = new ArrayList<>();
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
 		this.department = "";
 	}
