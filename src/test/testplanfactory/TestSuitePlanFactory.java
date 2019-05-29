@@ -1,4 +1,4 @@
-package test.testPlanFactory;
+package test.testplanfactory;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

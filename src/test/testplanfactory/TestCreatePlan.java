@@ -1,4 +1,4 @@
-package test.testPlanFactory;
+package test.testplanfactory;
 import java.io.File;
 
 import org.junit.Test;

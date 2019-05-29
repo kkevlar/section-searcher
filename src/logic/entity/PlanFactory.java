@@ -5,6 +5,9 @@ import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -21,7 +24,7 @@ public class PlanFactory {
 	
 	private static String path = "./saved_plans/";
 	
-	public static Plan makePlan(String name, int id, ArrayList<Category> categories) {
+	public static Plan makePlan(String name, int id, List<Category> categories) {
 		return new Plan(name, id, categories);
 	}
 	
@@ -32,7 +35,7 @@ public class PlanFactory {
 	
 	public static Optional<Plan> getPlan(String name) {
 		String filename = path + name + ".xml";
-		Optional<Plan> optionalPlan = XMLToObject(filename);
+		Optional<Plan> optionalPlan = xmlToObject(filename);
 		
 		if(!optionalPlan.isPresent()) {
 			return optionalPlan;
@@ -69,9 +72,14 @@ public class PlanFactory {
 	public static boolean deletePlan(String name) {
 		String filename = path + name + ".xml";
 		
-		File file = new File(filename);
+		try {
+			Path path = Paths.get(filename);
+			return Files.deleteIfExists(path);
+		}catch(IOException e) {
+			return false;
+		}
 		
-		return file.delete();
+		
 	}
 
 	public static List<String> getPlanList() {
@@ -111,26 +119,17 @@ public class PlanFactory {
             String xmlContent = sw.toString();
             
             //Create and write to the file given by filename
-            FileOutputStream outFile = null;
-            try {
-            	outFile = new FileOutputStream(filename, false); 
+            try(FileOutputStream outFile = new FileOutputStream(filename, false)) {
                 outFile.write(xmlContent.getBytes());
             }
-            finally {
-            	if(outFile != null) {
-            		outFile.close();
-            	}
-            }
+
         } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
 	
-	private static Optional<Plan> XMLToObject(String filename){
+	private static Optional<Plan> xmlToObject(String filename){
 		
 		JAXBContext jaxbContext;
 		Optional<Plan> optional = Optional.empty();

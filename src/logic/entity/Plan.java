@@ -19,7 +19,7 @@ public class Plan {
 
 	@XmlElementWrapper(name = "categories") 
 	@XmlElement(name = "category")
-	private ArrayList<Category> categories;
+	private List<Category> categories;
 	
 	public Plan() {
 		this.name="";
@@ -27,7 +27,7 @@ public class Plan {
 		this.categories = null;
 	}
 
-	public Plan(String name, int id, ArrayList<Category> categories) {
+	public Plan(String name, int id, List<Category> categories) {
 		this.name = name.trim(); //.trim() removes whitespace from ends of name
 		this.id = id;
 		this.categories = categories;
