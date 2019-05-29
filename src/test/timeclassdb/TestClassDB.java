@@ -18,7 +18,8 @@ public class TestClassDB {
 	@Test
 	public void testGetSectionsNoParam() {
 		//instantiating a test ClassDB object
-		List<Course> courses = new ArrayList<>();	
+		
+		ClassDB db = ClassDB.getInstance();
 		
 		for(int c = 0; c < 5; c++) {
 			Course course = new Course("C"+c);
@@ -26,10 +27,9 @@ public class TestClassDB {
 				Section section = new Section("S"+c+s, null);
 				course.addSection(section);
 			}
-			courses.add(course);
+			db.addCourse(course);
 		}
 		
-		ClassDB db = new ClassDB(courses);
 				
 		//actual sections
 		List<Section> actualSections = db.getAllSections();
@@ -65,7 +65,7 @@ public class TestClassDB {
 		Course c3 = new Course("Intro Psych");
 		c3.setDepartment("PSY");
 				
-		ClassDB db = new ClassDB();
+		ClassDB db = ClassDB.getInstance();
 		db.addCourse(c1);
 		db.addCourse(c2);
 		db.addCourse(c3);

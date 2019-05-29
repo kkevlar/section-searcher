@@ -25,7 +25,7 @@ public class TimeBlock {
 		
 		if (other == null ||
 				other.getClass() != this.getClass() ||
-				equalTimes((TimeBlock)other))
+				!equalTimes((TimeBlock)other))
 			equal = false;
 		
 		return equal;

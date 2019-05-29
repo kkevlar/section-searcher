@@ -20,7 +20,7 @@ public class TestClassDBScrapeDeptLoop
 	{
 		List<String> departments = new ArrayList<>();
 		
-		ClassDB classDb = new ClassDB();
+		ClassDB classDb = ClassDB.getInstance();
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
@@ -35,7 +35,7 @@ public class TestClassDBScrapeDeptLoop
 		
 		departments.add("CSC");
 		
-		ClassDB classDb = new ClassDB();
+		ClassDB classDb = ClassDB.getInstance();
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
@@ -55,7 +55,7 @@ public class TestClassDBScrapeDeptLoop
 		departments.add("CSC");
 		departments.add("MATH");
 		
-		ClassDB classDb = new ClassDB();
+		ClassDB classDb = ClassDB.getInstance();
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
@@ -81,7 +81,7 @@ public class TestClassDBScrapeDeptLoop
 		DepartmentLister lister = new DepartmentLister();
 		List<String> departments = lister.getDepartmentList();
 		
-		ClassDB classDb = new ClassDB();
+		ClassDB classDb = ClassDB.getInstance();
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
