@@ -2,13 +2,17 @@ package logic.scraper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ParseHtml
 {
+	private ParseHtml() 
+	{
+	    throw new IllegalStateException("Utility class");
+	  }
+	
 	public static ArrayList<ArrayList<String>> parselines(String arg)
 	{
 		BufferedReader br;
