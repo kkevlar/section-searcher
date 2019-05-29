@@ -92,18 +92,14 @@ public class Course {
 		if(this.name != null && ((Course)other).name == null)
 			return false;
 		
-		if(this.name != null && ((Course)other).name != null) {
-			if(!this.name.contentEquals(((Course)other).name))
-				return false;
-		}
+		if(this.name != null && ((Course)other).name != null && !this.name.contentEquals(((Course)other).name))
+			return false;
 		
 		if(this.department != null && ((Course)other).department == null)
 			return false;
 		
-		if(this.department != null && ((Course)other).department != null) {
-			if(!this.department.contentEquals(((Course)other).department))
-				return false;
-		}
+		if(this.department != null && ((Course)other).department != null && !this.department.contentEquals(((Course)other).department))
+			return false;
 		
 		if(this.sections != null && ((Course)other).sections == null)
 			return false;
