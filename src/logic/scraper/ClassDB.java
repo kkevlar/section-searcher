@@ -13,7 +13,7 @@ public class ClassDB {
 	private List<Course> courses;
 	
 	public ClassDB() {
-		courses = new ArrayList<Course>();
+		courses = new ArrayList<>();
 	}
 	
 	public ClassDB(List<Course> courses) {
@@ -50,7 +50,7 @@ public class ClassDB {
 	
 	//gets all the sections in a List<Course> object and returns them in one List<Section> object
 	public static List<Section> getSections(List<Course> courses){
-		List<Section> sections= new ArrayList<Section>();
+		List<Section> sections= new ArrayList<>();
 		
 		for(Course course : courses) {
 			sections.addAll(course.getSections());
@@ -61,7 +61,7 @@ public class ClassDB {
 	
 	//gets all sections from this ClassDB object
 	public List<Section> getAllSections(){
-		List<Section> sections= new ArrayList<Section>();
+		List<Section> sections= new ArrayList<>();
 		
 		for(Course course : this.courses) {
 			sections.addAll(course.getSections());
@@ -72,7 +72,7 @@ public class ClassDB {
 	
 	//searches for a course with a matching course name
 	//if found, returns that course
-	//if not found, returns null;
+	//if not found, returns null
 	public Course getCourse(String courseName) {
 		for(Course course : this.courses) {
 			if(course.getName().contentEquals(courseName))
@@ -100,10 +100,9 @@ public class ClassDB {
 	
 	//returns a List<Course> filtered by department from the given List<Course> courses
 	public static List<Course> filterDepartment(List<Course> courses, String department){
-		List<Course> filtered = courses.stream()
+		return courses.stream()
 				.filter(course -> course.getDepartment().equals(department))
 				.collect(Collectors.toList());
-		return filtered;
 	}
 		
 	//filters the sections of a List<Course> object by a maximum wait list and returns a List<Section> object
