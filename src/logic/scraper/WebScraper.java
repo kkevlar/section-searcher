@@ -66,7 +66,7 @@ public class WebScraper
 		
 	}
 	
-	public List<Course> get_Course_List(ArrayList<ArrayList<String>> class_list)
+	public List<Course> get_Course_List(List<ArrayList<String>> class_list)
 	{
 		TimeBlock[] times;
 		Time startTime, endTime;
