@@ -12,7 +12,7 @@ public class ParseHtml
     private ParseHtml() 
     {
         throw new IllegalStateException("Utility class");
-      }
+    }
     
     public static List<ArrayList<String>> parselines(String arg)
     {
@@ -80,21 +80,7 @@ public class ParseHtml
         }
         catch (IOException ioe) 
         {
-            ioe.printStackTrace();
-        }
-
-        return new ArrayList<ArrayList<String>>();
-    }
-
-    public static void print_class_list(ArrayList<ArrayList<String>> class_list)
-    {
-        int i;
-
-        i = 0;
-        while (i < class_list.size())
-        {
-            System.out.println(class_list.get(i));
-            i ++;
+        	return new ArrayList<ArrayList<String>>();
         }
     }
 }
