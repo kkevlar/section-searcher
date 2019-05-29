@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ParseHtml
 {
@@ -13,7 +14,7 @@ public class ParseHtml
 	    throw new IllegalStateException("Utility class");
 	  }
 	
-	public static ArrayList<ArrayList<String>> parselines(String arg)
+	public static List<ArrayList<String>> parselines(String arg)
 	{
 		BufferedReader br;
 		String f_line;
