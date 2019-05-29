@@ -51,11 +51,11 @@ public class ParseHtml
                 }
             }
 
-            // make each line into an arraylist of lines
+            // make each line into an list of lines
             i = 0;
             while (i < lines1.size())
             {
-                line = new ArrayList<String>(Arrays.asList(lines1.get(i).split(",")));
+                line = new ArrayList<>(Arrays.asList(lines1.get(i).split(",")));
                 // 9 and 10 need to be together so that professor names are one element
                 line.set(9, line.get(9) + line.get(10));
                 line.remove(10);
