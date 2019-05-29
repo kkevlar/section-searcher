@@ -74,7 +74,7 @@ public class Section {
 				this.waitList != ((Section)other).waitList ||
 				this.openSpots != ((Section)other).openSpots ||
 				!this.equalCourseNames((Section) other) ||
-				this.equalTimes((Section)other))
+				!this.equalTimes((Section)other))
 			equal = false;
 		
 		return equal;

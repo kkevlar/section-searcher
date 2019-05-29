@@ -11,13 +11,16 @@ import logic.entity.Section;
 //contains all courses found by the scraper
 public class ClassDB {
 	private List<Course> courses;
+	private static ClassDB instance;
 	
-	public ClassDB() {
+	private ClassDB() {
 		courses = new ArrayList<>();
 	}
 	
-	public ClassDB(List<Course> courses) {
-		this.courses = courses;
+	public static synchronized ClassDB getInstance() {
+		if(instance == null)
+			instance = new ClassDB();
+		return instance;
 	}
 	
 	public void addCourse(Course course) {

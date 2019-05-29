@@ -41,7 +41,7 @@ public class PlanFactory {
 			return optionalPlan;
 		}
 		
-		ClassDB db = new ClassDB();
+		ClassDB db = ClassDB.getInstance();
 		db.scrapeAll();
 		Plan plan = optionalPlan.get();
 		

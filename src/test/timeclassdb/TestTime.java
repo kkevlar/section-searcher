@@ -45,4 +45,12 @@ public class TestTime {
 		Time time = new Time(5, -1);
 		assertEquals(true, time.getMinutes() < 60 && time.getMinutes() >= 0 );
 	}
+	
+	@Test
+	public void testEquals1() {
+		Time t1 = new Time(5, 0);
+		Time t2 = new Time(5, 0);
+		
+		assertEquals(true, t1.equals(t2));
+	}
 }
