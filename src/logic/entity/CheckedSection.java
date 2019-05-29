@@ -1,19 +1,19 @@
 package logic.entity;
 
 public class CheckedSection extends Section{
-	private Boolean Checked;
+	private Boolean checked;
 	public CheckedSection(String id, TimeBlock[] times, String course, int openSpots) {
 		super(id, times, course, openSpots);
-		Checked = false;
+		checked = false;
 	}
 	public CheckedSection(Section s, boolean checked) {
 		super(s.getID(), s.getTimes(), s.getCourseName(), s.getOpenSpots());
-		Checked = checked;
+		this.checked = checked;
 	}
 	public boolean getChecked() {
-		return Checked;
+		return checked;
 	}
 	public void setChecked(Boolean checked) {
-		Checked = checked;
+		this.checked = checked;
 	}
 }
