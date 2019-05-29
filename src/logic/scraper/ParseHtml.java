@@ -22,12 +22,12 @@ public class ParseHtml
         ArrayList<String> line;
         ArrayList<ArrayList<String>> lines;
         int i;
-
+        
+        lines = new ArrayList<>();
         try 
         {
             br = new BufferedReader(new StringReader(arg));
             lines1 = new ArrayList<>();
-            lines = new ArrayList<>();
 
             // read lines into array list
             while ((fLine = br.readLine()) != null)
@@ -80,7 +80,8 @@ public class ParseHtml
         }
         catch (IOException ioe) 
         {
-        	return new ArrayList<ArrayList<String>>();
+        	lines.clear();
+        	return lines;
         }
     }
 }
