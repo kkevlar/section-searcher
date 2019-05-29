@@ -32,9 +32,7 @@ public class TestSavePlan {
 		categories.add(new Category("CSC classes",cscCourses,false));
 		categories.add(new Category("MATH classes",mathCourses,true));
 
-		Plan plan = new Plan(planName, 1, categories);
-		
-		return plan;
+		return new Plan(planName, 1, categories);
 	}
 	
 	@Test
