@@ -13,9 +13,12 @@ import logic.entity.Category;
 import logic.entity.Plan;
 
 public class CategoryPane {
+	private CategoryPane() 
+	{
+	    throw new IllegalStateException("Utility class");
+	}
 	public static GridPane getCategoryPane(SimpleObjectProperty<Plan> selectedPlan) {
 		GridPane catPane = new GridPane();
-		catPane = new GridPane();
 	    catPane.setAlignment(Pos.TOP_CENTER);
 	    catPane.setMinHeight(640);
 	    ColumnConstraints col = new ColumnConstraints();
@@ -24,7 +27,7 @@ public class CategoryPane {
 	    catPane.getColumnConstraints().add(col);
 		catPane.setAlignment(Pos.TOP_CENTER);
 		catPane.setStyle("-fx-alignment: center;");
-	    List<Label> labels = new ArrayList<Label>();
+	    List<Label> labels = new ArrayList<>();
 	    int count = 0;
 	    ArrayList<Category> cats = (ArrayList<Category>) selectedPlan.getValue().getCategories();
 	    for(Category cat : cats) {
