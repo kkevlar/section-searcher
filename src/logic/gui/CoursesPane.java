@@ -20,7 +20,7 @@ import logic.entity.Course;
 
 public class CoursesPane {
 	static GridPane coursePane = new GridPane();
-    static TableView<CheckedSection> sectionTable = new TableView<CheckedSection>();
+    static TableView<CheckedSection> sectionTable = new TableView<>();
     private CoursesPane() 
     {
         throw new IllegalStateException("Utility class");
