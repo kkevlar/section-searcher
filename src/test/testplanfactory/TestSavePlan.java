@@ -23,11 +23,11 @@ public class TestSavePlan {
 		ArrayList<Course> cscCourses = new ArrayList<>();
 		ArrayList<Course> mathCourses = new ArrayList<>();
 		
-		cscCourses.add(new Course("CSC 300", "", null));
-		cscCourses.add(new Course("CSC 225", "", null));
+		cscCourses.add(new Course("CSC 300", "CSC", null));
+		cscCourses.add(new Course("CSC 225", "CSC", null));
 		
-		mathCourses.add(new Course("MATH 306", "", null));
-		mathCourses.add(new Course("MATH 330", "", null));
+		mathCourses.add(new Course("MATH 306", "MATH", null));
+		mathCourses.add(new Course("MATH 330", "MATH", null));
 
 		categories.add(new Category("CSC classes",cscCourses,false));
 		categories.add(new Category("MATH classes",mathCourses,true));
