@@ -15,7 +15,6 @@ import logic.entity.Plan;
 public class CategoryPane {
 	public static GridPane getCategoryPane(SimpleObjectProperty<Plan> selectedPlan) {
 		GridPane catPane = new GridPane();
-		catPane = new GridPane();
 	    catPane.setAlignment(Pos.TOP_CENTER);
 	    catPane.setMinHeight(640);
 	    ColumnConstraints col = new ColumnConstraints();
