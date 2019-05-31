@@ -33,7 +33,7 @@ public class Course {
 	public Course(String name) {
 		this.sections = new ArrayList<>();
 		this.name = name.trim(); //.trim() removes whitespace from ends of string
-		this.department = "";
+		this.department = name.split(" ")[0];
 	}
 	
 	//use when all information is known

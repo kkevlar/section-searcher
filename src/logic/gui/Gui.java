@@ -40,6 +40,7 @@ import logic.entity.CheckedSection;
 import logic.entity.Course;
 import logic.entity.Plan;
 import logic.entity.Section;
+import logic.scraper.ClassDB;
 import logic.scraper.WebScraper;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
@@ -51,19 +52,16 @@ public class Gui extends Application{
 	static List<Course> courses;
 	static ObservableList<CheckedSection> sections = FXCollections.observableArrayList();
 	static ArrayList<Boolean> areInCat;
-	static Course course1 = new Course("101");
-	static Course course2 = new Course("202");
-	static Course course3 = new Course("203");
-	static Course course4 = new Course("357");
+	static ClassDB classDb = ClassDB.getInstance();
 	final GridPane coursePane = CoursesPane.getCoursesPane();
 	static GridPane catPane = new GridPane();
 	final GridPane planPane = PlanPane.getPlanPane();
 	final GridPane pane2 = new GridPane();
 	
 	public static void main(String[] args) {
-		WebScraper scraper = new WebScraper();
 		try {
-			courses = scraper.scrapeCoursesByDept("CPE");
+			classDb.scrapeAll();
+			courses = classDb.getCourses();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,7 +130,7 @@ public class Gui extends Application{
         gridPane.add(label2, 1, 0);
         gridPane.add(label1, 0, 0);
         
-	    pane2.setAlignment(Pos.CENTER);
+	    pane2.setAlignment (Pos.CENTER);
         pane2.getStyleClass().add("borders");
         pane2.getStyleClass().add("outside");
         pane2.setStyle("-fx-alignment: center;");
@@ -140,6 +138,14 @@ public class Gui extends Application{
         gridPane.add(planPane, 0, 1);
         gridPane.add(pane2, 1, 1);
         gridPane.add(coursePane, 2, 1);
+        sections = FXCollections.observableArrayList();
+        for(int i = 0; i < courses.size(); i++) {
+			ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
+			for(Section s : sects) {
+				sections.add(new CheckedSection(s, false));
+			}
+        }
+        CoursesPane.addItems(sections);
         addListeners();
         
 		stage.show();
@@ -147,7 +153,15 @@ public class Gui extends Application{
 	
 	private void addListeners() {
         selectedPlan.addListener((obs, newVal, oldVal)->{
-			CoursesPane.clearItems();
+        	CoursesPane.clearItems();
+        	sections = FXCollections.observableArrayList();
+	        for(int i = 0; i < courses.size(); i++) {
+				ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
+				for(Section s : sects) {
+					sections.add(new CheckedSection(s, false));
+				}
+	        }
+	        CoursesPane.addItems(sections);
         	for(int i=0; i < catPane.getChildren().size(); i++) {
         		catPane.getChildren().remove(0);
         	}
@@ -158,7 +172,7 @@ public class Gui extends Application{
             pane2.add(catPane, 0, 0);
         });
         selectedCategory.addListener((obs, newVal, oldVal)->{
-        	CoursesPane.clearItems();
+         	CoursesPane.clearItems();
 			sections = FXCollections.observableArrayList();
 	        for(int i = 0; i < courses.size(); i++) {
 				ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
@@ -234,6 +248,39 @@ public class Gui extends Application{
 	
 	public static List<Course> ListCourses(){
 		return courses;
+	}
+	
+	public static void searchCourses(String dept) {
+    	CoursesPane.clearItems();
+		sections = FXCollections.observableArrayList();
+		courses = ClassDB.filterDepartment(courses, dept);
+        for(int i = 0; i < courses.size(); i++) {
+			List<Section> sects = (List<Section>)courses.get(i).getSections();
+			for(Section s : sects) {
+				if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
+					sections.add(new CheckedSection(s, true));
+				}else {
+					sections.add(new CheckedSection(s, false));
+				}
+			}
+        }
+        CoursesPane.addItems(sections);
+	}
+	public static void clearSearch() {
+    	CoursesPane.clearItems();
+    	sections = FXCollections.observableArrayList();
+		courses = classDb.getCourses();
+        for(int i = 0; i < courses.size(); i++) {
+			List<Section> sects = (List<Section>)courses.get(i).getSections();
+			for(Section s : sects) {
+				if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
+					sections.add(new CheckedSection(s, true));
+				}else {
+					sections.add(new CheckedSection(s, false));
+				}
+			}
+        }
+        CoursesPane.addItems(sections);
 	}
 	
 }

@@ -4,7 +4,9 @@ import java.util.List;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
@@ -13,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import logic.entity.CheckedSection;
@@ -32,6 +35,22 @@ public class CoursesPane {
         textField.getStyleClass().add("search-bar");
         textField.getStyleClass().add("borders");
         coursePane.add(textField, 0, 0);
+        Button searchButton = new Button("Search");
+        searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent e) {
+                Gui.searchCourses(textField.textProperty().getValue());
+            }
+        });
+        coursePane.add(searchButton, 1, 0);
+
+        Button clearButton = new Button("Clear Search");
+        clearButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent e) {
+            	textField.clear();
+                Gui.clearSearch();
+            }
+        });
+        coursePane.add(clearButton, 1, 1);
         
         sectionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         sectionTable.setMinWidth(600);
@@ -115,7 +134,7 @@ public class CoursesPane {
         sectionTable.getColumns().add(column4);
 
         
-        coursePane.add(sectionTable, 0, 1);
+        coursePane.add(sectionTable, 0, 2);
 		
 		return coursePane;
 	}
