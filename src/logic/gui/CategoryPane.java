@@ -13,6 +13,10 @@ import logic.entity.Category;
 import logic.entity.Plan;
 
 public class CategoryPane {
+	private CategoryPane() 
+	{
+	    throw new IllegalStateException("Utility class");
+	}
 	public static GridPane getCategoryPane(SimpleObjectProperty<Plan> selectedPlan) {
 		GridPane catPane = new GridPane();
 	    catPane.setAlignment(Pos.TOP_CENTER);
