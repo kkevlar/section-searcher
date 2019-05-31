@@ -23,7 +23,7 @@ public class CategoryPane {
 	    catPane.getColumnConstraints().add(col);
 		catPane.setAlignment(Pos.TOP_CENTER);
 		catPane.setStyle("-fx-alignment: center;");
-	    List<Label> labels = new ArrayList<Label>();
+	    List<Label> labels = new ArrayList<>();
 	    int count = 0;
 	    ArrayList<Category> cats = (ArrayList<Category>) selectedPlan.getValue().getCategories();
 	    for(Category cat : cats) {
