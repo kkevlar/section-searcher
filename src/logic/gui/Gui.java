@@ -7,42 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import logic.entity.Category;
 import logic.entity.CheckedSection;
 import logic.entity.Course;
 import logic.entity.Plan;
 import logic.entity.Section;
 import logic.scraper.WebScraper;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ContentDisplay;
 
 public class Gui extends Application{
 
