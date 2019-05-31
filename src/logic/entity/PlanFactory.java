@@ -5,12 +5,17 @@ import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import java.io.StringWriter;
+
+import logic.scraper.ClassDB;
 
 
 public class PlanFactory {
@@ -19,6 +24,10 @@ public class PlanFactory {
 	
 	private static String path = "./saved_plans/";
 	
+	public static Plan makePlan(String name, int id, List<Category> categories) {
+		return new Plan(name, id, categories);
+	}
+	
 	public static void savePlan(Plan plan) {
 		String filename = path + plan.getName() + ".xml";
 		jaxbObjectToXML(plan, filename);
@@ -26,15 +35,51 @@ public class PlanFactory {
 	
 	public static Optional<Plan> getPlan(String name) {
 		String filename = path + name + ".xml";
-		return XMLToObject(filename);
+		Optional<Plan> optionalPlan = xmlToObject(filename);
+		
+		if(!optionalPlan.isPresent()) {
+			return optionalPlan;
+		}
+		
+		ClassDB db = ClassDB.getInstance();
+		db.scrapeAll();
+		Plan plan = optionalPlan.get();
+		
+		List<Category> categories = plan.getCategories();
+		
+		for(int i = 0; i < categories.size(); i++) {
+			Category category = categories.get(i);
+			
+			List<Course> emptyCourses = category.getCourses();
+			List<Course> filledCourses = new ArrayList<>();
+			
+			for(Course course : emptyCourses) {
+				String courseName = course.getName();
+				Course filledCourse = db.getCourse(courseName);
+				
+				if(filledCourse != null) {
+					filledCourses.add(filledCourse);
+				}	
+			}
+			
+			category.setCourses(filledCourses);
+		}
+		
+		return Optional.of(plan);
+			
 	}
 	
 	public static boolean deletePlan(String name) {
 		String filename = path + name + ".xml";
 		
-		File file = new File(filename);
+		try {
+			Path path = Paths.get(filename);
+			return Files.deleteIfExists(path);
+		}catch(IOException e) {
+			return false;
+		}
 		
-		return file.delete();
+		
 	}
 
 	public static List<String> getPlanList() {
@@ -74,26 +119,17 @@ public class PlanFactory {
             String xmlContent = sw.toString();
             
             //Create and write to the file given by filename
-            FileOutputStream outFile = null;
-            try {
-            	outFile = new FileOutputStream(filename, false); 
+            try(FileOutputStream outFile = new FileOutputStream(filename, false)) {
                 outFile.write(xmlContent.getBytes());
             }
-            finally {
-            	if(outFile != null) {
-            		outFile.close();
-            	}
-            }
+
         } 
-        catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
 	
-	private static Optional<Plan> XMLToObject(String filename){
+	private static Optional<Plan> xmlToObject(String filename){
 		
 		JAXBContext jaxbContext;
 		Optional<Plan> optional = Optional.empty();

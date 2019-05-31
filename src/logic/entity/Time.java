@@ -8,7 +8,7 @@ public class Time {
 	private int hours;
 	private int minutes;
 	
-	public Time(int hours, int minutes) throws IllegalArgumentException{
+	public Time(int hours, int minutes) {
 		if(hours >= 24 || hours < 0)
 			throw new IllegalArgumentException("Hours must be less than 24 or greater than or equal to 0");
 		if(minutes >= 60 || minutes < 0)
@@ -48,16 +48,14 @@ public class Time {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null)
-			return false;
+		boolean equal = true;
+		if (other == null||
+				other.getClass() != this.getClass()||
+				this.hours != ((Time)other).hours || 
+				this.minutes != ((Time)other).minutes)
+			equal = false;
 		
-		if (other.getClass() != this.getClass())
-			return false;
-		
-		if(this.hours != ((Time)other).hours || this.minutes != ((Time)other).minutes)
-			return false;
-		
-		return true;
+		return equal;
 	}
 	
 

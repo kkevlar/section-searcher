@@ -34,7 +34,6 @@ public class Category{
 		this.name = name.trim();
 		this.courses = courses;
 		this.isAvailable = isAvailable;
-		this.courses = courses;
 	}
 	
 	@Override
@@ -61,6 +60,10 @@ public class Category{
 	
 	public List<Course> getCourses() {return this.courses;}
 	
+	public void setCourses(List<Course> newCourses) {
+		this.courses = newCourses;
+	}
+	
 	public void addCourse(Course course) {
 		this.courses.add(course);
 	}
@@ -73,16 +76,10 @@ public class Category{
 	public boolean equals(Object other) {
 		boolean equal = true;
 		
-		if (other == null)
-			equal = false;
-		
-		else if (other.getClass() != this.getClass())
-			equal = false;
-		
-		else if(this.isAvailable != ((Category)other).isAvailable)
-			equal = false;
-		
-		else if(!this.name.equals(((Category)other).name))
+		if (other == null ||
+				other.getClass() != this.getClass() ||
+				this.isAvailable != ((Category)other).isAvailable ||
+				!this.name.equals(((Category)other).name))
 			equal = false;
 		
 		return equal;
