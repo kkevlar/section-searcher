@@ -1,5 +1,0 @@
-1. The system shall display whether each class on a given list currently has
-available sections.
-2. The system shall allow [1,100] classes on the search list.
-3. The system shall provide ability to sort the class list by shortest waitlist
-

@@ -23,7 +23,11 @@ import logic.entity.Course;
 
 public class CoursesPane {
 	static GridPane coursePane = new GridPane();
-    static TableView<CheckedSection> sectionTable = new TableView<CheckedSection>();
+    static TableView<CheckedSection> sectionTable = new TableView<>();
+    private CoursesPane() 
+    {
+        throw new IllegalStateException("Utility class");
+    }
 	public static GridPane getCoursesPane() {
 	    coursePane.setAlignment(Pos.TOP_CENTER);
         coursePane.getStyleClass().add("borders");

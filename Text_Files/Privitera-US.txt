@@ -1,3 +1,0 @@
-1. As an engineering department advisor at Cal Poly, I want to see which additional classes are most likely to fit with a student’s preexisting schedule, so I can help students in an easier and more streamlined fashion.
-2. As a computer science major, I wish to see which tech electives have the shortest waitlists, so that I can better register for classes.
-3. As a member of the General Education Coordination Committee, I wish to evaluate how the general availability of GE courses changes through the time elapsed during the registration rotations, so I can argue for pertinent changes to the way GE courses are offered to better serve the student body.
