@@ -1,5 +1,0 @@
-1) The system shall provide the polyrating score of each professor for all listed classes.
-
-2) The system shall provide only classes that do not conflict with the entered schedule.
-
-3) The system shall provide a visual representation of potential schedules.
