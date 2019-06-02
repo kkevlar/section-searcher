@@ -69,22 +69,30 @@ public class WebScraper
 	public List<Course> get_Course_List(List<ArrayList<String>> class_list)
 	{
 		TimeBlock[] times;
-		Time startTime, endTime;
-		CourseData data, data1;
-		Course course, course1;
-		ArrayList<Course> course_list;
-		ArrayList<Section> sect_list;
+		Time startTime;
+		Time endTime;
+		CourseData data;
+		CourseData data1;
+		Course course;
+		Course course1;
+		ArrayList<Course> courseList;
+		ArrayList<Section> sectList;
 		String id;
-		int[] startTimeList, endTimeList;
-		int i, j, k, l, spots;
+		int[] startTimeList;
+		int[] endTimeList;
+		int i;
+		int j;
+		int k;
+		int l;
+		int spots;
 
-		course_list = new ArrayList<Course>();
+		courseList = new ArrayList<>();
 		i = 1;
 		while (i < class_list.size())
 		{
 			data = new CourseData(class_list.get(i));
 			course = new Course(getCourseID(data.getCourse()));
-			sect_list = new ArrayList<Section>();
+			sectList = new ArrayList<>();
 			id = data.getCourse();
 			j = i;
 			while (j < class_list.size() && id.equals(data.getCourse()))
@@ -101,7 +109,6 @@ public class WebScraper
 				endTimeList = parseTime(data1.getEnd());
 				for (k = 0; k < data1.getDays().length(); k ++)
 				{
-					l = 0;
 					if (data1.getDays().charAt(k) == 'M') {l = 1;}
 					else if (data1.getDays().charAt(k) == 'T') {l = 2;}
 					else if (data1.getDays().charAt(k) == 'W') {l = 3;}
@@ -112,15 +119,15 @@ public class WebScraper
 					endTime = new Time(endTimeList[0], endTimeList[1]);
 					times[l] = new TimeBlock(startTime, endTime);
 				}
-				sect_list.add(new Section(data1.getSect(), times, course1.getName(), spots));
+				sectList.add(new Section(data1.getSect(), times, course1.getName(), spots));
 				j ++;
 			}
 			i = j + 1;
-			course.setSections(sect_list);
-			course_list.add(course);
+			course.setSections(sectList);
+			courseList.add(course);
 		}
 
-		return course_list;
+		return courseList;
 	}
 	
 	public String getCourseID(String name)

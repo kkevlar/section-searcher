@@ -8,10 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import logic.entity.Course;
 import logic.scraper.ClassDB;
 import logic.scraper.DepartmentLister;
-import logic.scraper.WebScraper;
 
 public class TestClassDBScrapeDeptLoop 
 {
