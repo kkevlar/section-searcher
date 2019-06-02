@@ -11,18 +11,20 @@ import logic.entity.Course;
 import logic.entity.Plan;
 
 public class PlanPane {
+	static List<Plan> plans;
 	public static GridPane getPlanPane() {
 		GridPane planPane = new GridPane();
         planPane.setAlignment(Pos.TOP_CENTER);
         planPane.getStyleClass().add("borders");
         planPane.getStyleClass().add("outside");
         planPane.setStyle("-fx-alignment: center;");
-        List<Plan> plans = new ArrayList<Plan>();
-        plans.add(new Plan("Plan 1", 1, new ArrayList<Category>()));
-
-    	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
-    	plans.get(0).addCategory(new Category("Major Courses", new ArrayList<Course>(), false));
-        plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
+        if(plans.isEmpty()) {
+	        plans.add(new Plan("Plan 1", 1, new ArrayList<Category>()));
+	
+	    	plans.get(0).addCategory(new Category("GE's",new ArrayList<Course>(), false));
+	    	plans.get(0).addCategory(new Category("Major Courses", new ArrayList<Course>(), false));
+	        plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
+        }
         List<Label> labels = new ArrayList<Label>();
         int count = 0;
         for(Plan plan : plans) {
@@ -45,5 +47,8 @@ public class PlanPane {
         	count++;
         }
 		return planPane;
+	}
+	public static void setPlans(List<Plan> p) {
+		plans = p;
 	}
 }
