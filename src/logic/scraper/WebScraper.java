@@ -3,8 +3,8 @@ package logic.scraper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -25,6 +25,7 @@ public class WebScraper
 	public List<Course> scrapeCoursesByDept(String dept)
 	{
 		String combinedCSV = "";
+		StringBuilder bld = new StringBuilder();
 		
 		try (final WebClient webClient = new WebClient()) {
 			PrintStream oldErr = System.err;
@@ -34,39 +35,31 @@ public class WebScraper
 			System.setErr(oldErr);
 			final HtmlTable table = page.getHtmlElementById("listing");
 	        for (final HtmlTableRow row : table.getRows()) {
-	            combinedCSV += ("\n");
+	            bld.append("\n");
 	            for (final HtmlTableCell cell : row.getCells()) {
-	            	 combinedCSV += ( cell.asText() +",");
+	            	bld.append(cell.asText() +",");
 	            }
+	            combinedCSV = bld.toString();
 	        }
-	    } catch (FailingHttpStatusCodeException e) 
+	    } 
+		catch (FailingHttpStatusCodeException|IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (MalformedURLException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		}		
 		if(combinedCSV.length() > 1)
 		{
 			combinedCSV = combinedCSV.substring(1);
 		}
 		else
 		{
-			return null;
+			return Collections.emptyList();
 		}
 		
-		return get_Course_List(ParseHtml.parselines(combinedCSV));
+		return getCourseList(ParseHtml.parselines(combinedCSV));
 		
 	}
 	
-	public List<Course> get_Course_List(List<ArrayList<String>> class_list)
+	public List<Course> getCourseList(List<ArrayList<String>> classList)
 	{
 		TimeBlock[] times;
 		Time startTime;
@@ -88,16 +81,16 @@ public class WebScraper
 
 		courseList = new ArrayList<>();
 		i = 1;
-		while (i < class_list.size())
+		while (i < classList.size())
 		{
-			data = new CourseData(class_list.get(i));
+			data = new CourseData(classList.get(i));
 			course = new Course(getCourseID(data.getCourse()));
 			sectList = new ArrayList<>();
 			id = data.getCourse();
 			j = i;
-			while (j < class_list.size() && id.equals(data.getCourse()))
+			while (j < classList.size() && id.equals(data.getCourse()))
 			{
-				data1 = new CourseData(class_list.get(j));
+				data1 = new CourseData(classList.get(j));
 				course1 = new Course(getCourseID(data1.getCourse()));
 				id = data1.getCourse();
 				spots = data1.getLcap() - data1.getEnrl();

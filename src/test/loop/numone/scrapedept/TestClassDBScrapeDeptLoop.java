@@ -34,6 +34,7 @@ public class TestClassDBScrapeDeptLoop
 		departments.add("CSC");
 		
 		ClassDB classDb = ClassDB.getInstance();
+		classDb.getCourses().removeIf(s->true);
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
@@ -41,6 +42,7 @@ public class TestClassDBScrapeDeptLoop
 		
 		boolean hasAtLeastOneCourse = classDb.getCourses().size() > 0;
 		classDb.getCourses().stream().forEach(c -> System.out.println(c));
+		classDb.getCourses().stream().forEach(s->System.out.println(s));
 		boolean allCoursesCSC = classDb.getCourses().stream().filter(c -> c.getDepartment().equals("CSC")).count() == classDb.getCourses().size();
 		
 		assertTrue(hasAtLeastOneCourse && allCoursesCSC);
@@ -54,6 +56,8 @@ public class TestClassDBScrapeDeptLoop
 		departments.add("MATH");
 		
 		ClassDB classDb = ClassDB.getInstance();
+		classDb.getCourses().removeIf(s->true);
+		
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
