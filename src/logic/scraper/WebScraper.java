@@ -1,6 +1,7 @@
 package logic.scraper;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.StringBuilder;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
@@ -25,6 +26,7 @@ public class WebScraper
 	public List<Course> scrapeCoursesByDept(String dept)
 	{
 		String combinedCSV = "";
+		StringBuilder bld = new StringBuilder();
 		
 		try (final WebClient webClient = new WebClient()) {
 			PrintStream oldErr = System.err;
@@ -34,10 +36,11 @@ public class WebScraper
 			System.setErr(oldErr);
 			final HtmlTable table = page.getHtmlElementById("listing");
 	        for (final HtmlTableRow row : table.getRows()) {
-	            combinedCSV += ("\n");
+	            bld.append("\n");
 	            for (final HtmlTableCell cell : row.getCells()) {
-	            	 combinedCSV += ( cell.asText() +",");
+	            	bld.append(cell.asText() +",");
 	            }
+	            combinedCSV = bld.toString();
 	        }
 	    } catch (FailingHttpStatusCodeException e) 
 		{
