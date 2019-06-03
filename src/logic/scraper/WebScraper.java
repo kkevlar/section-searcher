@@ -3,8 +3,8 @@ package logic.scraper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -52,7 +52,7 @@ public class WebScraper
 		}
 		else
 		{
-			return null;
+			return Collections.emptyList();
 		}
 		
 		return getCourseList(ParseHtml.parselines(combinedCSV));
