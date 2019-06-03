@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "plan")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Plan {
+	
 	@XmlElement(name = "name")
 	private String name;
 	
@@ -34,12 +35,12 @@ public class Plan {
 	
 	@Override
 	public String toString() {
-		String output = "Plan(name=" + this.name + ", id=" + this.id + "):\n";
+		StringBuilder bld = new StringBuilder();
+		bld.append("Plan(name=" + this.name + ", id=" + this.id + "):\n");
 		for(Category cat : categories) {
-			output += "   " + cat.toString();
+			bld.append("   " + cat.toString());
 		}
-		
-		return output;
+		return bld.toString();
 	}
 	
 	public String getName() {return this.name;}
