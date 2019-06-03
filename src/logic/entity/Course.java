@@ -59,11 +59,6 @@ public class Course {
 	public void setName(String name) {
 		this.name = name.trim();
 	} 
-	
-	//TODO: implement isAvailable
-	public boolean isAvailable() {
-		return true;
-	}
 
 	public List<Section> getSections() {
 		return sections;
@@ -83,35 +78,63 @@ public class Course {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null)
-			return false;
+		boolean equal = true;
 		
-		if (other.getClass() != this.getClass())
-			return false;
+		if (other == null ||
+				other.getClass() != this.getClass() ||
+				!this.equalName((Course)other) ||
+				!this.equalDepartment((Course)other) ||
+				!this.equalSections((Course) other))
+			equal = false;
 		
-		if(this.name != null && ((Course)other).name == null)
-			return false;
+		return equal;
+	}
+	
+	private boolean equalName(Course other) {
+		boolean equal = true;
+		if(this.name != null) {
+			if(other.name == null)
+				equal = false;
+			else
+				equal = this.name.equals(other.name);
+		}
+		else if(other.name != null)
+				equal = false;
 		
-		if(this.name != null && ((Course)other).name != null && !this.name.contentEquals(((Course)other).name))
-			return false;
+		return equal;
+	}
+	
+	private boolean equalDepartment(Course other) {
+		boolean equal = true;
+		if(this.department != null) {
+			if(other.department == null)
+				equal = false;
+			else
+				equal = this.department.equals(other.department);
+		}
+		else if(other.department != null)
+				equal = false;
 		
-		if(this.department != null && ((Course)other).department == null)
-			return false;
+		return equal;
+	}
+	
+	private boolean equalSections(Course other) {
+		boolean equal = true;
 		
-		if(this.department != null && ((Course)other).department != null && !this.department.contentEquals(((Course)other).department))
-			return false;
-		
-		if(this.sections != null && ((Course)other).sections == null)
-			return false;
-		
-		if(this.sections != null && ((Course)other).sections != null) {		
-			for(int i = 0; i < this.sections.size(); i++) {
-				if(!this.sections.get(i).equals(((Course)other).sections.get(i)))
-					return false;
+		if(this.sections != null) {
+			if(other.sections == null)
+				equal = false;
+			else {
+				for(int i = 0; i < this.sections.size(); i++) {
+					if(!this.sections.get(i).equals(((Course)other).sections.get(i)))
+						equal = false;
+				}
 			}
 		}
+		else if(other.sections != null)
+			equal = false;
 		
-		return true;
+		return equal;
 	}
 	
 	@Override
