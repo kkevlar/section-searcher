@@ -24,6 +24,7 @@ import logic.entity.Course;
 public class CoursesPane {
 	static GridPane coursePane = new GridPane();
     static TableView<CheckedSection> sectionTable = new TableView<>();
+    static String tableCellStyle = "table-cell";
     private CoursesPane() 
     {
         throw new IllegalStateException("Utility class");
@@ -102,16 +103,11 @@ public class CoursesPane {
 	        	CheckedSection selected = ((CheckedSection)cell.getTableRow().getItem());
 	        	if(selected != null) {
 	        		selected.setChecked(isSelected);
-	            	for(Course c : Gui.listCourses()) {
-            			if(c.getName() == selected.getCourseName() &&
-            					!Gui.selectedCategoryContains(c) && 
-            					selected.getChecked()) {
-    		            	Gui.addCourseToCategory(c);
-            			}else if(c.getName() == selected.getCourseName() &&
-            					!Gui.selectedCategoryContains(c)) {
-    		            	Gui.removeCourseFromCategory(c);
-            			}
-            		}
+	            	if(selected.getChecked()) {
+	            		findAndAddCourse(selected);
+	            	}else {
+	            		findAndRemoveCourse(selected);
+	            	}
 		            
 	            }
 	            });
@@ -121,6 +117,25 @@ public class CoursesPane {
         });
         return column1;
 	}
+	
+	private static void findAndRemoveCourse(CheckedSection selected) {
+		for(Course c : Gui.listCourses()) {
+			if(c.getName() == selected.getCourseName() &&
+					!Gui.selectedCategoryContains(c)) {
+            	Gui.removeCourseFromCategory(c);
+			}
+		}
+	}
+	
+	private static void findAndAddCourse(CheckedSection selected) {
+		for(Course c : Gui.listCourses()) {
+			if(c.getName() == selected.getCourseName() &&
+					!Gui.selectedCategoryContains(c)) {
+            	Gui.addCourseToCategory(c);
+			}
+		}
+	}
+	
 	private static TableColumn<CheckedSection, String> getColumn2(){
 		TableColumn<CheckedSection, String> column2 = new TableColumn<>("Code");
         column2.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
@@ -129,7 +144,7 @@ public class CoursesPane {
             }
         });
         column2.setMinWidth(150);
-        column2.getStyleClass().add("table-cell");
+        column2.getStyleClass().add(tableCellStyle);
         return column2;
 	}
 	
@@ -141,7 +156,7 @@ public class CoursesPane {
             }
         });
         column3.setMinWidth(150);
-        column3.getStyleClass().add("table-cell");
+        column3.getStyleClass().add(tableCellStyle);
         return column3;
 	}
 	private static TableColumn<CheckedSection, String> getColumn4(){
@@ -152,7 +167,7 @@ public class CoursesPane {
 	        }
 	    });
 	    column4.setMinWidth(150);
-	    column4.getStyleClass().add("table-cell");
+	    column4.getStyleClass().add(tableCellStyle);
 	    return column4;
 	}
 	

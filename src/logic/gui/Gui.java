@@ -170,33 +170,6 @@ public class Gui extends Application{
             pane2.add(catPane, 0, 0);
         });
         selectedCategory.addListener((obs, newVal, oldVal)->resetCourses());
-        sections.addListener(new ListChangeListener<CheckedSection>() {
-
-            @Override
-            public void onChanged(ListChangeListener.Change<? extends CheckedSection> col) {
-                while (col.next()) {
-                    if (col.wasUpdated()) {
-                    	int param = col.getFrom();
-                    	if(sections.get(param).getChecked()) {
-                    		for(Course c : courses) {
-                    			if(c.getName() == sections.get(param).getCourseName() &&
-                    					!selectedCategory.getValue().getCourses().contains(c)) {
-                    				selectedCategory.getValue().addCourse(c);
-                    			}
-                    		}
-                    	} else {
-                    		for(Course c : courses) {
-                    			if(c.getName() == sections.get(param).getCourseName() &&
-                    					!selectedCategory.getValue().getCourses().contains(c)) {
-                    				selectedCategory.getValue().removeCourse(c);
-                    			}
-                    		}
-                    	}
-                    	resetCourses();
-                    }
-                  }
-            }
-        });
 	}
 	
 	public static void setSelectPlan(Plan plan) {
