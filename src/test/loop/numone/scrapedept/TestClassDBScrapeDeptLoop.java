@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import logic.entity.Course;
 import logic.scraper.ClassDB;
 import logic.scraper.DepartmentLister;
 
@@ -41,9 +42,15 @@ public class TestClassDBScrapeDeptLoop
 		}
 		
 		boolean hasAtLeastOneCourse = classDb.getCourses().size() > 0;
-		classDb.getCourses().stream().forEach(c -> System.out.println(c));
-		classDb.getCourses().stream().forEach(s->System.out.println(s));
-		boolean allCoursesCSC = classDb.getCourses().stream().filter(c -> c.getDepartment().equals("CSC")).count() == classDb.getCourses().size();
+		boolean allCoursesCSC;
+		int numCscCourses = 0;
+		for( Course c: classDb.getCourses())
+		{
+			if(c.getDepartment().equals("CSC"))
+				numCscCourses++;
+			
+		}
+		allCoursesCSC = numCscCourses == classDb.getCourses().size();
 		
 		assertTrue(hasAtLeastOneCourse && allCoursesCSC);
 	}
