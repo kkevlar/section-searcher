@@ -126,7 +126,7 @@ public class Course {
 				equal = false;
 			else {
 				for(int i = 0; i < this.sections.size(); i++) {
-					if(!this.sections.get(i).equals(((Course)other).sections.get(i)))
+					if(!this.sections.get(i).equals(other.sections.get(i)))
 						equal = false;
 				}
 			}
