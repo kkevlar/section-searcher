@@ -23,7 +23,6 @@ import logic.entity.TimeBlock;
 
 public class WebScraper 
 {
-	private final static Logger LOGGER = Logger.getLogger(WebScraper.class.getName());
 	
 	public List<Course> scrapeCoursesByDept(String dept)
 	{
@@ -31,11 +30,7 @@ public class WebScraper
 		StringBuilder bld = new StringBuilder();
 		
 		try (final WebClient webClient = new WebClient()) {
-			PrintStream oldErr = System.err;
-			PrintStream newErr = new PrintStream(new ByteArrayOutputStream());
-			System.setErr(newErr);
 			final HtmlPage page = webClient.getPage("http://schedules.calpoly.edu/subject_" + dept + "_2198.htm");
-			System.setErr(oldErr);
 			final HtmlTable table = page.getHtmlElementById("listing");
 	        for (final HtmlTableRow row : table.getRows()) {
 	            bld.append("\n");

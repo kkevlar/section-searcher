@@ -20,6 +20,8 @@ public class TestClassDBScrapeDeptLoop
 		List<String> departments = new ArrayList<>();
 		
 		ClassDB classDb = ClassDB.getInstance();
+		classDb.getCourses().removeIf(s->true);
+		
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
@@ -36,6 +38,7 @@ public class TestClassDBScrapeDeptLoop
 		
 		ClassDB classDb = ClassDB.getInstance();
 		classDb.getCourses().removeIf(s->true);
+		
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
@@ -91,6 +94,8 @@ public class TestClassDBScrapeDeptLoop
 		List<String> departments = lister.getDepartmentList();
 		
 		ClassDB classDb = ClassDB.getInstance();
+		classDb.getCourses().removeIf(s->true);
+		
 		for(String department : departments)
 		{
 			classDb.scrapeAndAddDepartment(department);
