@@ -1,13 +1,9 @@
-package test.parseScrapeData;
+package test.parsescrapedata;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 
-import logic.entity.Course;
-import logic.scraper.ParseHtml;
 import logic.scraper.WebScraper;
 
 public class TestWebScraperParsing {

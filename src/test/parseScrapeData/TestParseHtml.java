@@ -1,4 +1,4 @@
-package test.parseScrapeData;
+package test.parsescrapedata;
 
 import static org.junit.Assert.assertTrue;
 
