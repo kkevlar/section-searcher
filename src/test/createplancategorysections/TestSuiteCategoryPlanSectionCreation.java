@@ -1,4 +1,4 @@
-package test.CategoryPlanSectionList;
+package test.createplancategorysections;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

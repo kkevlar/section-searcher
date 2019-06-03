@@ -1,4 +1,4 @@
-package test.categoryPlanSectionObjCreation;
+package test.createplancategorysections;
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
