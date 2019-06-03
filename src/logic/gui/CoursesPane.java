@@ -102,21 +102,17 @@ public class CoursesPane {
 	        	CheckedSection selected = ((CheckedSection)cell.getTableRow().getItem());
 	        	if(selected != null) {
 	        		selected.setChecked(isSelected);
-		            if(selected.getChecked()) {
-		            	for(Course c : Gui.listCourses()) {
-	            			if(c.getName() == selected.getCourseName() &&
-	            					!Gui.selectedCategoryContains(c)) {
-	            				Gui.addCourseToCategory(c);
-	            			}
-	            		}
-		            } else {
-	            		for(Course c : Gui.listCourses()) {
-	            			if(c.getName() == selected.getCourseName() &&
-	            					!Gui.selectedCategoryContains(c)) {
-	            				Gui.removeCourseFromCategory(c);
-	            			}
-	            		}
-	            	}
+	            	for(Course c : Gui.listCourses()) {
+            			if(c.getName() == selected.getCourseName() &&
+            					!Gui.selectedCategoryContains(c) && 
+            					selected.getChecked()) {
+    		            	Gui.addCourseToCategory(c);
+            			}else if(c.getName() == selected.getCourseName() &&
+            					!Gui.selectedCategoryContains(c)) {
+    		            	Gui.removeCourseFromCategory(c);
+            			}
+            		}
+		            
 	            }
 	            });
 	        cell.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
