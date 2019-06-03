@@ -82,14 +82,14 @@ public class CoursesPane {
 	        	if(selected != null) {
 	        		selected.setChecked(isSelected);
 		            if(selected.getChecked()) {
-		            	for(Course c : Gui.ListCourses()) {
+		            	for(Course c : Gui.listCourses()) {
 	            			if(c.getName() == selected.getCourseName() &&
 	            					!Gui.selectedCategoryContains(c)) {
 	            				Gui.addCourseToCategory(c);
 	            			}
 	            		}
 		            } else {
-	            		for(Course c : Gui.ListCourses()) {
+	            		for(Course c : Gui.listCourses()) {
 	            			if(c.getName() == selected.getCourseName() &&
 	            					!Gui.selectedCategoryContains(c)) {
 	            				Gui.removeCourseFromCategory(c);
@@ -107,7 +107,7 @@ public class CoursesPane {
         TableColumn<CheckedSection, String> column2 = new TableColumn<>("Code");
         column2.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
-                return new ReadOnlyObjectWrapper<String>(s.getValue().getCourseName());
+                return new ReadOnlyObjectWrapper<>(s.getValue().getCourseName());
             }
         });
         column2.setMinWidth(150);
@@ -116,7 +116,7 @@ public class CoursesPane {
         TableColumn<CheckedSection, String> column3 = new TableColumn<>("Section Id");
         column3.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
-                return new ReadOnlyObjectWrapper<String>(s.getValue().getID());
+                return new ReadOnlyObjectWrapper<>(s.getValue().getID());
             }
         });
         column3.setMinWidth(150);
@@ -126,7 +126,7 @@ public class CoursesPane {
         TableColumn<CheckedSection, String> column4 = new TableColumn<>("Open Spots");
         column4.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
-                return new ReadOnlyObjectWrapper<String>("" + s.getValue().getOpenSpots());
+                return new ReadOnlyObjectWrapper<>("" + s.getValue().getOpenSpots());
             }
         });
         column4.setMinWidth(150);

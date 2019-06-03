@@ -33,29 +33,28 @@ import logic.entity.Plan;
 import logic.entity.PlanFactory;
 import logic.entity.Section;
 import logic.scraper.ClassDB;
-import logic.scraper.WebScraper;
 
 public class Gui extends Application{
 
-	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<Plan>(new Plan("", 1, new ArrayList<Category>()));
-	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<Category>(new Category("",new ArrayList<Course>(), false));
+	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<>(new Plan("", 1, new ArrayList<Category>()));
+	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<>(new Category("",new ArrayList<Course>(), false));
 	static List<Course> courses;
-	static List<Plan> plans = new ArrayList<Plan>();
+	static List<Plan> plans = new ArrayList<>();
 	static ObservableList<CheckedSection> sections = FXCollections.observableArrayList();
 	static ArrayList<Boolean> areInCat;
 	static ClassDB classDb = ClassDB.getInstance();
 	final GridPane coursePane = CoursesPane.getCoursesPane();
 	static GridPane catPane = new GridPane();
 	static GridPane planPane;
-	final GridPane pane2 = new GridPane();
+	final static GridPane pane2 = new GridPane();
 	
 	public static void main(String[] args) {
 		try {
-			//classDb.scrapeAll();
+			classDb.scrapeAll();
 			courses = classDb.getCourses();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		launch(args);
 	}
@@ -166,17 +165,9 @@ public class Gui extends Application{
 		stage.show();
 	}
 	
-	private void addListeners() {
+	private static void addListeners() {
         selectedPlan.addListener((obs, newVal, oldVal)->{
-        	CoursesPane.clearItems();
-        	sections = FXCollections.observableArrayList();
-	        for(int i = 0; i < courses.size(); i++) {
-				ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
-				for(Section s : sects) {
-					sections.add(new CheckedSection(s, false));
-				}
-	        }
-	        CoursesPane.addItems(sections);
+        	resetCourses();
         	for(int i=0; i < catPane.getChildren().size(); i++) {
         		catPane.getChildren().remove(0);
         	}
@@ -187,19 +178,7 @@ public class Gui extends Application{
             pane2.add(catPane, 0, 0);
         });
         selectedCategory.addListener((obs, newVal, oldVal)->{
-         	CoursesPane.clearItems();
-			sections = FXCollections.observableArrayList();
-	        for(int i = 0; i < courses.size(); i++) {
-				ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
-				for(Section s : sects) {
-					if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
-						sections.add(new CheckedSection(s, true));
-					}else {
-						sections.add(new CheckedSection(s, false));
-					}
-				}
-	        }
-			CoursesPane.addItems(sections);
+         	resetCourses();
         });
         sections.addListener(new ListChangeListener<CheckedSection>() {
 
@@ -223,19 +202,7 @@ public class Gui extends Application{
                     			}
                     		}
                     	}
-                    	CoursesPane.clearItems();
-            			sections = FXCollections.observableArrayList();
-            	        for(int i = 0; i < courses.size(); i++) {
-            				ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
-            				for(Section s : sects) {
-            					if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
-            						sections.add(new CheckedSection(s, true));
-            					}else {
-            						sections.add(new CheckedSection(s, false));
-            					}
-            				}
-            	        }
-            	        CoursesPane.addItems(sections);
+                    	resetCourses();
                     }
                   }
             }
@@ -261,7 +228,7 @@ public class Gui extends Application{
 		selectedCategory.getValue().removeCourse(c);
 	}
 	
-	public static List<Course> ListCourses(){
+	public static List<Course> listCourses(){
 		return courses;
 	}
 	
@@ -293,6 +260,18 @@ public class Gui extends Application{
 				}else {
 					sections.add(new CheckedSection(s, false));
 				}
+			}
+        }
+        CoursesPane.addItems(sections);
+	}
+	
+	private static void resetCourses() {
+		CoursesPane.clearItems();
+    	sections = FXCollections.observableArrayList();
+        for(int i = 0; i < courses.size(); i++) {
+			ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
+			for(Section s : sects) {
+				sections.add(new CheckedSection(s, false));
 			}
         }
         CoursesPane.addItems(sections);
