@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -22,6 +23,8 @@ import logic.entity.TimeBlock;
 
 public class WebScraper 
 {
+	private final static Logger LOGGER = Logger.getLogger(WebScraper.class.getName());
+	
 	public List<Course> scrapeCoursesByDept(String dept)
 	{
 		String combinedCSV = "";
@@ -62,8 +65,6 @@ public class WebScraper
 	public List<Course> getCourseList(List<ArrayList<String>> classList)
 	{
 		TimeBlock[] times;
-		Time startTime;
-		Time endTime;
 		CourseData data;
 		CourseData data1;
 		Course course;
@@ -71,12 +72,8 @@ public class WebScraper
 		ArrayList<Course> courseList;
 		ArrayList<Section> sectList;
 		String id;
-		int[] startTimeList;
-		int[] endTimeList;
 		int i;
 		int j;
-		int k;
-		int l;
 		int spots;
 
 		courseList = new ArrayList<>();
@@ -96,22 +93,7 @@ public class WebScraper
 				spots = data1.getLcap() - data1.getEnrl();
 				if (spots < 0)
 					spots = 0;
-				// set up time block
-				times = new TimeBlock[7];
-				startTimeList = parseTime(data1.getStart());
-				endTimeList = parseTime(data1.getEnd());
-				for (k = 0; k < data1.getDays().length(); k ++)
-				{
-					if (data1.getDays().charAt(k) == 'M') {l = 1;}
-					else if (data1.getDays().charAt(k) == 'T') {l = 2;}
-					else if (data1.getDays().charAt(k) == 'W') {l = 3;}
-					else if (data1.getDays().charAt(k) == 'R') {l = 4;}
-					else if (data1.getDays().charAt(k) == 'F') {l = 5;}
-					else {l = 0;} // bad news bears
-					startTime = new Time(startTimeList[0], startTimeList[1]);
-					endTime = new Time(endTimeList[0], endTimeList[1]);
-					times[l] = new TimeBlock(startTime, endTime);
-				}
+				times = getTimeBlock(data1);
 				sectList.add(new Section(data1.getSect(), times, course1.getName(), spots));
 				j ++;
 			}
@@ -121,6 +103,34 @@ public class WebScraper
 		}
 
 		return courseList;
+	}
+
+	public TimeBlock[] getTimeBlock(CourseData data1)
+	{
+		TimeBlock[] times;
+		Time startTime;
+		Time endTime;
+		int[] startTimeList;
+		int[] endTimeList;
+		int k;
+		int l;
+
+		times = new TimeBlock[7];
+		startTimeList = parseTime(data1.getStart());
+		endTimeList = parseTime(data1.getEnd());
+		for (k = 0; k < data1.getDays().length(); k ++)
+		{
+			if (data1.getDays().charAt(k) == 'M') {l = 1;}
+			else if (data1.getDays().charAt(k) == 'T') {l = 2;}
+			else if (data1.getDays().charAt(k) == 'W') {l = 3;}
+			else if (data1.getDays().charAt(k) == 'R') {l = 4;}
+			else if (data1.getDays().charAt(k) == 'F') {l = 5;}
+			else {l = 0;} // bad news bears
+			startTime = new Time(startTimeList[0], startTimeList[1]);
+			endTime = new Time(endTimeList[0], endTimeList[1]);
+			times[l] = new TimeBlock(startTime, endTime);
+		}
+		return times;
 	}
 	
 	public String getCourseID(String name)
