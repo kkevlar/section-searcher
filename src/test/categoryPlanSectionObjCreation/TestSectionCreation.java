@@ -1,13 +1,9 @@
-package test.CategoryPlanSectionList;
+package test.categoryPlanSectionObjCreation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Test;
-import logic.entity.Category;
-import logic.entity.Course;
 import logic.entity.Section;
 import logic.entity.Time;
 import logic.entity.TimeBlock;

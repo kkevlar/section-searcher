@@ -1,4 +1,4 @@
-package test.CategoryPlanSectionList;
+package test.categoryPlanSectionObjCreation;
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class TestPlanCreation {
 				"   Category(name=Major, isAvailable=true):\n      Course(name=C0, department=CSC)\n";
 		
 		//Category creation
-		List<Course> inputCourses = new ArrayList<Course>();
+		List<Course> inputCourses = new ArrayList<>();
 		Category major = new Category("Major",inputCourses,true);
 		List<Section> sections = new ArrayList<>();
 		Section section = new Section("S0", null);

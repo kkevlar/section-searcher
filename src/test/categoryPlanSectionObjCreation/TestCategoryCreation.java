@@ -1,4 +1,4 @@
-package test.CategoryPlanSectionList;
+package test.categoryPlanSectionObjCreation;
 
 
 
@@ -14,7 +14,7 @@ import logic.entity.Section;
 public class TestCategoryCreation {
 	@Test
 	public void testCategoryWithMultipleCourses() {
-		List<Course> inputCourses = new ArrayList<>();
+		List<Course> inputCourses;
 		String expectedToString = "Category(name=Major, isAvailable=true):\n" + 
 				"      Course(name=C0, department=CSC)\n" + 
 				"      Course(name=C1, department=CSC)\n" + 
@@ -41,7 +41,7 @@ public class TestCategoryCreation {
 	
 	@Test
 	public void testGettersAndSetters() {
-		List<Course> inputCourses = new ArrayList<>();
+		List<Course> inputCourses;
 		
 		String testName = "testName";
 		Course testCourse = new Course();
