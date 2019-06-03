@@ -1,7 +1,6 @@
 package logic.scraper;
 
 import java.io.ByteArrayOutputStream;
-import java.lang.StringBuilder;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
@@ -42,20 +41,11 @@ public class WebScraper
 	            }
 	            combinedCSV = bld.toString();
 	        }
-	    } catch (FailingHttpStatusCodeException e) 
+	    } 
+		catch (FailingHttpStatusCodeException|IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (MalformedURLException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		}		
 		if(combinedCSV.length() > 1)
 		{
 			combinedCSV = combinedCSV.substring(1);
