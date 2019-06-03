@@ -99,13 +99,6 @@ public class ClassDB {
 		return getSections(filterDepartment(this.courses, department));
 	}
 	
-	//TODO: availability
-	public List<Section> filterAvailability(){
-		return null;
-	}
-	
-	//TODO: degree
-	
 	//returns a List<Course> filtered by department from the given List<Course> courses
 	public static List<Course> filterDepartment(List<Course> courses, String department){
 		return courses.stream()
@@ -166,11 +159,4 @@ public class ClassDB {
 				.collect(Collectors.toList());
 		return sorted;
 	}
-		
-	//TODO: GE
-	public static List<Course> sortGE(List<Course> courses){
-		return null;
-	}
-	
-	//TODO: open
 }
