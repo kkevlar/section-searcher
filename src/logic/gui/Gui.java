@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,8 +44,8 @@ public class Gui extends Application{
 	static ClassDB classDb = ClassDB.getInstance();
 	final GridPane coursePane = CoursesPane.getCoursesPane();
 	static GridPane catPane = new GridPane();
-	static GridPane planPane;
-	final static GridPane pane2 = new GridPane();
+	GridPane planPane;
+	static final GridPane pane2 = new GridPane();
 	
 	public static void main(String[] args) {
 		try {
@@ -152,14 +151,7 @@ public class Gui extends Application{
         gridPane.add(planPane, 0, 2);
         gridPane.add(pane2, 1, 2);
         gridPane.add(coursePane, 2, 2);
-        sections = FXCollections.observableArrayList();
-        for(int i = 0; i < courses.size(); i++) {
-			ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
-			for(Section s : sects) {
-				sections.add(new CheckedSection(s, false));
-			}
-        }
-        CoursesPane.addItems(sections);
+        resetCourses();
         addListeners();
         
 		stage.show();
@@ -177,9 +169,7 @@ public class Gui extends Application{
         	}
             pane2.add(catPane, 0, 0);
         });
-        selectedCategory.addListener((obs, newVal, oldVal)->{
-         	resetCourses();
-        });
+        selectedCategory.addListener((obs, newVal, oldVal)->resetCourses());
         sections.addListener(new ListChangeListener<CheckedSection>() {
 
             @Override

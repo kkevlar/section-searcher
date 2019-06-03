@@ -61,7 +61,28 @@ public class CoursesPane {
         sectionTable.setEditable(true);
 
 
+        TableColumn<CheckedSection, Boolean> column1 = getColumn1();
+
+
+        TableColumn<CheckedSection, String> column2 = getColumn2();
         
+        
+        TableColumn<CheckedSection, String> column3 = getColumn3();
+
+
+        TableColumn<CheckedSection, String> column4 = getColumn4();
+
+        sectionTable.getColumns().add(column1);
+        sectionTable.getColumns().add(column2);
+        sectionTable.getColumns().add(column3);
+        sectionTable.getColumns().add(column4);
+
+        
+        coursePane.add(sectionTable, 0, 2);
+		
+		return coursePane;
+	}
+	private static TableColumn<CheckedSection, Boolean> getColumn1(){
         TableColumn<CheckedSection, Boolean> column1 = new TableColumn<>("");
         column1.setCellValueFactory(new PropertyValueFactory<CheckedSection, Boolean>("Checked"));
         column1.setCellFactory(p ->{
@@ -102,9 +123,10 @@ public class CoursesPane {
 	        cell.setAlignment(Pos.CENTER);
 	        return cell ;
         });
-
-    
-        TableColumn<CheckedSection, String> column2 = new TableColumn<>("Code");
+        return column1;
+	}
+	private static TableColumn<CheckedSection, String> getColumn2(){
+		TableColumn<CheckedSection, String> column2 = new TableColumn<>("Code");
         column2.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
                 return new ReadOnlyObjectWrapper<>(s.getValue().getCourseName());
@@ -112,8 +134,11 @@ public class CoursesPane {
         });
         column2.setMinWidth(150);
         column2.getStyleClass().add("table-cell");
-        
-        TableColumn<CheckedSection, String> column3 = new TableColumn<>("Section Id");
+        return column2;
+	}
+	
+	private static TableColumn<CheckedSection, String> getColumn3(){
+		TableColumn<CheckedSection, String> column3 = new TableColumn<>("Section Id");
         column3.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
                 return new ReadOnlyObjectWrapper<>(s.getValue().getID());
@@ -121,27 +146,20 @@ public class CoursesPane {
         });
         column3.setMinWidth(150);
         column3.getStyleClass().add("table-cell");
-
-
-        TableColumn<CheckedSection, String> column4 = new TableColumn<>("Open Spots");
-        column4.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
-                return new ReadOnlyObjectWrapper<>("" + s.getValue().getOpenSpots());
-            }
-        });
-        column4.setMinWidth(150);
-        column4.getStyleClass().add("table-cell");
-
-        sectionTable.getColumns().add(column1);
-        sectionTable.getColumns().add(column2);
-        sectionTable.getColumns().add(column3);
-        sectionTable.getColumns().add(column4);
-
-        
-        coursePane.add(sectionTable, 0, 2);
-		
-		return coursePane;
+        return column3;
 	}
+	private static TableColumn<CheckedSection, String> getColumn4(){
+		TableColumn<CheckedSection, String> column4 = new TableColumn<>("Open Spots");
+	    column4.setCellValueFactory(new Callback<CellDataFeatures<CheckedSection, String>, ObservableValue<String>>() {
+	        public ObservableValue<String> call(CellDataFeatures<CheckedSection, String> s) {
+	            return new ReadOnlyObjectWrapper<>("" + s.getValue().getOpenSpots());
+	        }
+	    });
+	    column4.setMinWidth(150);
+	    column4.getStyleClass().add("table-cell");
+	    return column4;
+	}
+	
 	
 	public static void clearItems() {
 		sectionTable.getItems().clear();

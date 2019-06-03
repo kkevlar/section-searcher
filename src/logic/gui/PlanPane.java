@@ -11,6 +11,9 @@ import logic.entity.Course;
 import logic.entity.Plan;
 
 public class PlanPane {
+	private PlanPane() {
+	    throw new IllegalStateException("Utility class");
+	}
 	static List<Plan> plans;
 	public static GridPane getPlanPane() {
 		GridPane planPane = new GridPane();
@@ -25,7 +28,7 @@ public class PlanPane {
 	    	plans.get(0).addCategory(new Category("Major Courses", new ArrayList<Course>(), false));
 	        plans.add(new Plan("Plan 2", 2, new ArrayList<Category>()));
         }
-        List<Label> labels = new ArrayList<Label>();
+        List<Label> labels = new ArrayList<>();
         int count = 0;
         for(Plan plan : plans) {
         	Label planLabel = new Label();
