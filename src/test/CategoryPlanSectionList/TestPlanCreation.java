@@ -17,15 +17,14 @@ public class TestPlanCreation {
 	}
 	@Test
 	public void testPlanCreation() {
-		ArrayList<Category> categories = new ArrayList<Category>();
+		ArrayList<Category> categories = new ArrayList<>();
 		String expectedToString = "Plan(name=plan schedule, id=0):\n" + 
-				"   Category(name=Major, isAvailable=true):\n" + 
-				"      Course(name=C0, department=CSC)\n";
+				"   Category(name=Major, isAvailable=true):\n      Course(name=C0, department=CSC)\n";
 		
 		//Category creation
 		List<Course> inputCourses = new ArrayList<Course>();
 		Category major = new Category("Major",inputCourses,true);
-		List<Section> sections = new ArrayList<Section>();
+		List<Section> sections = new ArrayList<>();
 		Section section = new Section("S0", null);
 		sections.add(section);
 		Course course = new Course("C0","CSC",sections);
@@ -38,19 +37,17 @@ public class TestPlanCreation {
 	}
 	@Test
 	public void testGettersAndSetters() {
-		ArrayList<Category> categories = new ArrayList<Category>();
+		ArrayList<Category> categories = new ArrayList<>();
 		String expectedCatToString = "[Category(name=Major, isAvailable=true):\n" + 
 				"      Course(name=C0, department=CSC)\n" + 
-				", Category(name=Major, isAvailable=true):\n" + 
-				"      Course(name=C0, department=CSC)\n" + 
-				"]";
+				", Category(name=Major, isAvailable=true):\n      Course(name=C0, department=CSC)\n]";
 		
 		String testNameInput = "testName";
 		int testIDInput = 0;
 		//Category creation
-		List<Course> inputCourses = new ArrayList<Course>();
+		List<Course> inputCourses = new ArrayList<>();
 		Category major = new Category("Major",inputCourses,true);
-		List<Section> sections = new ArrayList<Section>();
+		List<Section> sections = new ArrayList<>();
 		Section section = new Section("S0", null);
 		sections.add(section);
 		Course course = new Course("C0","CSC",sections);
@@ -65,7 +62,6 @@ public class TestPlanCreation {
 		schedule.setValid(false);
 		assertEquals(false, schedule.isValid());
 		schedule.addCategory(major);
-		System.out.println(schedule.getCategories());
 		assertEquals(expectedCatToString, schedule.getCategories().toString());
 		
 	}

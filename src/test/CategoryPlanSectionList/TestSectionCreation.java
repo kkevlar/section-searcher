@@ -14,45 +14,25 @@ import logic.entity.TimeBlock;
 
 public class TestSectionCreation {
 	@Test
-	public void testCategoryWithMultipleCourses() {
-		List<Course> inputCourses = new ArrayList<Course>();
-		Category major = new Category("Major",inputCourses,true);
-		String expectedToString = "Category(name=Major, isAvailable=true):\n" + 
-				"      Course(name=C0, department=CSC)\n" + 
-				"      Course(name=C1, department=CSC)\n" + 
-				"      Course(name=C2, department=CSC)\n" + 
-				"      Course(name=C3, department=CSC)\n" + 
-				"      Course(name=C4, department=CSC)\n";
-		
-		for(int c = 0; c < 5; c++) {
-			List<Section> sections = new ArrayList<Section>();
-			for(int s = 1; s <=5; s++) {
-				Section section = new Section("S"+c+s, null);
-				sections.add(section);
-			}
-			Course course = new Course("C"+c,"CSC",sections);
-			inputCourses.add(course);
-		}
-		
-		assertEquals(expectedToString,major.toString());
-		
-	}
-	@Test
 	public void testBadSection() {
-		TimeBlock times[] = new TimeBlock[10];
-		System.out.println(times);
-		assertThrows(IllegalArgumentException.class,() -> {new Section("",times);} );
+		TimeBlock[] times = new TimeBlock[10];
+		assertThrows(IllegalArgumentException.class,() -> 
+			new Section("",times)
+			 );
 	}
 	@Test
 	public void testCompleteSectionCreation() {
-		Section section,newSectionCompare,badSection;
+		Section section;
+		Section newSectionCompare;
+		Section badSection;
 		//setup necessary variables
-		TimeBlock times[] = new TimeBlock[7]; 
-		TimeBlock newTimes[] = new TimeBlock[7]; 
+		TimeBlock[] times = new TimeBlock[7]; 
+		TimeBlock[] newTimes = new TimeBlock[7]; 
 		Time time9 =new Time(9,10);
 		Time time10 =new Time(10,10);
 		Time time11 =new Time(11,10);
 		Time time12 =new Time(12,10);
+		String expectedCourseName = "CPE101";
 		
 		times[1] = new TimeBlock(time9,time11);
 		times[3] = new TimeBlock(time9,time11);
@@ -64,8 +44,8 @@ public class TestSectionCreation {
 		newTimes[5] = new TimeBlock(time10,time11);
 		
 		
-		section = new Section("A", times, "CPE101", 2);
-		newSectionCompare = new Section("1", newTimes, "CPE101", 0);
+		section = new Section("A", times, expectedCourseName, 2);
+		newSectionCompare = new Section("1", newTimes, expectedCourseName, 0);
 		badSection = new Section("1",times);
 		section.setID("1");
 		assertEquals("1",section.getID());
@@ -76,7 +56,7 @@ public class TestSectionCreation {
 		assertEquals(1,section.getWaitList());
 		section.setOpenSpots(0);
 		assertEquals(0,section.getOpenSpots());
-		assertEquals("CPE101",section.getCourseName());
+		assertEquals(expectedCourseName,section.getCourseName());
 		assertEquals(false,badSection.equals(section));
 		
 	}
