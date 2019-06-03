@@ -22,7 +22,7 @@ public class TestParseHtml {
 		"CPE 101 (1),02,8057,Lab, ,002868,MWF,09:10 AM,10:00 AM,Einakian, S,014-0302,24,35,2,6,2,ICS,\r\n" + 
 		"CPE 101 (1),03,5483,Lec, ,002868,MWF,09:10 AM,10:00 AM,Kauffman, D,011-0104,46,35,6,12,0,ICS,\r\n" + 
 		"CPE 101 (1),04,5484,Lab, ,002868,MWF,10:10 AM,11:00 AM,Kauffman, D,014-0301,35,35,6,12,0,ICS,";
-		List<Course> course = scraper.get_Course_List(ParseHtml.parselines(sample));
+		List<Course> course = scraper.getCourseList(ParseHtml.parselines(sample));
 		assertTrue(course.contains(new Course("CPE 101")));
 	}	
 	@Test
@@ -35,7 +35,7 @@ public class TestParseHtml {
 				"CPE 200 /0,02,****,Ind, , , , , , , , , , , , ,,\r\n" + 
 				"CPE 200 /0,03,****,Ind, , , , , , , , , , , , ,,\r\n" + 
 				"CPE 200 /0,04,****,Ind, , , , , , , , , , , , ,,";
-		List<Course> course = scraper.get_Course_List(ParseHtml.parselines(sample));
+		List<Course> course = scraper.getCourseList(ParseHtml.parselines(sample));
 		assertTrue(!course.contains(new Course("CPE 200")));
 	}
 }

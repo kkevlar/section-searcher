@@ -55,11 +55,11 @@ public class WebScraper
 			return null;
 		}
 		
-		return get_Course_List(ParseHtml.parselines(combinedCSV));
+		return getCourseList(ParseHtml.parselines(combinedCSV));
 		
 	}
 	
-	public List<Course> get_Course_List(List<ArrayList<String>> class_list)
+	public List<Course> getCourseList(List<ArrayList<String>> classList)
 	{
 		TimeBlock[] times;
 		Time startTime;
@@ -81,16 +81,16 @@ public class WebScraper
 
 		courseList = new ArrayList<>();
 		i = 1;
-		while (i < class_list.size())
+		while (i < classList.size())
 		{
-			data = new CourseData(class_list.get(i));
+			data = new CourseData(classList.get(i));
 			course = new Course(getCourseID(data.getCourse()));
 			sectList = new ArrayList<>();
 			id = data.getCourse();
 			j = i;
-			while (j < class_list.size() && id.equals(data.getCourse()))
+			while (j < classList.size() && id.equals(data.getCourse()))
 			{
-				data1 = new CourseData(class_list.get(j));
+				data1 = new CourseData(classList.get(j));
 				course1 = new Course(getCourseID(data1.getCourse()));
 				id = data1.getCourse();
 				spots = data1.getLcap() - data1.getEnrl();
