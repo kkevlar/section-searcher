@@ -23,13 +23,14 @@ import logic.entity.Course;
 
 public class CoursesPane {
 	static GridPane coursePane = new GridPane();
-    static TableView<CheckedSection> sectionTable = new TableView<>();
+    static TableView<CheckedSection> sectionTable;
     static String tableCellStyle = "table-cell";
     private CoursesPane() 
     {
         throw new IllegalStateException("Utility class");
     }
 	public static GridPane getCoursesPane() {
+		sectionTable = new TableView<>();
 	    coursePane.setAlignment(Pos.TOP_CENTER);
         coursePane.getStyleClass().add("borders");
         coursePane.getStyleClass().add("outside");
@@ -173,9 +174,13 @@ public class CoursesPane {
 	
 	
 	public static void clearItems() {
-		sectionTable.getItems().clear();
+		if(sectionTable != null) {
+			sectionTable.getItems().clear();
+		}
 	}
 	public static void addItems(List<CheckedSection> sections) {
-		sectionTable.getItems().addAll(sections);
+		if(sectionTable != null) {
+			sectionTable.getItems().addAll(sections);
+		}
 	}
 }
