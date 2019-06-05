@@ -179,7 +179,12 @@ public class Gui extends Application{
 	}
 	
 	public static boolean selectedCategoryContains(Course c) {
-		return selectedCategory.getValue().getCourses().contains(c);
+		for(Course temp : selectedCategory.getValue().getCourses()){
+			if(temp.getName().equals(c.getName())){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static void addCourseToCategory(Course c) {
@@ -200,12 +205,14 @@ public class Gui extends Application{
 		courses = ClassDB.filterDepartment(courses, dept);
         for(int i = 0; i < courses.size(); i++) {
 			List<Section> sects = (List<Section>)courses.get(i).getSections();
-			for(Section s : sects) {
-				if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
-					sections.add(new CheckedSection(s, true));
-				}else {
-					sections.add(new CheckedSection(s, false));
+			Boolean checked = false;
+			for(Course c : selectedCategory.getValue().getCourses()) {
+				if(c.getName().equals(courses.get(i).getName())) {
+					checked = true;
 				}
+			}
+			for(Section s : sects) {
+				sections.add(new CheckedSection(s, checked));
 			}
         }
         CoursesPane.addItems(sections);
@@ -216,12 +223,14 @@ public class Gui extends Application{
 		courses = classDb.getCourses();
         for(int i = 0; i < courses.size(); i++) {
 			List<Section> sects = (List<Section>)courses.get(i).getSections();
-			for(Section s : sects) {
-				if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
-					sections.add(new CheckedSection(s, true));
-				}else {
-					sections.add(new CheckedSection(s, false));
+			Boolean checked = false;
+			for(Course c : selectedCategory.getValue().getCourses()) {
+				if(c.getName().equals(courses.get(i).getName())) {
+					checked = true;
 				}
+			}
+			for(Section s : sects) {
+				sections.add(new CheckedSection(s, checked));
 			}
         }
         CoursesPane.addItems(sections);
@@ -232,8 +241,14 @@ public class Gui extends Application{
     	sections = FXCollections.observableArrayList();
         for(int i = 0; i < courses.size(); i++) {
 			ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
+			Boolean checked = false;
+			for(Course c : selectedCategory.getValue().getCourses()) {
+				if(c.getName().equals(courses.get(i).getName())) {
+					checked = true;
+				}
+			}
 			for(Section s : sects) {
-				sections.add(new CheckedSection(s, false));
+				sections.add(new CheckedSection(s, checked));
 			}
         }
         CoursesPane.addItems(sections);

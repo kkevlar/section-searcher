@@ -120,7 +120,7 @@ public class CoursesPane {
 	
 	private static void findAndRemoveCourse(CheckedSection selected) {
 		for(Course c : Gui.listCourses()) {
-			if(c.getName() == selected.getCourseName() &&
+			if(c.getName().equals(selected.getCourseName()) &&
 					!Gui.selectedCategoryContains(c)) {
             	Gui.removeCourseFromCategory(c);
 			}
@@ -129,7 +129,7 @@ public class CoursesPane {
 	
 	private static void findAndAddCourse(CheckedSection selected) {
 		for(Course c : Gui.listCourses()) {
-			if(c.getName() == selected.getCourseName() &&
+			if(c.getName().equals(selected.getCourseName()) &&
 					!Gui.selectedCategoryContains(c)) {
             	Gui.addCourseToCategory(c);
 			}
