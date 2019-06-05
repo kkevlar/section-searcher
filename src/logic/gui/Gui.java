@@ -61,6 +61,7 @@ public class Gui extends Application{
 
 		stage.setTitle("Section Searcher");
 		Label title = new Label("");
+		String sectionTitle = "section-title";
 		
 		MenuBar topMenu = new MenuBar();
 		
@@ -106,7 +107,7 @@ public class Gui extends Application{
         
         Label label1 = new Label("Plans");
         label1.getStyleClass().clear();
-        label1.getStyleClass().add("section-title");
+        label1.getStyleClass().add(sectionTitle);
         Button savePlanButton = new Button("Save Plan");
         savePlanButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent e) {
@@ -131,11 +132,11 @@ public class Gui extends Application{
         planPane = PlanPane.getPlanPane();
         Label label2 = new Label("Categories");
         label2.getStyleClass().clear();
-        label2.getStyleClass().add("section-title");
+        label2.getStyleClass().add(sectionTitle);
         
         Label label3 = new Label("Search");
         label3.getStyleClass().clear();
-        label3.getStyleClass().add("section-title");
+        label3.getStyleClass().add(sectionTitle);
         
         gridPane.add(label3, 2, 0);
         gridPane.add(label2, 1, 0);
