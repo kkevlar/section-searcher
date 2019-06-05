@@ -1,7 +1,6 @@
 package test.createplancategorysections;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Test;
 import logic.entity.Section;
@@ -9,12 +8,11 @@ import logic.entity.Time;
 import logic.entity.TimeBlock;
 
 public class TestSectionCreation {
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testBadSection() {
 		TimeBlock[] times = new TimeBlock[10];
-		assertThrows(IllegalArgumentException.class,() -> 
-			new Section("",times)
-			 );
+		Section badSection = new Section("", times);
+		assertEquals(false, badSection.getTimes().length == 7);
 	}
 	@Test
 	public void testCompleteSectionCreation() {
