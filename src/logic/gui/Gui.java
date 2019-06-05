@@ -35,30 +35,25 @@ import logic.scraper.ClassDB;
 public class Gui extends Application{
 
 	static SimpleObjectProperty<Plan> selectedPlan = new SimpleObjectProperty<>(new Plan("", 1, new ArrayList<Category>()));
-	static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<>(new Category("",new ArrayList<Course>(), false));
-	static List<Course> courses;
+	public static SimpleObjectProperty<Category> selectedCategory = new SimpleObjectProperty<>(new Category("",new ArrayList<Course>(), false));
+	public static List<Course> courses = new ArrayList<>();
 	static List<Plan> plans = new ArrayList<>();
-	static ObservableList<CheckedSection> sections = FXCollections.observableArrayList();
+	public static ObservableList<CheckedSection> sections = FXCollections.observableArrayList();
 	static ArrayList<Boolean> areInCat;
 	static ClassDB classDb = ClassDB.getInstance();
-	final GridPane coursePane = CoursesPane.getCoursesPane();
+	static GridPane coursePane;
 	static GridPane catPane = new GridPane();
 	GridPane planPane;
 	static final GridPane pane2 = new GridPane();
 	
 	public static void main(String[] args) {
-		try {
-			classDb.scrapeAll();
-			courses = classDb.getCourses();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
+		classDb.scrapeAll();
+		courses = classDb.getCourses();
 		launch(args);
 	}
 	
 	public void start(Stage stage) throws Exception {
-
+		coursePane = CoursesPane.getCoursesPane();
 		stage.setTitle("Section Searcher");
 		Label title = new Label("");
 		String sectionTitle = "section-title";
@@ -180,7 +175,12 @@ public class Gui extends Application{
 	}
 	
 	public static boolean selectedCategoryContains(Course c) {
-		return selectedCategory.getValue().getCourses().contains(c);
+		for(Course temp : selectedCategory.getValue().getCourses()){
+			if(temp.getName().equals(c.getName())){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static void addCourseToCategory(Course c) {
@@ -196,20 +196,27 @@ public class Gui extends Application{
 	}
 	
 	public static void searchCourses(String dept) {
-    	CoursesPane.clearItems();
+		if(coursePane != null) {
+			CoursesPane.clearItems();
+		}
 		sections = FXCollections.observableArrayList();
 		courses = ClassDB.filterDepartment(courses, dept);
         for(int i = 0; i < courses.size(); i++) {
 			List<Section> sects = (List<Section>)courses.get(i).getSections();
-			for(Section s : sects) {
-				if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
-					sections.add(new CheckedSection(s, true));
-				}else {
-					sections.add(new CheckedSection(s, false));
+			Boolean checked = false;
+			for(Course c : selectedCategory.getValue().getCourses()) {
+				if(c.getName().equals(courses.get(i).getName())) {
+					checked = true;
 				}
 			}
+			for(Section s : sects) {
+				sections.add(new CheckedSection(s, checked));
+			}
         }
-        CoursesPane.addItems(sections);
+
+		if(coursePane != null) {
+			CoursesPane.addItems(sections);
+		}
 	}
 	public static void clearSearch() {
     	CoursesPane.clearItems();
@@ -217,24 +224,34 @@ public class Gui extends Application{
 		courses = classDb.getCourses();
         for(int i = 0; i < courses.size(); i++) {
 			List<Section> sects = (List<Section>)courses.get(i).getSections();
-			for(Section s : sects) {
-				if(selectedCategory.getValue().getCourses().contains(courses.get(i))){
-					sections.add(new CheckedSection(s, true));
-				}else {
-					sections.add(new CheckedSection(s, false));
+			Boolean checked = false;
+			for(Course c : selectedCategory.getValue().getCourses()) {
+				if(c.getName().equals(courses.get(i).getName())) {
+					checked = true;
 				}
+			}
+			for(Section s : sects) {
+				sections.add(new CheckedSection(s, checked));
 			}
         }
         CoursesPane.addItems(sections);
 	}
 	
-	private static void resetCourses() {
+	public static void resetCourses() {
 		CoursesPane.clearItems();
     	sections = FXCollections.observableArrayList();
         for(int i = 0; i < courses.size(); i++) {
 			ArrayList<Section> sects = (ArrayList<Section>)courses.get(i).getSections();
+			Boolean checked = false;
+			for(Course c : selectedCategory.getValue().getCourses()) {
+				if(c.getName().equals(courses.get(i).getName())) {
+					checked = true;
+				}
+			}
+			int sectInd = 1;
 			for(Section s : sects) {
-				sections.add(new CheckedSection(s, false));
+				sections.add(new CheckedSection(s, checked && sectInd != sects.size()));
+				sectInd++;
 			}
         }
         CoursesPane.addItems(sections);

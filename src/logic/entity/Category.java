@@ -64,12 +64,16 @@ public class Category{
 		this.courses = newCourses;
 	}
 	
-	public void addCourse(Course course) {
-		this.courses.add(course);
+	public void addCourse(Course c) {
+		this.courses.add(c);
 	}
 	
-	public void removeCourse(Course course) {
-		this.courses.remove(course);
+	public void removeCourse(Course c) {
+		for(Course course : this.courses) {
+			if(c.getName().equals(course.getName())) {
+				this.courses.remove(course);
+			}
+		}
 	}
 	
 	@Override
