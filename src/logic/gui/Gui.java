@@ -248,8 +248,10 @@ public class Gui extends Application{
 					checked = true;
 				}
 			}
+			int sectInd = 1;
 			for(Section s : sects) {
-				sections.add(new CheckedSection(s, checked));
+				sections.add(new CheckedSection(s, checked && sectInd != sects.size()));
+				sectInd++;
 			}
         }
         CoursesPane.addItems(sections);
