@@ -53,7 +53,7 @@ public class Gui extends Application{
 	}
 	
 	public void start(Stage stage) throws Exception {
-		coursePane = CoursesPane.getCoursesPane();
+		initiateCoursesPane();
 		stage.setTitle("Section Searcher");
 		Label title = new Label("");
 		String sectionTitle = "section-title";
@@ -255,6 +255,10 @@ public class Gui extends Application{
 			}
         }
         CoursesPane.addItems(sections);
+	}
+	
+	private static void initiateCoursesPane() {
+		coursePane = CoursesPane.getCoursesPane();
 	}
 	
 }
